@@ -1,25 +1,25 @@
 import { PrismaClient, Role } from "@prisma/client";
 const prisma = new PrismaClient();
 
-async function deleteAllUsers() {
+async function dbDeleteAllUsers() {
   return await prisma.user.deleteMany();
 }
 
-async function deleteAllAlbums() {
+async function dbDeleteAllAlbums() {
   return await prisma.album.deleteMany();
 }
 
-async function deleteAllPhotos() {
+async function dbDeleteAllPhotos() {
   return await prisma.photo.deleteMany({});
 }
 
-async function deleteAll() {
-  await deleteAllPhotos();
-  await deleteAllAlbums();
-  await deleteAllUsers();
+async function dbDeleteAll() {
+  await dbDeleteAllPhotos();
+  await dbDeleteAllAlbums();
+  await dbDeleteAllUsers();
 }
 
-async function getAllUsers() {
+async function dbGetAllUsers() {
   return await prisma.user.findMany({
     include: {
       albums: true,
@@ -28,7 +28,7 @@ async function getAllUsers() {
   });
 }
 
-async function getUserById(userId: string) {
+async function dbGetUserById(userId: string) {
   return await prisma.user.findUnique({
     where: {
       id: userId,
@@ -40,15 +40,15 @@ async function getUserById(userId: string) {
   });
 }
 
-async function getAllPhotos() {
+async function dbGetAllPhotos() {
   return prisma.photo.findMany();
 }
 
-async function getAllAlbums() {
+async function dbGetAllAlbums() {
   return prisma.album.findMany();
 }
 
-async function getAllPhotosByUserId(userId: string) {
+async function dbGetAllPhotosByUserId(userId: string) {
   return prisma.photo.findMany({
     where: {
       authorId: userId,
@@ -56,7 +56,7 @@ async function getAllPhotosByUserId(userId: string) {
   });
 }
 
-async function deletePhotoById(photoId: string) {
+async function dbDeletePhotoById(photoId: string) {
   return prisma.photo.delete({
     where: {
       id: photoId,
@@ -64,7 +64,7 @@ async function deletePhotoById(photoId: string) {
   });
 }
 
-async function addPhotoToAlbum(
+async function dbAddPhotoToAlbum(
   userId: string,
   albumId: string,
   photoName: string,
@@ -80,7 +80,7 @@ async function addPhotoToAlbum(
   });
 }
 
-async function getAllAlbumsByUserId(userId: string) {
+async function dbGetAllAlbumsByUserId(userId: string) {
   return await prisma.album.findMany({
     where: {
       authorId: userId,
@@ -92,7 +92,7 @@ async function getAllAlbumsByUserId(userId: string) {
   });
 }
 
-async function getPhotoById(photoId: string) {
+async function dbGetPhotoById(photoId: string) {
   return await prisma.photo.findUnique({
     where: {
       id: photoId,
@@ -100,7 +100,7 @@ async function getPhotoById(photoId: string) {
   });
 }
 
-async function getAlbumById(albumId: string) {
+async function dbGetAlbumById(albumId: string) {
   return await prisma.album.findFirst({
     where: {
       id: albumId,
@@ -112,7 +112,7 @@ async function getAlbumById(albumId: string) {
   });
 }
 
-async function addAlbum(
+async function dbAddAlbum(
   userId: string,
   albumName: string,
   albumDescription?: string
@@ -126,7 +126,7 @@ async function addAlbum(
   });
 }
 
-async function deleteAlbumById(albumId: string) {
+async function dbDeleteAlbumById(albumId: string) {
   await prisma.photo.deleteMany({
     where: {
       albumId: albumId,
@@ -139,7 +139,7 @@ async function deleteAlbumById(albumId: string) {
   });
 }
 
-async function getAllPhotosByAlbumId(albumId: string) {
+async function dbGetAllPhotosByAlbumId(albumId: string) {
   return await prisma.photo.findMany({
     where: {
       albumId: albumId,
@@ -147,7 +147,7 @@ async function getAllPhotosByAlbumId(albumId: string) {
   });
 }
 
-async function renamePhotoById(photoId: string, newName: string) {
+async function dbRenamePhotoById(photoId: string, newName: string) {
   return await prisma.photo.update({
     where: {
       id: photoId,
@@ -158,7 +158,7 @@ async function renamePhotoById(photoId: string, newName: string) {
   });
 }
 
-async function renameAlbumById(photoId: string, newName: string) {
+async function dbRenameAlbumById(photoId: string, newName: string) {
   return await prisma.photo.update({
     where: {
       id: photoId,
@@ -169,7 +169,7 @@ async function renameAlbumById(photoId: string, newName: string) {
   });
 }
 
-async function deleteUserById(userId: string) {
+async function dbDeleteUserById(userId: string) {
   return await prisma.user.delete({
     where: {
       id: userId,
@@ -177,7 +177,7 @@ async function deleteUserById(userId: string) {
   });
 }
 
-async function createUser(
+async function dbCreateUser(
   userEmail: string,
   userName: string,
   userAvatar?: string,
@@ -193,20 +193,26 @@ async function createUser(
   });
 }
 
-export default {
-  getAlbumById,
-  getAllAlbumsByUserId,
-  getAllAlbums,
-  getPhotoById,
-  getAllPhotos,
-  getAllPhotosByAlbumId,
-  getAllPhotosByUserId,
-  getUserById,
-  getAllUsers,
-  addAlbum,
-  addPhotoToAlbum,
-  createUser,
-  deleteAlbumById,
-  deletePhotoById,
-  deleteUserById,
+export {
+  dbGetAlbumById,
+  dbGetAllAlbumsByUserId,
+  dbGetAllAlbums,
+  dbGetPhotoById,
+  dbGetAllPhotos,
+  dbGetAllPhotosByAlbumId,
+  dbGetAllPhotosByUserId,
+  dbGetUserById,
+  dbGetAllUsers,
+  dbAddAlbum,
+  dbAddPhotoToAlbum,
+  dbCreateUser,
+  dbDeleteAlbumById,
+  dbDeletePhotoById,
+  dbDeleteUserById,
+  dbDeleteAll,
+  dbDeleteAllAlbums,
+  dbDeleteAllPhotos,
+  dbDeleteAllUsers,
+  dbRenameAlbumById,
+  dbRenamePhotoById,
 };
