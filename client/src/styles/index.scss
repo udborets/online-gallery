@@ -1,5 +1,12 @@
 @import "reset.scss";
 
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 button {
   all: unset;
   pointer-events:initial;
@@ -10,4 +17,8 @@ button {
   &:focus {
     outline: 1px solid black;
   }
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
 }
