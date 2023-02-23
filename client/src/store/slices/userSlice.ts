@@ -20,10 +20,12 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    createUser(state, action) {
+    updateUserState(state, action) {
+      state.isAuth = action.payload.isAuth;
+      state.token = action.payload.token;
       state.userInfo = action.payload.userInfo;
     },
-    deleteUser(state) {
+    deleteUserState(state) {
       state.userInfo = {
         id: null,
         name: null,
@@ -42,4 +44,4 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const { deleteUser, createUser } = userSlice.actions;
+export const { deleteUserState, updateUserState } = userSlice.actions;
