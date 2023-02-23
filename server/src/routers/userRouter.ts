@@ -5,24 +5,28 @@ import {
   dbDeleteAll,
   dbGetAllPhotosByUserId,
   dbGetPhotoById,
+  dbGetUserByEmail,
   dbGetUserById,
 } from "../db";
 
-const userGetter = trpc.procedure.input(
-  z.object({ userEmail: z.string(), userName: z.string() })
-);
-
-const photoGetter = trpc.procedure.input(z.object({ userId: z.string() }));
-
 export const userRouter = trpc.router({
-  getUserById: userGetter.query(async ({ input }) => {
-    const user = await dbCreateUser(input.userEmail, input.userName);
-    return await dbGetUserById(user.id);
-  }),
-  getPhotosById: photoGetter.query(async ({ input }) => {
-    const photos = await dbGetAllPhotosByUserId(input.userId);
-    return photos;
-  }),
+  createUser: trpc.procedure
+    .input(z.object({ userEmail: z.string(), userName: z.string() }))
+    .query(async ({ input }) => {
+      const user = await dbCreateUser(input.userEmail, input.userName);
+      return user;
+    }),
+  getUserById: trpc.procedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input }) => {
+      const user = await dbGetUserById(input.userId);
+      if (user) return await dbGetUserById(user.id);
+    }),
+  getUserByEmail: trpc.procedure
+    .input(z.object({ userEmail: z.string() }))
+    .query(async ({ input }) => {
+      return await dbGetUserByEmail(input.userEmail);
+    }),
   deleteAll: trpc.procedure.query(async () => {
     await dbDeleteAll();
   }),
