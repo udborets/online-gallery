@@ -27,7 +27,13 @@ async function dbGetAllUsers() {
     },
   });
 }
-
+async function dbGetUserByEmail(userEmail: string) {
+  return prisma.user.findUnique({
+    where: {
+      email: userEmail,
+    },
+  });
+}
 async function dbGetUserById(userId: string) {
   return await prisma.user.findUnique({
     where: {
@@ -215,4 +221,5 @@ export {
   dbDeleteAllUsers,
   dbRenameAlbumById,
   dbRenamePhotoById,
+  dbGetUserByEmail,
 };
