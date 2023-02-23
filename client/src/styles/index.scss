@@ -1,0 +1,13 @@
+@import "reset.scss";
+
+button {
+  all: unset;
+  pointer-events:initial;
+  user-select: initial;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    outline: 1px solid black;
+  }
+}
