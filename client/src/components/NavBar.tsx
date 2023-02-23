@@ -1,19 +1,66 @@
 import { NavLink } from "react-router-dom"
 import { RoutePaths } from "../utils/consts"
-import useGoogleUser from './../hooks/useGoogleUser';
 import "../styles/components/NavBar.scss";
 import useUser from './../hooks/useUser';
-import { useEffect } from "react";
-import useLogin from './../hooks/useLogin';
+import { getAuth, getRedirectResult, signInWithRedirect, signOut } from "firebase/auth";
+import provider from './../auth/provider';
+import useServer from "../hooks/useServer";
+import { useEffect } from 'react';
+
 
 const NavBar = () => {
-  const { user } = useUser();
-  const { userSignOut, userSignIn } = useGoogleUser();
-  const { checkLogin } = useLogin();
+  const { isAuth, updateUser, deleteUser, user } = useUser();
+  const { getUserByEmail, createUser } = useServer();
+  const auth = getAuth();
   useEffect(() => {
-    checkLogin();
+    getRedirectResult(auth)
+      .then(async (result) => {
+        console.log('helloing', result);
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          return;
+        }
+        if (currentUser.email) {
+          const isDbHasUser = await getUserByEmail(currentUser.email);
+          if (isDbHasUser) {
+            console.log('db has user, update state')
+            updateUser({
+              userInfo: {
+                ...isDbHasUser,
+              },
+              token: await currentUser.getIdToken(),
+              isAuth: true,
+            })
+          }
+          if (!isDbHasUser) {
+            console.log('db dont have, update state')
+            await createUser(currentUser.email, currentUser.displayName ?? "unknown")
+            updateUser({
+              userInfo: {
+                email: currentUser.email,
+                name: currentUser.displayName ?? "unknown",
+              },
+              token: await auth.currentUser.getIdToken(),
+              isAuth: true,
+            })
+          }
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
   }, [])
+  async function userSignIn() {
+    console.log('hellong')
+    signInWithRedirect(auth, provider);
 
+  }
+  async function userSignOut() {
+    await signOut(auth);
+    deleteUser();
+  }
+  const showInfo = () => {
+    console.log(user);
+  }
   return (
     <div className="nav-bar">
       <span className="nav-bar__title">
@@ -27,22 +74,19 @@ const NavBar = () => {
           Home
         </NavLink>
       </nav>
-
-      <button className="nav-bar__auth"
-        onClick={() => user.isAuth ? userSignOut() : userSignIn()}
+      <button
+        onClick={showInfo}
       >
-        {user.isAuth ? 'Log out' : "Log in"}
+        show info
       </button>
-      <button className="nav-bar__auth"
-        onClick={() => console.log(user)}
+      <button
+        className="nav-bar__link"
+        onClick={() => isAuth ? userSignOut() : userSignIn()}
       >
-        Log
+        {isAuth ? "Sign out" : "Sign in"}
       </button>
-      <button onClick={() => console.log(user.isAuth)} className="nav-bar__auth">
-        is auth?
-      </button>
-      <span className="nav-bar__user-nickname">
-        {user.userInfo.name ? user.userInfo.name : ''}
+      <span>
+        {isAuth ? user.userInfo.name : ""}
       </span>
     </div>
   )
