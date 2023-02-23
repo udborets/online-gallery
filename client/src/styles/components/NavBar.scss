@@ -4,20 +4,12 @@
   justify-content: space-around;
   align-items: center;
   background: #000;
+  * {
+    color: white;
+  }
 }
 .nav-bar__title{
   color: white;
   font-size: 2rem;
 }
 
-.nav-links__link {
-  color: white;
-}
-
-.nav-bar__auth {
-  color: white;
-}
-
-.nav-bar__user-nickname {
-  color: white;
-}
