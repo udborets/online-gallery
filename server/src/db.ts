@@ -2,72 +2,116 @@ import { PrismaClient, Role } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function dbDeleteAllUsers() {
-  return await prisma.user.deleteMany();
+  try {
+    return await prisma.user.deleteMany();
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbDeleteAllAlbums() {
-  return await prisma.album.deleteMany();
+  try {
+    return await prisma.album.deleteMany();
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbDeleteAllPhotos() {
-  return await prisma.photo.deleteMany({});
+  try {
+    return await prisma.photo.deleteMany({});
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbDeleteAll() {
-  await dbDeleteAllPhotos();
-  await dbDeleteAllAlbums();
-  await dbDeleteAllUsers();
+  try {
+    await dbDeleteAllPhotos();
+    await dbDeleteAllAlbums();
+    await dbDeleteAllUsers();
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAllUsers() {
-  return await prisma.user.findMany({
-    include: {
-      albums: true,
-      photos: true,
-    },
-  });
+  try {
+    return await prisma.user.findMany({
+      include: {
+        albums: true,
+        photos: true,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 async function dbGetUserByEmail(userEmail: string) {
-  return prisma.user.findUnique({
-    where: {
-      email: userEmail,
-    },
-  });
+  try {
+    return prisma.user.findUnique({
+      where: {
+        email: userEmail,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 async function dbGetUserById(userId: string) {
-  return await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    include: {
-      albums: true,
-      photos: true,
-    },
-  });
+  try {
+    return await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        albums: true,
+        photos: true,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAllPhotos() {
-  return prisma.photo.findMany();
+  try {
+    return prisma.photo.findMany();
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAllAlbums() {
-  return prisma.album.findMany();
+  try {
+    return prisma.album.findMany();
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAllPhotosByUserId(userId: string) {
-  return prisma.photo.findMany({
-    where: {
-      authorId: userId,
-    },
-  });
+  try {
+    return prisma.photo.findMany({
+      where: {
+        authorId: userId,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbDeletePhotoById(photoId: string) {
-  return prisma.photo.delete({
-    where: {
-      id: photoId,
-    },
-  });
+  try {
+    return prisma.photo.delete({
+      where: {
+        id: photoId,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbAddPhotoToAlbum(
@@ -76,46 +120,62 @@ async function dbAddPhotoToAlbum(
   photoName: string,
   photoDescription?: string
 ) {
-  return await prisma.photo.create({
-    data: {
-      authorId: userId,
-      albumId: albumId,
-      name: photoName,
-      description: photoDescription ?? null,
-    },
-  });
+  try {
+    return await prisma.photo.create({
+      data: {
+        authorId: userId,
+        albumId: albumId,
+        name: photoName,
+        description: photoDescription ?? null,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAllAlbumsByUserId(userId: string) {
-  return await prisma.album.findMany({
-    where: {
-      authorId: userId,
-    },
-    include: {
-      photos: true,
-      author: true,
-    },
-  });
+  try {
+    return await prisma.album.findMany({
+      where: {
+        authorId: userId,
+      },
+      include: {
+        photos: true,
+        author: true,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetPhotoById(photoId: string) {
-  return await prisma.photo.findUnique({
-    where: {
-      id: photoId,
-    },
-  });
+  try {
+    return await prisma.photo.findUnique({
+      where: {
+        id: photoId,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAlbumById(albumId: string) {
-  return await prisma.album.findFirst({
-    where: {
-      id: albumId,
-    },
-    include: {
-      photos: true,
-      author: true,
-    },
-  });
+  try {
+    return await prisma.album.findFirst({
+      where: {
+        id: albumId,
+      },
+      include: {
+        photos: true,
+        author: true,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbAddAlbum(
@@ -123,64 +183,88 @@ async function dbAddAlbum(
   albumName: string,
   albumDescription?: string
 ) {
-  return await prisma.album.create({
-    data: {
-      name: albumName,
-      authorId: userId,
-      description: albumDescription ?? null,
-    },
-  });
+  try {
+    return await prisma.album.create({
+      data: {
+        name: albumName,
+        authorId: userId,
+        description: albumDescription ?? null,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbDeleteAlbumById(albumId: string) {
-  await prisma.photo.deleteMany({
-    where: {
-      albumId: albumId,
-    },
-  });
-  await prisma.album.delete({
-    where: {
-      id: albumId,
-    },
-  });
+  try {
+    await prisma.photo.deleteMany({
+      where: {
+        albumId: albumId,
+      },
+    });
+    await prisma.album.delete({
+      where: {
+        id: albumId,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbGetAllPhotosByAlbumId(albumId: string) {
-  return await prisma.photo.findMany({
-    where: {
-      albumId: albumId,
-    },
-  });
+  try {
+    return await prisma.photo.findMany({
+      where: {
+        albumId: albumId,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbRenamePhotoById(photoId: string, newName: string) {
-  return await prisma.photo.update({
-    where: {
-      id: photoId,
-    },
-    data: {
-      name: newName,
-    },
-  });
+  try {
+    return await prisma.photo.update({
+      where: {
+        id: photoId,
+      },
+      data: {
+        name: newName,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbRenameAlbumById(photoId: string, newName: string) {
-  return await prisma.photo.update({
-    where: {
-      id: photoId,
-    },
-    data: {
-      name: newName,
-    },
-  });
+  try {
+    return await prisma.photo.update({
+      where: {
+        id: photoId,
+      },
+      data: {
+        name: newName,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbDeleteUserById(userId: string) {
-  return await prisma.user.delete({
-    where: {
-      id: userId,
-    },
-  });
+  try {
+    return await prisma.user.delete({
+      where: {
+        id: userId,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 async function dbCreateUser(
@@ -189,14 +273,18 @@ async function dbCreateUser(
   userAvatar?: string,
   userRole?: Role
 ) {
-  return await prisma.user.create({
-    data: {
-      email: userEmail,
-      name: userName,
-      avatar: userAvatar ?? null,
-      role: userRole ?? Role.BASIC,
-    },
-  });
+  try {
+    return await prisma.user.create({
+      data: {
+        email: userEmail,
+        name: userName,
+        avatar: userAvatar ?? null,
+        role: userRole ?? Role.BASIC,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
 }
 
 export {
