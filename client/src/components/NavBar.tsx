@@ -5,25 +5,48 @@ import "../styles/components/NavBar.scss";
 import useUser from './../hooks/useUser';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
+import useServer from './../hooks/useServer';
 
 const NavBar = () => {
   const { user, updateUser } = useUser();
   const { userSignOut, userSignIn } = useGoogleUser();
+  const { createUser, getUserByEmail } = useServer();
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (userInfo) => {
-      userInfo?.getIdToken().then((token) => {
-        console.log(userInfo)
-        updateUser({
-          userInfo: {
-            name: userInfo?.displayName,
-            email: userInfo?.email,
-          },
-          token: token,
-          isAuth: true,
+      if (userInfo?.email) {
+        userInfo?.getIdToken().then(async (token) => {
+          if (userInfo.email) {
+            const userByEmail = await getUserByEmail(userInfo.email);
+            if (userByEmail) {
+              console.log(userByEmail)
+              updateUser({
+                userInfo: {
+                  ...userByEmail
+                },
+                token: token,
+                isAuth: true,
+              });
+              return
+            }
+
+            const newUser = await createUser(
+              userInfo.email,
+              userInfo.displayName ?? "Unknown",
+            )
+            console.log(newUser)
+            updateUser({
+              userInfo: {
+                ...newUser
+              },
+              token: token,
+              isAuth: true,
+            });
+          }
         });
-      });
-    });
+      }
+    }
+    );
   }, [])
 
   return (
