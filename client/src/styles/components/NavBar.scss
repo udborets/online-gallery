@@ -1,10 +1,11 @@
 .nav-bar {
   display: flex;
-  height: 80px;
+  height: 90px;
   justify-content: center;
   align-items: center;
   background: #000;
   position: relative;
+  z-index: 10;
 
   * {
     color: white;
@@ -65,10 +66,10 @@
   flex-direction: column;
   width: fit-content;
   min-width: 170px;
-  border-radius: 15px;
+  border-radius: 0 0 15px 15px;
   gap: 10px;
   transition: all 1s ease;
-  background: #161616;
+  background: #000000;
 
   button {
     height: 70px;
@@ -77,18 +78,22 @@
     justify-content: center;
     align-items: center;
   }
-
-  &:hover {
-    background: #3a3a3a;
-  }
 }
 
+.visible {
+  transform: translateY(34%);
+}
+
+.hidden {
+  transform: translateY(-70%);
+}
 
 .nav-profile__option {
   font-size: 1.3rem;
   text-align: center;
   transition: transform 0.5s ease-out;
   width: 100%;
+  color: white;
 
   &:hover {
     transform: scale(1.05);
@@ -100,7 +105,7 @@
   text-align: center;
   transition: color 0.4s ease-out, transform 0.5s ease-out;
   width: fit-content;
-
+  color: white;
 
   &:hover {
     transform: scale(1.05);
@@ -109,12 +114,13 @@
 }
 
 .nav-profile__username {
-  width: fit-content;
+  width: 170px;
   font-size: 1.4rem;
   position: relative;
   transition: transform 0.5s ease-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+  position: absolute;
+  top: 25px;
+  right: 53px;
+  height: 50px;
+  z-index: 100;
 }
