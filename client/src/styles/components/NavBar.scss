@@ -1,7 +1,7 @@
 .nav-bar {
   display: flex;
   height: 80px;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   background: #000;
   position: relative;
@@ -19,7 +19,8 @@
   align-items: center;
 }
 
-.nav-links__link, .nav-bar__title {
+.nav-links__link,
+.nav-bar__title {
   text-decoration: none;
   font-size: 1.3rem;
   display: inline-block;
@@ -45,7 +46,7 @@
 }
 
 .nav-bar__title {
-  position:absolute;
+  position: absolute;
   left: 60px;
   top: 8px;
   color: white;
@@ -53,23 +54,53 @@
 }
 
 .nav-profile {
+  position: absolute;
+  top: 10px;
+  right: 50px;
   display: flex;
-  gap: 1rem;
   justify-content: center;
   align-items: center;
+  flex: 0 1 auto;
+  flex-basis: content;
+  flex-direction: column;
+  width: 170px;
+  background: #000;
+  padding: 15px 23px;
+  border-radius: 15px;
+  gap: 10px;
+  transition: all 1s ease;
+}
+
+
+.nav-profile__option {
+  font-size: 1.3rem;
+  text-align: center;
+  transition: transform 0.5s ease-out;
+  width: 100%;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.nav-profile__sign-out {
+  font-size: 1.3rem;
+  text-align: center;
+  transition: color 0.4s ease-out, transform 0.5s ease-out;
+  width: 100%;
+  
+  &:hover {
+    transform: scale(1.05);
+    color: red;
+  }
 }
 
 .nav-profile__username {
   font-size: 1.4rem;
-}
-
-.nav-profile__button {
-  font-size: 1.3rem;
-  font-weight: 700;
-  transition: all 0.5s ease-out;
-
+  position: relative;
+  transition: transform 0.5s ease-out;
+  
   &:hover {
-    color: red;
-    
+    transform: scale(1.05);
   }
 }
