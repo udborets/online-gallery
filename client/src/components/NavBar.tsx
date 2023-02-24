@@ -2,57 +2,75 @@ import { NavLink } from "react-router-dom"
 import { RoutePaths } from "../utils/consts"
 import "../styles/components/NavBar.scss";
 import useUser from './../hooks/useUser';
-import { getAuth, signInWithRedirect, signOut } from "firebase/auth";
-import provider from '../firebase/provider';
-import { useEffect } from 'react';
 import useLogin from './../hooks/useLogin';
+import GoogleButton from "react-google-button";
+import { useState } from "react";
 
 
 const NavBar = () => {
-  const { isAuth, deleteUser, user } = useUser();
-  const { loginUser } = useLogin();
-  const auth = getAuth();
-  useEffect(() => {
-    loginUser();
-  }, [])
-  async function userSignIn() {
-    signInWithRedirect(auth, provider);
-
-  }
-  async function userSignOut() {
-    await signOut(auth);
-    deleteUser();
-  }
-  const showInfo = () => {
-    console.log(user);
-  }
+  const { userSignIn, userSignOut } = useLogin();
+  const { user, isAuth } = useUser();
+  const [isShowingUserMenu, setIsShowingUserMenu] = useState(false);
   return (
     <div className="nav-bar">
-      <span className="nav-bar__title">
+      <NavLink
+        to={RoutePaths.HOME}
+        className="nav-bar__title">
         My Gallery
-      </span>
+      </NavLink>
+
       <nav className="nav-links">
-        <NavLink
-          to={RoutePaths.HOME}
-          className="nav-links__link"
-        >
-          Home
-        </NavLink>
+        {
+          isAuth
+            ?
+            <>
+              <NavLink to={RoutePaths.HOME} className="nav-links__link">
+                Home
+              </NavLink>
+              <NavLink to={RoutePaths.ME} className="nav-links__link">
+                My account
+              </NavLink>
+              <NavLink to={RoutePaths.USERS} className="nav-links__link">
+                Users
+              </NavLink>
+            </>
+            :
+            <>
+              <NavLink to={RoutePaths.HOME} className="nav-links__link">
+                Home
+              </NavLink>
+            </>
+
+        }
       </nav>
-      <button
-        onClick={showInfo}
-      >
-        show info
-      </button>
-      <button
-        className="nav-bar__link"
-        onClick={() => isAuth ? userSignOut() : userSignIn()}
-      >
-        {isAuth ? "Sign out" : "Sign in"}
-      </button>
-      <span>
-        {isAuth ? user.userInfo.name : ""}
-      </span>
+      <div className="nav-profile">
+        {
+          isAuth
+            ?
+            <>
+              <span
+                className="nav-profile__username"
+              >
+                {isAuth ? user.userInfo.name : ""}
+              </span>
+              {
+                isShowingUserMenu
+                &&
+                <>
+                  <button
+                    className="nav-profile__button"
+                    onClick={() => userSignOut()}
+                  >
+                    Sign out
+                  </button>
+                </>
+              }
+            </>
+            :
+            <GoogleButton onClick={() => userSignIn()} />
+        }
+
+      </div>
     </div>
   )
 }
