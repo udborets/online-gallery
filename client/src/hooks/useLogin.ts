@@ -59,7 +59,6 @@ export default function useLogin() {
                 isAuth: true,
               });
             }
-            navigate(RoutePaths.HOME);
           } catch (err) {
             console.error(
               "Error happened while trying to get data from server:",
