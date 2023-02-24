@@ -9,14 +9,18 @@
 
 button {
   all: unset;
-  pointer-events:initial;
+  pointer-events: initial;
   user-select: initial;
+
   &:hover {
     cursor: pointer;
   }
-  &:focus {
-    outline: 1px solid rgb(255, 255, 255);
-  }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 html {
