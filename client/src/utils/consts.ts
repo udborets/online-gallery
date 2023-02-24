@@ -1,7 +1,9 @@
 enum RoutePaths {
   HOME = "/",
-  LOGIN = "/auth/login",
-  REGISTRATION = "/auth/registration"
+  USERS = "/users",
+  ALBUMS = "/albums",
+  ME = "/me",
+  NOTFOUND = "*",
 }
 
 export { RoutePaths };
