@@ -1,6 +1,7 @@
 import trpc from "../trpc";
 import { z } from "zod";
 import {
+  dbAddAlbum,
   dbCreateUser,
   dbDeleteAll,
   dbGetAllPhotosByUserId,
@@ -15,6 +16,22 @@ export const userRouter = trpc.router({
     .query(async ({ input }) => {
       const user = await dbCreateUser(input.userEmail, input.userName);
       return user;
+    }),
+  addAlbum: trpc.procedure
+    .input(
+      z.object({
+        userId: z.string(),
+        albumName: z.string(),
+        albumDescription: z.string(),
+      })
+    )
+    .query(async ({ input }) => {
+      const album = await dbAddAlbum(
+        input.userId,
+        input.albumName,
+        input.albumDescription
+      );
+      return album;
     }),
   getUserById: trpc.procedure
     .input(z.object({ userId: z.string() }))
