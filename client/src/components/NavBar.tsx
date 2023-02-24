@@ -92,19 +92,3 @@ const NavBar = () => {
 }
 
 export default NavBar
-{/* <span
-className="nav-profile__username"
-onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
->
-{isAuth ? user.userInfo.name : ""}
-</span>
-{
-
-} */}
-
-{/* <button
-className="nav-profile__button"
-onClick={() => userSignOut()}
->
-Sign out
-</button> */}
