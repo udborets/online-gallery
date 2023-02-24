@@ -21,6 +21,10 @@ export const authRoutes = [
     path: RoutePaths.USERS,
     Component: UsersPage,
   },
+  {
+    path: RoutePaths.GALLERY,
+    Component: UsersPage,
+  },
 ];
 
 export const publicRoutes = [
