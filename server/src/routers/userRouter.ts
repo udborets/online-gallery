@@ -5,6 +5,7 @@ import {
   dbCreateUser,
   dbDeleteAll,
   dbGetAllPhotosByUserId,
+  dbGetAllUsers,
   dbGetPhotoById,
   dbGetUserByEmail,
   dbGetUserById,
@@ -45,6 +46,9 @@ export const userRouter = trpc.router({
       return await dbGetUserByEmail(input.userEmail);
     }),
   deleteAll: trpc.procedure.query(async () => {
-    await dbDeleteAll();
+    return await dbDeleteAll();
+  }),
+  getAll: trpc.procedure.query(async () => {
+    return await dbGetAllUsers();
   }),
 });
