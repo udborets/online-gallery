@@ -31,6 +31,7 @@ export default function useLogin() {
       .then(async () => {
         const currentUser = auth.currentUser;
         if (!currentUser) {
+          console.error("no current user");
           return;
         }
         if (currentUser.email) {
@@ -46,18 +47,19 @@ export default function useLogin() {
               });
             }
             if (!isDbHasUser) {
-              await createUser(
+              const newUser = await createUser(
                 currentUser.email,
                 currentUser.displayName ?? "unknown"
               );
               updateUser({
                 userInfo: {
-                  email: currentUser.email,
-                  name: currentUser.displayName ?? "unknown",
+                  ...newUser,
                 },
                 token: await auth.currentUser.getIdToken(),
                 isAuth: true,
               });
+              window.location.reload();
+
             }
           } catch (err) {
             console.error(
