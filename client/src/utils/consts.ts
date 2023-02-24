@@ -1,7 +1,7 @@
 enum RoutePaths {
   HOME = "/",
   USERS = "/users",
-  GALLERY = "/users/:id/gallery",
+  GALLERY = "/gallery",
   ME = "/me",
   NOTFOUND = "*",
 }
