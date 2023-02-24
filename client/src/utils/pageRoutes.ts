@@ -3,6 +3,7 @@ import HomePage from "./../pages/HomePage";
 import MePage from "./../pages/MePage";
 import UsersPage from "./../pages/UsersPage";
 import NotFoundPage from "./../pages/NotFoundPage";
+import GalleryPage from "./../pages/GalleryPage";
 
 export const authRoutes = [
   {
@@ -22,8 +23,12 @@ export const authRoutes = [
     Component: UsersPage,
   },
   {
+    path: RoutePaths.USERS + "/:id" + RoutePaths.GALLERY,
+    Component: GalleryPage,
+  },
+  {
     path: RoutePaths.GALLERY,
-    Component: UsersPage,
+    Component: GalleryPage,
   },
 ];
 
