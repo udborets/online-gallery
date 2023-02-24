@@ -1,12 +1,29 @@
-import { getAuth, getRedirectResult } from "firebase/auth";
+import {
+  getAuth,
+  getRedirectResult,
+  signInWithRedirect,
+  signOut,
+} from "firebase/auth";
 import useServer from "./useServer";
 import useUser from "./useUser";
+import provider from "../firebase/provider";
 
 export default function useLogin() {
   const auth = getAuth();
   const { getUserByEmail, createUser } = useServer();
   const { updateUser } = useUser();
-  function loginUser() {
+  const { deleteUser } = useUser();
+
+  async function userSignIn() {
+    signInWithRedirect(auth, provider);
+  }
+
+  async function userSignOut() {
+    await signOut(auth);
+    deleteUser();
+  }
+
+  function checkAndLogin() {
     getRedirectResult(auth)
       .then(async () => {
         const currentUser = auth.currentUser;
@@ -17,7 +34,6 @@ export default function useLogin() {
           try {
             const isDbHasUser = await getUserByEmail(currentUser.email);
             if (isDbHasUser) {
-              console.log("db has user, update state");
               updateUser({
                 userInfo: {
                   ...isDbHasUser,
@@ -27,7 +43,6 @@ export default function useLogin() {
               });
             }
             if (!isDbHasUser) {
-              console.log("db dont have, update state");
               await createUser(
                 currentUser.email,
                 currentUser.displayName ?? "unknown"
@@ -53,5 +68,5 @@ export default function useLogin() {
         console.log(error);
       });
   }
-  return { loginUser };
+  return { checkAndLogin, userSignIn, userSignOut };
 }
