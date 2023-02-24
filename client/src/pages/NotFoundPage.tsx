@@ -1,6 +1,10 @@
+import "../styles/pages/NotFoundPage.scss";
+
 const NotFoundPage = () => {
   return (
-    <div>Page not found</div>
+    <div className="notfound-page">
+      Page not found
+    </div>
   )
 }
 
