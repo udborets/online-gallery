@@ -16,12 +16,6 @@ const NavBar = () => {
   const dropDownOptions = [
     {
       key: Date.now() * Math.random(),
-      fn: () => setIsShowingUserMenu(oldValue => !oldValue),
-      text: user.userInfo.name ?? "",
-      className: isShowingUserMenu ? "nav-profile__username nav-profile__username-active" : "nav-profile__username"
-    },
-    {
-      key: Date.now() * Math.random(),
       fn: () => navigate(RoutePaths.ME),
       text: "My account",
       className: ""
@@ -41,53 +35,57 @@ const NavBar = () => {
   ];
 
   return (
-    <div className="nav-bar">
-      <NavLink
-        to={RoutePaths.HOME}
-        className="nav-bar__title">
-        My Gallery
-      </NavLink>
+    <>
+      <div className="nav-bar">
+        <NavLink
+          to={RoutePaths.HOME}
+          className="nav-bar__title">
+          My Gallery
+        </NavLink>
 
-      <nav className="nav-links">
-        {
-          isAuth
-            ?
-            <>
-              <NavLink to={RoutePaths.HOME} className="nav-links__link">
-                Home
-              </NavLink>
-              <NavLink to={RoutePaths.USERS} className="nav-links__link">
-                Users
-              </NavLink>
-            </>
-            :
-            <>
-              <NavLink to={RoutePaths.HOME} className="nav-links__link">
-                Home
-              </NavLink>
-            </>
-        }
-      </nav>
+        <nav className="nav-links">
+          {
+            isAuth
+              ?
+              <>
+                <NavLink to={RoutePaths.HOME} className="nav-links__link">
+                  Home
+                </NavLink>
+                <NavLink to={RoutePaths.USERS} className="nav-links__link">
+                  Users
+                </NavLink>
+              </>
+              :
+              <>
+                <NavLink to={RoutePaths.HOME} className="nav-links__link">
+                  Home
+                </NavLink>
+              </>
+          }
+          <button
+            onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
+            className="nav-profile__username nav-profile__option"
+          >
+            {user.userInfo.name ?? ""}
+          </button>
+        </nav>
+      </div>
       {
         isAuth
           ?
-          <ul className="nav-profile">
-            <>
+          <>
+            <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {
-                isShowingUserMenu
-                  ?
-                  dropDownOptions.map(({ text, fn, key, className }) => (
-                    <DropDownItem text={text} fn={fn} key={key} className={className} />
-                  ))
-                  :
-                  <DropDownItem {...dropDownOptions[0]} />
+                dropDownOptions.map(({ text, fn, key, className }) => (
+                  <DropDownItem text={text} fn={fn} key={key} className={className} />
+                ))
               }
-            </>
-          </ul>
+            </ul>
+          </>
           :
-          <GoogleButton onClick={() => userSignIn()} />
+          <GoogleButton onClick={() => userSignIn()} className="nav-profile__username" />
       }
-    </div>
+    </>
   )
 }
 
