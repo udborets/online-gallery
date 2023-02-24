@@ -4,15 +4,17 @@ import "../styles/components/NavBar.scss";
 import useUser from './../hooks/useUser';
 import useLogin from './../hooks/useLogin';
 import GoogleButton from "react-google-button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropDownItem from "./UI/DropDownItem";
-
 
 const NavBar = () => {
   const { userSignIn, userSignOut } = useLogin();
-  const { user, isAuth } = useUser();
+  const { user, isAuth, updateUser } = useUser();
   const navigate = useNavigate();
   const [isShowingUserMenu, setIsShowingUserMenu] = useState(false);
+  useEffect(() => {
+    updateUser(user)
+  }, [isAuth])
   const dropDownOptions = [
     {
       key: Date.now() * Math.random(),
@@ -33,7 +35,6 @@ const NavBar = () => {
       className: "nav-profile__sign-out"
     },
   ];
-
   return (
     <>
       <div className="nav-bar">
@@ -42,7 +43,6 @@ const NavBar = () => {
           className="nav-bar__title">
           My Gallery
         </NavLink>
-
         <nav className="nav-links">
           {
             isAuth
