@@ -24,13 +24,15 @@ export const userRouter = trpc.router({
         userId: z.string(),
         albumName: z.string(),
         albumDescription: z.string(),
+        isPrivate: z.boolean(),
       })
     )
     .query(async ({ input }) => {
       const album = await dbAddAlbum(
         input.userId,
         input.albumName,
-        input.albumDescription
+        input.albumDescription,
+        input.isPrivate
       );
       return album;
     }),
