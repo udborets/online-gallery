@@ -7,13 +7,15 @@ import {
 import useServer from "./useServer";
 import useUser from "./useUser";
 import provider from "../firebase/provider";
+import { useNavigate } from "react-router-dom";
+import { RoutePaths } from "../utils/consts";
 
 export default function useLogin() {
   const auth = getAuth();
   const { getUserByEmail, createUser } = useServer();
   const { updateUser } = useUser();
   const { deleteUser } = useUser();
-
+  const navigate = useNavigate();
   async function userSignIn() {
     signInWithRedirect(auth, provider);
   }
@@ -21,6 +23,7 @@ export default function useLogin() {
   async function userSignOut() {
     await signOut(auth);
     deleteUser();
+    navigate(RoutePaths.HOME);
   }
 
   function checkAndLogin() {
@@ -56,6 +59,7 @@ export default function useLogin() {
                 isAuth: true,
               });
             }
+            navigate(RoutePaths.HOME);
           } catch (err) {
             console.error(
               "Error happened while trying to get data from server:",
