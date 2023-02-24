@@ -63,12 +63,24 @@
   flex: 0 1 auto;
   flex-basis: content;
   flex-direction: column;
-  width: 170px;
-  background: #000;
-  padding: 15px 23px;
+  width: fit-content;
+  min-width: 170px;
   border-radius: 15px;
   gap: 10px;
   transition: all 1s ease;
+  background: #161616;
+
+  button {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover {
+    background: #3a3a3a;
+  }
 }
 
 
@@ -77,7 +89,7 @@
   text-align: center;
   transition: transform 0.5s ease-out;
   width: 100%;
-  
+
   &:hover {
     transform: scale(1.05);
   }
@@ -87,8 +99,9 @@
   font-size: 1.3rem;
   text-align: center;
   transition: color 0.4s ease-out, transform 0.5s ease-out;
-  width: 100%;
-  
+  width: fit-content;
+
+
   &:hover {
     transform: scale(1.05);
     color: red;
@@ -96,10 +109,11 @@
 }
 
 .nav-profile__username {
+  width: fit-content;
   font-size: 1.4rem;
   position: relative;
   transition: transform 0.5s ease-out;
-  
+
   &:hover {
     transform: scale(1.05);
   }
