@@ -14,8 +14,19 @@ export default function useServer() {
     });
   }
 
-  async function deleteAll() {
+  async function deleteAllUsers() {
     await client.users.deleteAll.query();
   }
-  return { getUserById, createUser, deleteAll, getUserByEmail };
+
+  async function getAllUsers() {
+    return await client.users.getAll.query();
+  }
+
+  return {
+    getUserById,
+    createUser,
+    deleteAllUsers,
+    getUserByEmail,
+    getAllUsers,
+  };
 }
