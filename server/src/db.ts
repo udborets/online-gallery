@@ -53,6 +53,10 @@ async function dbGetUserByEmail(userEmail: string) {
       where: {
         email: userEmail,
       },
+      include: {
+        albums: true,
+        photos: true,
+      },
     });
   } catch (e) {
     return null;
@@ -181,7 +185,8 @@ async function dbGetAlbumById(albumId: string) {
 async function dbAddAlbum(
   userId: string,
   albumName: string,
-  albumDescription?: string
+  albumDescription?: string,
+  isPrivate?: boolean
 ) {
   try {
     return await prisma.album.create({
@@ -189,6 +194,7 @@ async function dbAddAlbum(
         name: albumName,
         authorId: userId,
         description: albumDescription ?? null,
+        isPrivate: isPrivate ?? false,
       },
     });
   } catch (e) {
