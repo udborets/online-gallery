@@ -4,6 +4,7 @@ import MePage from "./../pages/MePage";
 import UsersPage from "./../pages/UsersPage";
 import NotFoundPage from "./../pages/NotFoundPage";
 import GalleryPage from "./../pages/GalleryPage";
+import GalleryIdPage from "../pages/GalleryIdPage";
 
 export const authRoutes = [
   {
@@ -24,7 +25,7 @@ export const authRoutes = [
   },
   {
     path: RoutePaths.USERS + "/:id" + RoutePaths.GALLERY,
-    Component: GalleryPage,
+    Component: GalleryIdPage,
   },
   {
     path: RoutePaths.GALLERY,
