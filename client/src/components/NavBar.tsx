@@ -62,18 +62,18 @@ const NavBar = () => {
                 </NavLink>
               </>
           }
-          <button
-            onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
-            className="nav-profile__username nav-profile__option"
-          >
-            {user.userInfo.name ?? ""}
-          </button>
         </nav>
       </div>
       {
         isAuth
           ?
           <>
+            <button
+              onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
+              className="nav-profile__username nav-profile__option"
+            >
+              {user.userInfo.name ?? ""}
+            </button>
             <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {
                 dropDownOptions.map(({ text, fn, key, className }) => (
