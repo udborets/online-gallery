@@ -21,27 +21,21 @@ app.use("/upload", (req, res) => {
   if (req.files) {
     const request = req as unknown as IFileRequest;
     const uploadedFile = request.files.userFile;
-    const photoName = uploadedFile.name;
-    const { customName, userId, albumId, photoDescription } =
-      request.body;
-    console.log(customName, "userId", userId, "albumId", albumId, "photoName", photoName, "photoDescription", photoDescription)
-    if (customName && userId && albumId && photoName) {
-      console.log(request.body.customName);
+    const file = uploadedFile.name;
+    const { customName, userId, albumId, photoDescription } = request.body;
+    if (customName && userId && albumId && file) {
       const splittedName = uploadedFile.name.split(".");
       const ext = splittedName.at(-1);
+      const fileName =
+        splittedName.slice(0, -1).join(".") +
+        moment().format("DDMMYYYY-HHmmss_SSS") +
+        "." +
+        ext;
       if (!ext) {
         res.sendStatus(400);
-        console.log('ff')
         return;
       }
-      const uploadPath = path.resolve(
-        __dirname,
-        "static",
-        splittedName.slice(0, -1).join(".") +
-          moment().format("DDMMYYYY-HHmmss_SSS") +
-          "." +
-          ext
-      );
+      const uploadPath = path.resolve(__dirname, "static", fileName);
       uploadedFile.mv(uploadPath, (err) => {
         if (err) {
           console.log(err);
@@ -49,19 +43,20 @@ app.use("/upload", (req, res) => {
           return;
         }
       });
-      dbAddPhotoToAlbum(userId, albumId, photoName, photoDescription ?? "");
+      dbAddPhotoToAlbum(
+        userId,
+        albumId,
+        customName,
+        fileName,
+        photoDescription ?? ""
+      );
       res.sendStatus(200);
       return;
-    }
-    else {
+    } else {
       res.sendStatus(400);
-      console.log('ae')
-
       return;
     }
   } else {
-    console.log('fwwwwwwww')
-
     res.sendStatus(400);
     return;
   }
