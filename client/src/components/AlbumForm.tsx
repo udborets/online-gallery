@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useServer from "../hooks/useServer";
 import IUserInfo from './../models/IUserInfo';
 
-const AlbumForm = ({ id }: IUserInfo) => {
-  const { getUserById, createAlbum } = useServer();
-  const [pageUser, setPageUser] = useState<any>()
+
+const AlbumForm = (user: IUserInfo) => {
+  const { createAlbum } = useServer();
   const [albumName, setAlbumName] = useState("");
   const [albumDescription, setAlbumDescription] = useState("");
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
-  useEffect(() => {
-    if (!id) {
-      setError("there is no user id")
-    }
-    if (id) {
-      getUserById(id)
-        .then((fetchedUser) =>
-          setPageUser(fetchedUser)
-        )
-    }
-  }, [])
   async function createUserAlbum() {
+    if (!user.id) {
+      return
+    }
     if (albumName) {
       await createAlbum(
-        pageUser.id,
+        user.id,
         albumName,
         albumDescription,
         albumIsPrivate,
@@ -46,8 +38,6 @@ const AlbumForm = ({ id }: IUserInfo) => {
   return (
     <div className="album-form">
       <>
-        {pageUser.name} gallery
-        {pageUser}
         <input
           type="text"
           onChange={e => setAlbumName(e.target.value)}
