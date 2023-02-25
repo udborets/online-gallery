@@ -16,6 +16,10 @@ export default function useServer() {
     });
   }
 
+  async function getAllPhotosByAlbumId(albumId: string) {
+    return await client.getAllPhotosByAlbumId.query({ albumId: albumId });
+  }
+
   async function deleteAllUsers() {
     await client.deleteAll.query();
   }
@@ -47,5 +51,6 @@ export default function useServer() {
     getUserByEmail,
     getAllUsers,
     createAlbum,
+    getAllPhotosByAlbumId
   };
 }
