@@ -122,7 +122,8 @@ async function dbAddPhotoToAlbum(
   userId: string,
   albumId: string,
   photoName: string,
-  photoDescription?: string
+  file: string,
+  photoDescription?: string,
 ) {
   try {
     return await prisma.photo.create({
@@ -130,6 +131,7 @@ async function dbAddPhotoToAlbum(
         authorId: userId,
         albumId: albumId,
         name: photoName,
+        file: file,
         description: photoDescription ?? null,
       },
     });
@@ -273,6 +275,21 @@ async function dbDeleteUserById(userId: string) {
   }
 }
 
+async function dbRenameUserById(userId: string, newName: string) {
+  try {
+    return await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        name: newName,
+      },
+    });
+  } catch (e) {
+    return null;
+  }
+}
+
 async function dbCreateUser(
   userEmail: string,
   userName: string,
@@ -316,4 +333,5 @@ export {
   dbRenameAlbumById,
   dbRenamePhotoById,
   dbGetUserByEmail,
+  dbRenameUserById,
 };
