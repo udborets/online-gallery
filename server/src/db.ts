@@ -121,8 +121,8 @@ async function dbDeletePhotoById(photoId: string) {
 async function dbAddPhotoToAlbum(
   userId: string,
   albumId: string,
-  photoName: string,
-  file: string,
+  customName: string,
+  fileName: string,
   photoDescription?: string,
 ) {
   try {
@@ -130,8 +130,8 @@ async function dbAddPhotoToAlbum(
       data: {
         authorId: userId,
         albumId: albumId,
-        name: photoName,
-        file: file,
+        name: customName,
+        file: fileName,
         description: photoDescription ?? null,
       },
     });
