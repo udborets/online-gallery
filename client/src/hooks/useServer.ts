@@ -2,35 +2,37 @@ import client from "../client";
 
 export default function useServer() {
   async function getUserById(userId: string) {
-    return await client.users.getUserById.query({ userId: userId });
+    return await client.getUserById.query({ userId: userId });
   }
 
   async function getUserByEmail(userEmail: string) {
-    return await client.users.getUserByEmail.query({ userEmail: userEmail });
+    return await client.getUserByEmail.query({ userEmail: userEmail });
   }
 
   async function createUser(userEmail: string, userName: string) {
-    return await client.users.createUser.query({
+    return await client.createUser.query({
       userEmail: userEmail,
       userName: userName,
     });
   }
 
   async function deleteAllUsers() {
-    await client.users.deleteAll.query();
+    await client.deleteAll.query();
   }
 
   async function getAllUsers() {
-    return await client.users.getAll.query();
+    return await client.getAllUsers.query();
   }
-
+  // async function addPhotoToUserAlbum() {
+  //   return await client
+  // }
   async function createAlbum(
     userId: string,
     albumName: string,
     albumDescription: string,
     isPrivate?: boolean
   ) {
-    await client.users.addAlbum.query({
+    await client.addAlbumToUser.query({
       userId: userId,
       albumName: albumName,
       albumDescription: albumDescription,
