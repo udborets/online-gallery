@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useServer from "../hooks/useServer";
 import { RoutePaths } from "../utils/consts";
-import IUserInfo from './../models/IUserInfo';
-
 const GalleryIdPage = () => {
-  const { id: paramId } = useParams();
-  const { getUserById } = useServer();
-  const [userPageInfo, setUserPageInfo] = useState<any | IUserInfo>(null);
+  const params = useParams();
+  const paramId = params.id
   const navigate = useNavigate();
+  const { getUserById, getAllPhotosByAlbumId } = useServer();
+  const [photos, setPhotos] = useState<any>(null);
   if (!paramId) {
     navigate(RoutePaths.NOTFOUND);
     return;
   }
   useEffect(() => {
-    getUserById(paramId).then((user) => {
-      setUserPageInfo(user);
+    getUserById(paramId).then((fetchedUser) => {
+      if (fetchedUser)
+        getAllPhotosByAlbumId(fetchedUser.albums[0].id).then((fetchedAlbum) => {
+          if (fetchedAlbum) {
+            setPhotos(fetchedAlbum);
+          }
+        });
     })
-  })
+  }, [])
   return (
     <div>
-      {userPageInfo && userPageInfo.id}
+      {photos && photos.map((photo: any) => {
+        return <img src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} key={photo.id} />
+      })}
     </div>
   )
 }
