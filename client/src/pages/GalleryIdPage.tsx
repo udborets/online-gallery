@@ -10,7 +10,7 @@ const GalleryIdPage = () => {
   const [photos, setPhotos] = useState<any>(null);
   if (!paramId) {
     navigate(RoutePaths.NOTFOUND);
-    return;
+    return <div></div>;
   }
   useEffect(() => {
     getUserById(paramId).then((fetchedUser) => {
