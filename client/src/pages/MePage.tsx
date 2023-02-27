@@ -4,7 +4,7 @@ import useUser from '../hooks/useUser';
 import "../styles/pages/MePage.scss";
 
 const MePage = () => {
-  const { user } = useUser();
+  const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
   const [isUploaded, setIsUploaded] = useState(false);
   const [customName, setCustomName] = useState('');
@@ -47,6 +47,7 @@ const MePage = () => {
       setTimeout(() => {
         setIsUploaded(false);
       }, 5000);
+      await fetchUser(user.userInfo.id);
     }
     else {
       console.error("error happened white fetching Axios request:", response);
