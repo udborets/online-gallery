@@ -1,6 +1,11 @@
-import IUserSlice from './IUserSlice';
+import { IUserSlice } from "./IUserSlice";
 
-
-export default interface IStore {
+export interface IStore {
   user: IUserSlice;
+  modal: {
+    modalElement: JSX.Element;
+  };
+  notification: {
+    notificationElement: JSX.Element;
+  };
 }
