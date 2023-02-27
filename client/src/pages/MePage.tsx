@@ -54,7 +54,7 @@ const MePage = () => {
   }
   return (
     <div className='me-page'>
-      {user ? user.userInfo.name : "no name"}
+      {user.userInfo.name ? user.userInfo.name : "no name"}
       {user.userInfo.photos.map((photo: any) => photo.id)}
       <input
         type="text"
