@@ -24,7 +24,7 @@ const NavBar = () => {
     },
     {
       key: Date.now() * Math.random(),
-      fn: () => navigate(RoutePaths.GALLERY),
+      fn: () => navigate(RoutePaths.ME_GALLERY),
       text: "My gallery",
       className: ""
     },

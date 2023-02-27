@@ -3,7 +3,8 @@ enum RoutePaths {
   USERS = "/users",
   GALLERY = "/gallery",
   ME = "/me",
-  NOTFOUND = "*",
+  ME_GALLERY = "/me/gallery",
+  NOTFOUND = "/notfound",
 }
 
 export { RoutePaths };

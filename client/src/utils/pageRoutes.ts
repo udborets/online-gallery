@@ -24,11 +24,11 @@ export const authRoutes = [
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS + "/:id" + RoutePaths.GALLERY,
+    path: RoutePaths.USERS + "/:id" + RoutePaths.GALLERY + "/:albumId",
     Component: GalleryIdPage,
   },
   {
-    path: RoutePaths.GALLERY,
+    path: RoutePaths.ME + RoutePaths.GALLERY,
     Component: GalleryPage,
   },
 ];
