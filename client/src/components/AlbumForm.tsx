@@ -1,7 +1,7 @@
 import { useState } from "react";
 import useServer from "../hooks/useServer";
 import useUser from "../hooks/useUser";
-import IUserInfo from './../models/IUserInfo';
+import { IUserInfo } from './../models/IUserInfo';
 
 const AlbumForm = (user: IUserInfo) => {
   const { createAlbum } = useServer();

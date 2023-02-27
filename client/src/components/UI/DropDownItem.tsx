@@ -1,4 +1,4 @@
-import IDropDownItemProps from './../../models/IDropDownItemProps';
+import { IDropDownItemProps } from '../../models/IDropDownItemProps';
 
 
 const DropDownItem = ({ text, fn, className }: IDropDownItemProps) => {

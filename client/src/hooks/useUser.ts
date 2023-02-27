@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteUserState, updateUserState } from "../store/slices/userSlice";
-import IStore from "./../models/IStore";
+import { IStore } from "./../models/IStore";
 import useServer from "./useServer";
 
 export default function useUser() {

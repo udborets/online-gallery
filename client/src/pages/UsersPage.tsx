@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import useServer from "../hooks/useServer";
 import { useEffect, useState } from 'react';
-import IUserInfo from './../models/IUserInfo';
+import { IUserInfo } from './../models/IUserInfo';
 import { RoutePaths } from "../utils/consts";
 import "../styles/pages/UsersPage.scss";
 
