@@ -12,8 +12,6 @@ const initialState = {
     createdAt: null,
     updatedAt: null,
   },
-  isAuth: false,
-  token: null,
 };
 
 const userSlice = createSlice({
@@ -21,8 +19,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     updateUserState(state, action) {
-      state.isAuth = action.payload.isAuth;
-      state.token = action.payload.token;
       state.userInfo = action.payload.userInfo;
     },
     deleteUserState(state) {
@@ -37,8 +33,6 @@ const userSlice = createSlice({
         createdAt: null,
         updatedAt: null,
       };
-      state.isAuth = false;
-      state.token = null;
     },
   },
 });
