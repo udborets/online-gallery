@@ -1,4 +1,4 @@
-export default interface IDropDownItemProps {
+export interface IDropDownItemProps {
   text: string;
   fn: () => any;
   className: string;

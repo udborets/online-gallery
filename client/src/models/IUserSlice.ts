@@ -1,5 +1,5 @@
-import IUserInfo from "./IUserInfo";
+import { IUserInfo } from "./IUserInfo";
 
-export default interface IUserSlice {
+export interface IUserSlice {
   userInfo: IUserInfo;
 }
