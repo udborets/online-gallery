@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useServer from "../hooks/useServer";
 import { RoutePaths } from "../utils/consts";
+
+
 const GalleryIdPage = () => {
-  const params = useParams();
-  const paramId = params.id
+  const { id: userId, albumId } = useParams();
+  console.log(userId, albumId)
   const navigate = useNavigate();
   const { getUserById, getAllPhotosByAlbumId } = useServer();
   const [photos, setPhotos] = useState<any>(null);
-  if (!paramId) {
-    navigate(RoutePaths.NOTFOUND);
-    return <div></div>;
+  if (!albumId || !userId) {
+    return <></>;
   }
   useEffect(() => {
-    getUserById(paramId).then((fetchedUser) => {
+    getUserById(userId).then((fetchedUser) => {
+      if (!fetchedUser?.albums.map(album => album.id).includes(albumId)) {
+        navigate(RoutePaths.NOTFOUND);
+      }
       if (fetchedUser)
-        getAllPhotosByAlbumId(fetchedUser.albums[0].id).then((fetchedAlbum) => {
+        getAllPhotosByAlbumId(albumId).then((fetchedAlbum) => {
           if (fetchedAlbum) {
             setPhotos(fetchedAlbum);
           }
