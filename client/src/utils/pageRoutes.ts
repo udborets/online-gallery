@@ -8,27 +8,35 @@ import GalleryIdPage from "../pages/GalleryIdPage";
 
 export const authRoutes = [
   {
-    path: RoutePaths.HOME,
-    Component: HomePage,
-  },
-  {
-    path: RoutePaths.ME,
-    Component: MePage,
+    path: RoutePaths.USERS,
+    Component: UsersPage,
   },
   {
     path: RoutePaths.USERS + "/:id",
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS,
-    Component: UsersPage,
-  },
-  {
-    path: RoutePaths.USERS + "/:userId" + RoutePaths.GALLERY + "/:albumId",
+    path: RoutePaths.USERS + "/:user_id" + RoutePaths.GALLERY + "/:album_id",
     Component: GalleryIdPage,
   },
   {
+    path: RoutePaths.USERS + "/:user_id" + RoutePaths.GALLERY + "/:album_id" + "/:photo_id",
+    Component: GalleryIdPage,
+  },
+  {
+    path: RoutePaths.ME,
+    Component: MePage,
+  },
+  {
     path: RoutePaths.ME + RoutePaths.GALLERY,
+    Component: GalleryPage,
+  },
+  {
+    path: RoutePaths.ME + RoutePaths.GALLERY + "/:album_id",
+    Component: GalleryPage,
+  },
+  {
+    path: RoutePaths.ME + RoutePaths.GALLERY + "/:album_id" + "/:photo_id",
     Component: GalleryPage,
   },
 ];
