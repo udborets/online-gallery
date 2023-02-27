@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import useServer from "../hooks/useServer";
 
 const GalleryIdPage = () => {
-  const { userId, albumId } = useParams();
-  if (!albumId || !userId) {
-    return <div>there is no albumId or userId parameter in query</div>
+  const { user_id, album_id } = useParams();
+  if (!album_id || !user_id) {
+    return <div>there is no album_id or user_id parameter in query</div>
   }
   const { getUserById, getAllPhotosByAlbumId } = useServer();
   const {
@@ -16,11 +16,11 @@ const GalleryIdPage = () => {
   } =
     useQuery({
       queryFn: async () => {
-        const fetchedUser = await getUserById(userId);
+        const fetchedUser = await getUserById(user_id);
         if (!fetchedUser) {
           return false;
         }
-        return fetchedUser.albums.filter(album => album.id === albumId);
+        return fetchedUser.albums.filter(album => album.id === album_id);
       }, queryKey: ["currentUser"]
     });
   const {
@@ -30,7 +30,7 @@ const GalleryIdPage = () => {
     isError: isPhotoError } =
     useQuery({
       queryKey: ["photos"],
-      queryFn: async () => await getAllPhotosByAlbumId(albumId)
+      queryFn: async () => await getAllPhotosByAlbumId(album_id)
     });
 
   if (!isHasAlbum) {
