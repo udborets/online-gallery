@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
-import useUser from '../hooks/useUser'
-import { publicRoutes, authRoutes } from '../utils/pageRoutes'
+import useUser from './hooks/useUser'
+import { publicRoutes, authRoutes } from './utils/pageRoutes'
 
 const PageRouter = () => {
   const { isAuth } = useUser();
