@@ -1,17 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import { deleteUserState, updateUserState } from "../store/slices/userSlice";
 import IStore from "./../models/IStore";
-import IUserSlice from "./../models/IUserSlice";
+import useServer from "./useServer";
 
 export default function useUser() {
   const user = useSelector((store: IStore) => store.user);
-  const isAuth = user.isAuth;
+  const { getUserById } = useServer();
   const dispatch = useDispatch();
   function deleteUser() {
     dispatch(deleteUserState());
   }
-  function updateUser(userInfo: IUserSlice) {
-    dispatch(updateUserState(userInfo));
+  function updateUser(userInfo: any) {
+    dispatch(updateUserState({ userInfo }));
   }
-  return { user, deleteUser, updateUser, isAuth };
+  async function fetchUser(userId: string) {
+    const fetchedUser = await getUserById(userId);
+    updateUser(fetchedUser);
+  }
+  return { user, deleteUser, updateUser, fetchUser };
 }
