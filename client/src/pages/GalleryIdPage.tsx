@@ -1,31 +1,53 @@
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "react-query/react";
+import { useParams } from "react-router-dom";
 import useServer from "../hooks/useServer";
-import { RoutePaths } from "../utils/consts";
-
 
 const GalleryIdPage = () => {
-  const { id: userId, albumId } = useParams();
-  console.log(userId, albumId)
-  const navigate = useNavigate();
-  const { getUserById, getAllPhotosByAlbumId } = useServer();
-  const [photos, setPhotos] = useState<any>(null);
+  const { userId, albumId } = useParams();
   if (!albumId || !userId) {
-    return <></>;
+    return <div>there is no albumId or userId parameter in query</div>
   }
-  useEffect(() => {
-    getUserById(userId).then((fetchedUser) => {
-      if (!fetchedUser?.albums.map(album => album.id).includes(albumId)) {
-        navigate(RoutePaths.NOTFOUND);
-      }
-      if (fetchedUser)
-        getAllPhotosByAlbumId(albumId).then((fetchedAlbum) => {
-          if (fetchedAlbum) {
-            setPhotos(fetchedAlbum);
-          }
-        });
-    })
-  }, [])
+  const { getUserById, getAllPhotosByAlbumId } = useServer();
+  const {
+    data: isHasAlbum,
+    isError: isHasAlbumError,
+    error: hasAlbumError,
+    isLoading: isHasAlbumLoading,
+  } =
+    useQuery({
+      queryFn: async () => {
+        const fetchedUser = await getUserById(userId);
+        if (!fetchedUser) {
+          return false;
+        }
+        return fetchedUser.albums.filter(album => album.id === albumId);
+      }, queryKey: ["currentUser"]
+    });
+  const {
+    data: photos,
+    error: photoError,
+    isLoading: isPhotosLoading,
+    isError: isPhotoError } =
+    useQuery({
+      queryKey: ["photos"],
+      queryFn: async () => await getAllPhotosByAlbumId(albumId)
+    });
+
+  if (!isHasAlbum) {
+    return <div>this user does not have album you are trying to get</div>
+  }
+  if (isHasAlbumError) {
+    console.error(hasAlbumError);
+    return <div>{JSON.stringify(hasAlbumError)}</div>
+  }
+  if (isPhotoError) {
+    console.error(photoError);
+    return <div>{JSON.stringify(photoError)}</div>
+  }
+  if (isPhotosLoading || isHasAlbumLoading) {
+    return <div>Photos loading...</div>
+  }
+  
   return (
     <div>
       {photos && photos.map((photo: any) => {
