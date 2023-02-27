@@ -38,28 +38,15 @@ export default function useLogin() {
           try {
             const isDbHasUser = await getUserByEmail(currentUser.email);
             if (isDbHasUser) {
-              updateUser({
-                userInfo: {
-                  ...isDbHasUser,
-                },
-                token: await currentUser.getIdToken(),
-                isAuth: true,
-              });
+              updateUser(isDbHasUser);
             }
             if (!isDbHasUser) {
               const newUser = await createUser(
                 currentUser.email,
                 currentUser.displayName ?? "unknown"
               );
-              updateUser({
-                userInfo: {
-                  ...newUser,
-                },
-                token: await auth.currentUser.getIdToken(),
-                isAuth: true,
-              });
+              updateUser(newUser);
               window.location.reload();
-
             }
           } catch (err) {
             console.error(
