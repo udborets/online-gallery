@@ -24,7 +24,7 @@ export const authRoutes = [
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS + "/:id" + RoutePaths.GALLERY + "/:albumId",
+    path: RoutePaths.USERS + "/:userId" + RoutePaths.GALLERY + "/:albumId",
     Component: GalleryIdPage,
   },
   {
