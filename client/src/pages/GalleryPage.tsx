@@ -1,33 +1,29 @@
-import useServer from './../hooks/useServer';
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import "../styles/pages/GalleryPage.scss";
 import AlbumForm from './../components/AlbumForm';
 import useUser from '../hooks/useUser';
+import { useNavigate } from 'react-router-dom';
 
 const GalleryPage = () => {
-  const { getUserById, getAllPhotosByAlbumId } = useServer();
   const [currentUser, setCurrentUser] = useState<any>(null);
-  const [photos, setPhotos] = useState<any>(null);
+  const [albums, setAlbums] = useState<any>(null);
   const { user } = useUser();
+  const navigate = useNavigate();
   useEffect(() => {
     setCurrentUser(user.userInfo);
     if (currentUser && currentUser.albums) {
-      getAllPhotosByAlbumId(currentUser.albums[0].id).then((fetchedAlbum) => {
-        if (fetchedAlbum) {
-          setPhotos(fetchedAlbum);
-        }
-      });
+      console.log(currentUser);
+      setAlbums(currentUser.albums)
     }
-  }, [currentUser])
+  }, [currentUser]);
   return (
     <div className='gallery-page'>
       {currentUser
         &&
         <>
           <AlbumForm {...currentUser} />
-          {photos && photos.map((photo: any) => {
-            return <img src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} key={photo.id} />
+          {albums && albums.map((album: any) => {
+            return <button key={album.id} onClick={() => navigate(`/users/${currentUser.id}/gallery/${album.id}`)}>{album.name}</button>
           })}
         </>
       }
