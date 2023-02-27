@@ -1,17 +1,23 @@
 import { useState } from "react";
 import useServer from "../hooks/useServer";
+import useUser from "../hooks/useUser";
 import IUserInfo from './../models/IUserInfo';
-
 
 const AlbumForm = (user: IUserInfo) => {
   const { createAlbum } = useServer();
+  const { fetchUser } = useUser();
   const [albumName, setAlbumName] = useState("");
   const [albumDescription, setAlbumDescription] = useState("");
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
+
   async function createUserAlbum() {
     if (!user.id) {
+      setNotification(`user is not authorized`);
+      setTimeout(() => {
+        setNotification("");
+      }, 3000);
       return
     }
     if (albumName) {
@@ -21,6 +27,7 @@ const AlbumForm = (user: IUserInfo) => {
         albumDescription,
         albumIsPrivate,
       );
+      await fetchUser(user.id);
       setAlbumName("");
       setAlbumDescription("");
       setNotification(`Successfully created album "${albumName}"!`);
