@@ -7,4 +7,10 @@ enum RoutePaths {
   NOTFOUND = "/notfound",
 }
 
-export { RoutePaths };
+enum Notifications {
+  ERROR = "error",
+  WARNING = "warning",
+  SUCCESS = "success",
+}
+
+export { RoutePaths, Notifications };
