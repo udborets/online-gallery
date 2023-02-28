@@ -3,9 +3,11 @@ import { IUserSlice } from "./IUserSlice";
 export interface IStore {
   user: IUserSlice;
   modal: {
-    modalElement: JSX.Element;
+    isActive: boolean;
+    setIsActive: (isActive: boolean) => any;
   };
   notification: {
-    notificationElement: JSX.Element;
+    isActive: boolean;
+    setIsActive: (isActive: boolean) => any;
   };
 }
