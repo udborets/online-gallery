@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  notificationElement: <div></div>
+  isActive: false,
 };
 
 const notificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
-    setNotificationState: (state, action) => {
-      state.notificationElement = action.payload.notificationElement;
+    setIsActive: (state, action) => {
+      state.isActive = action.payload.isActive;
     },
   },
 });
 
 export default notificationSlice.reducer;
-export const { setNotificationState } = notificationSlice.actions;
+export const { setIsActive } = notificationSlice.actions;
