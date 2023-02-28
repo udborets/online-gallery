@@ -4,7 +4,7 @@ import MePage from "./../pages/MePage";
 import UsersPage from "./../pages/UsersPage";
 import NotFoundPage from "./../pages/NotFoundPage";
 import GalleryPage from "./../pages/GalleryPage";
-import GalleryIdPage from "../pages/GalleryIdPage";
+import AlbumPage from "../pages/AlbumPage";
 
 export const authRoutes = [
   {
@@ -17,11 +17,16 @@ export const authRoutes = [
   },
   {
     path: RoutePaths.USERS + "/:user_id" + RoutePaths.GALLERY + "/:album_id",
-    Component: GalleryIdPage,
+    Component: AlbumPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_id" + RoutePaths.GALLERY + "/:album_id" + "/:photo_id",
-    Component: GalleryIdPage,
+    path:
+      RoutePaths.USERS +
+      "/:user_id" +
+      RoutePaths.GALLERY +
+      "/:album_id" +
+      "/:photo_id",
+    Component: AlbumPage,
   },
   {
     path: RoutePaths.ME,
