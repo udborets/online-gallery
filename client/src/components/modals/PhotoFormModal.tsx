@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
 import useUser from '../../hooks/useUser';
-import ModalTemplate from '../templates/ModalTemplate';
 
 const PhotoFormModal = () => {
   const { user, fetchUser } = useUser();
@@ -54,31 +53,29 @@ const PhotoFormModal = () => {
     }
   }
   return (
-    <ModalTemplate>
-      <form className='photo-form'>
-        <input
-          className='modal-form__name'
-          type="text"
-          onChange={(e) => setCustomName(e.target.value)}
-        />
-        <textarea
-          className='modal-form__description'
-          onChange={(e) => setPhotoDescription(e.target.value)}
-        />
-        <input
-          type="file"
-          name='userFile'
-          value={file}
-          onChange={e => setFile(e.target.files ? e.target.files[0] : null)} />
-        <button
-          className='photo-form__submit'
-          type='submit'
-          onClick={(e) => uploadFile(e)}
-        >
-          Send file
-        </button>
-      </form>
-    </ModalTemplate>
+    <form className='photo-form' onClick={(e) => e.stopPropagation()}>
+      <input
+        className='modal-form__name'
+        type="text"
+        onChange={(e) => setCustomName(e.target.value)}
+      />
+      <textarea
+        className='modal-form__description'
+        onChange={(e) => setPhotoDescription(e.target.value)}
+      />
+      <input
+        type="file"
+        name='userFile'
+        value={file}
+        onChange={e => setFile(e.target.files ? e.target.files[0] : null)} />
+      <button
+        className='photo-form__submit'
+        type='submit'
+        onClick={(e) => uploadFile(e)}
+      >
+        Send file
+      </button>
+    </form>
   )
 }
 
