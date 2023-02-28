@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import "../styles/pages/GalleryPage.scss";
-import AlbumForm from './../components/AlbumForm';
 import useUser from '../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +20,6 @@ const GalleryPage = () => {
       {currentUser
         &&
         <>
-          <AlbumForm {...currentUser} />
           {albums && albums.map((album: any) => {
             return <button key={album.id} onClick={() => navigate(`/users/${currentUser.id}/gallery/${album.id}`)}>{album.name}</button>
           })}
