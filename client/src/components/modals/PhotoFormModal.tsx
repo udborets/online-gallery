@@ -56,12 +56,16 @@ const PhotoFormModal = () => {
     <form className='photo-form' onClick={(e) => e.stopPropagation()}>
       <input
         className='modal-form__name'
+        style={{color: "black"}}
         type="text"
         onChange={(e) => setCustomName(e.target.value)}
+        value={customName}
       />
       <textarea
+        style={{color: "black"}}
         className='modal-form__description'
         onChange={(e) => setPhotoDescription(e.target.value)}
+        value={photoDescription}
       />
       <input
         type="file"
