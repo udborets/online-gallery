@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import ModalTemplate from "../../components/templates/ModalTemplate";
 
 const initialState = {
   isActive: false,
