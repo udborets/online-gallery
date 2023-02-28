@@ -2,17 +2,14 @@ import useModal from './../../hooks/useModal';
 import { IModalTemplate } from './../../models/IModals';
 import "../../styles/components/templates/ModalTemplate.scss"
 
-const ModalTemplate = ({ children }: IModalTemplate) => {
-  const { modal, setModalIsActive } = useModal();
+const ModalTemplate = ({ children, visible, setVisible }: any) => {
   return (
     <div
-      className={`modal ${modal.isActive ? "visible" : "hidden"}`}
-      onClick={() => setModalIsActive(false)}
+      className={`modal ${visible ? "visible" : "hidden"}`}
+      onClick={() => setVisible(false)}
     >
-      <div className='modal__darkness'>
-        <div className="modal__window">
-          {children}
-        </div>
+      <div className="modal__window">
+        {children}
       </div>
     </div>
   )
