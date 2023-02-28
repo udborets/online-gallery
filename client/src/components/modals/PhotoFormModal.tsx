@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import "../../styles/components/modals/PhotoFormModal.scss";
 
-const PhotoFormModal = () => {
+const PhotoFormModal = ({ albumId }: any) => {
   const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
   const [customName, setCustomName] = useState('');
@@ -26,13 +27,22 @@ const PhotoFormModal = () => {
       }, 5000);
       return
     }
+    if (!albumId) {
+      setCustomName('no album id')
+      setTimeout(() => {
+        setCustomName('')
+      }, 5000);
+      return
+    }
     formData.append("userFile", file);
     formData.append("userId", user.userInfo.id);
-    formData.append("albumId", user.userInfo.albums[0].id);
+    console.log(albumId)
+    formData.append("albumId", albumId);
     formData.append("customName", customName);
     formData.append("photoDescription", photoDescription);
     const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/upload`, formData)
     if (response.data === "OK") {
+
       setFile(null);
       setCustomName('');
       setPhotoDescription('');
@@ -47,13 +57,15 @@ const PhotoFormModal = () => {
   return (
     <form className='modal-form' onClick={(e) => e.stopPropagation()}>
       <input
-        className='modal-form__name'
+        className='modal-form__input'
         type="text"
         onChange={(e) => setCustomName(e.target.value)}
         value={customName}
+        placeholder="Enter photo name"
       />
       <textarea
         className='modal-form__description'
+        placeholder='Enter photo description'
         onChange={(e) => setPhotoDescription(e.target.value)}
         value={photoDescription}
       />
