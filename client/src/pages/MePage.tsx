@@ -7,8 +7,8 @@ const MePage = () => {
   const { modal, setModalIsActive } = useModal();
   return (
     <div className='me-page'>
-      <button onClick={() => setModalIsActive(true)}>
-        efef
+      <button onClick={() => setModalIsActive(false, true)}>
+        album
       </button>
     </div>
   )
