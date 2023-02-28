@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isActive: false,
+  isPhotoActive: false,
+  isAlbumActive: false,
 };
 
 const modalSlice = createSlice({
@@ -9,7 +10,8 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     setIsActive: (state, action) => {
-      state.isActive = action.payload.isActive;
+      state.isPhotoActive = action.payload.isPhotoActive;
+      state.isAlbumActive = action.payload.isAlbumActive;
     },
   },
 });
