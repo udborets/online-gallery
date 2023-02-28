@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import useUser from '../../hooks/useUser';
+import "../../styles/components/modals/PhotoFormModal.scss";
 
 const PhotoFormModal = () => {
   const { user, fetchUser } = useUser();
@@ -44,7 +45,7 @@ const PhotoFormModal = () => {
     }
   }
   return (
-    <form className='photo-form' onClick={(e) => e.stopPropagation()}>
+    <form className='modal-form' onClick={(e) => e.stopPropagation()}>
       <input
         className='modal-form__name'
         type="text"
@@ -61,7 +62,7 @@ const PhotoFormModal = () => {
         name='userFile'
         onChange={e => setFile(e.target.files ? e.target.files[0] : null)} />
       <button
-        className='photo-form__submit'
+        className='modal-form__submit'
         type='submit'
         onClick={(e) => uploadFile(e)}
       >
