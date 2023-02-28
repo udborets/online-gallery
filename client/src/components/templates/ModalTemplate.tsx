@@ -1,5 +1,6 @@
 import useModal from './../../hooks/useModal';
 import { IModalTemplate } from './../../models/IModals';
+import "../../styles/components/templates/ModalTemplate.scss"
 
 const ModalTemplate = ({ children }: IModalTemplate) => {
   const { modal, setModalIsActive } = useModal();

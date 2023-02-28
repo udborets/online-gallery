@@ -1,0 +1,16 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s ease;
+  position:fixed;
+  top: 100px;
+  * {
+    color: white;
+  }
+}
+.modal.visible {
+  transform: scale(1);
+}
+.modal.hidden {
+  transform: scale(0);
+}
