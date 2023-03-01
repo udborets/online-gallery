@@ -1,6 +1,4 @@
-import useModal from './../../hooks/useModal';
-import { IModalTemplate } from './../../models/IModals';
-import "../../styles/components/templates/ModalTemplate.scss"
+import "../../../styles/components/templates/ModalTemplate.scss"
 
 const ModalTemplate = ({ children, visible, setVisible }: any) => {
   return (
