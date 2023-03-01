@@ -5,6 +5,7 @@ async function dbDeleteAllUsers() {
   try {
     return await prisma.user.deleteMany();
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -13,6 +14,7 @@ async function dbDeleteAllAlbums() {
   try {
     return await prisma.album.deleteMany();
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -21,6 +23,7 @@ async function dbDeleteAllPhotos() {
   try {
     return await prisma.photo.deleteMany({});
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -31,6 +34,7 @@ async function dbDeleteAll() {
     await dbDeleteAllAlbums();
     await dbDeleteAllUsers();
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -44,6 +48,7 @@ async function dbGetAllUsers() {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -59,6 +64,7 @@ async function dbGetUserByEmail(userEmail: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -74,6 +80,7 @@ async function dbGetUserById(userId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -82,6 +89,7 @@ async function dbGetAllPhotos() {
   try {
     return prisma.photo.findMany();
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -90,6 +98,7 @@ async function dbGetAllAlbums() {
   try {
     return prisma.album.findMany();
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -102,6 +111,7 @@ async function dbGetAllPhotosByUserId(userId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -114,6 +124,7 @@ async function dbDeletePhotoById(photoId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -123,7 +134,7 @@ async function dbAddPhotoToAlbum(
   albumId: string,
   customName: string,
   fileName: string,
-  photoDescription?: string,
+  photoDescription?: string
 ) {
   try {
     return await prisma.photo.create({
@@ -136,6 +147,7 @@ async function dbAddPhotoToAlbum(
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -152,6 +164,7 @@ async function dbGetAllAlbumsByUserId(userId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -164,6 +177,7 @@ async function dbGetPhotoById(photoId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -180,6 +194,7 @@ async function dbGetAlbumById(albumId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -200,6 +215,7 @@ async function dbAddAlbum(
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -217,6 +233,7 @@ async function dbDeleteAlbumById(albumId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -229,6 +246,7 @@ async function dbGetAllPhotosByAlbumId(albumId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -244,6 +262,7 @@ async function dbRenamePhotoById(photoId: string, newName: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -259,6 +278,7 @@ async function dbRenameAlbumById(photoId: string, newName: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -271,6 +291,7 @@ async function dbDeleteUserById(userId: string) {
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
@@ -306,6 +327,7 @@ async function dbCreateUser(
       },
     });
   } catch (e) {
+    console.log(e);
     return null;
   }
 }
