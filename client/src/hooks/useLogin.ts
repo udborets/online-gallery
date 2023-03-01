@@ -39,6 +39,7 @@ export default function useLogin() {
             const isDbHasUser = await getUserByEmail(currentUser.email);
             if (isDbHasUser) {
               updateUser(isDbHasUser);
+              return;
             }
             if (!isDbHasUser) {
               const newUser = await createUser(
@@ -47,6 +48,7 @@ export default function useLogin() {
               );
               updateUser(newUser);
               window.location.reload();
+              return;
             }
           } catch (err) {
             console.error(
