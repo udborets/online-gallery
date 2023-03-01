@@ -1,13 +1,10 @@
-
-import PhotoFormModal from "../components/modals/PhotoFormModal";
-import useModal from "../hooks/useModal";
 import "../styles/pages/MePage.scss";
 
 const MePage = () => {
-  const { modal, setModalIsActive } = useModal();
+
   return (
     <div className='me-page'>
-      <button onClick={() => setModalIsActive(false, true)}>
+      <button onClick={() => console.warn("fix me!")}>
         album
       </button>
     </div>

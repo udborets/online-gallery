@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import useUser from '../../hooks/useUser';
 import "../../styles/components/modals/PhotoFormModal.scss";
 
