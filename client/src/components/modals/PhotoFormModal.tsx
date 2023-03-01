@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 import useUser from '../../hooks/useUser';
+import { IPhotoFormModal } from '../../models/IModals';
 import "../../styles/components/modals/PhotoFormModal.scss";
 
-const PhotoFormModal = ({ albumId, refetchPhotos }: any) => {
+const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
   const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
   const [customName, setCustomName] = useState('');
