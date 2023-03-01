@@ -5,6 +5,7 @@ import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
 import useServer from "../hooks/useServer";
 import useUser from "../hooks/useUser";
+import "../styles/pages/AlbumPage.scss";
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
@@ -50,11 +51,12 @@ const GalleryIdPage = () => {
   }
 
   return (
-    <div>
-      {photos && photos.map((photo: any) => {
-        return <img src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} key={photo.id} />
-      })}
-
+    <div className="album-page">
+      <div className="album-page__photos">
+        {photos && photos.map((photo: any) => {
+          return <img src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} key={photo.id} />
+        })}
+      </div>
       <button onClick={() => setIsPhotoModalActive(true)}>
         photo
       </button>
