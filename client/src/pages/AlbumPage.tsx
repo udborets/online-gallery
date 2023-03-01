@@ -4,19 +4,22 @@ import { useParams } from "react-router-dom";
 import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
 import useServer from "../hooks/useServer";
+import useUser from "../hooks/useUser";
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
+  const { user } = useUser();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   if (!album_id || !user_id) {
     return <div>there is no album_id or user_id parameter in query</div>
   }
   const { getUserById, getAllPhotosByAlbumId } = useServer();
   const {
-    data: isHasAlbum,
-    isError: isHasAlbumError,
-    error: hasAlbumError,
-    isLoading: isHasAlbumLoading,
+    data: photos,
+    isError: isPhotosError,
+    error: photosError,
+    isLoading: isPhotosLoading,
+    refetch: refetchPhotos,
   } =
     useQuery({
       queryFn: async () => {
@@ -24,31 +27,25 @@ const GalleryIdPage = () => {
         if (!fetchedUser) {
           return false;
         }
-        return fetchedUser.albums.filter(album => album.id === album_id);
-      }, queryKey: ["currentUser"]
-    });
-  const {
-    data: photos,
-    error: photoError,
-    isLoading: isPhotosLoading,
-    isError: isPhotoError } =
-    useQuery({
-      queryKey: ["photos"],
-      queryFn: async () => await getAllPhotosByAlbumId(album_id)
+        const currentAlbum = fetchedUser.albums.find(album => album.id === album_id);
+        if (currentAlbum) {
+          return await getAllPhotosByAlbumId(currentAlbum.id);
+        }
+        return null;
+      },
+      queryKey: ["currentUser"],
+      refetchInterval: 20000,
     });
 
-  if (!isHasAlbum) {
+
+  if (!photos) {
     return <div>this user does not have album you are trying to get</div>
   }
-  if (isHasAlbumError) {
-    console.error(hasAlbumError);
-    return <div>{JSON.stringify(hasAlbumError)}</div>
+  if (isPhotosError) {
+    console.error(photosError);
+    return <div>{JSON.stringify(photosError)}</div>
   }
-  if (isPhotoError) {
-    console.error(photoError);
-    return <div>{JSON.stringify(photoError)}</div>
-  }
-  if (isPhotosLoading || isHasAlbumLoading) {
+  if (isPhotosLoading) {
     return <div>Photos loading...</div>
   }
 
@@ -62,7 +59,7 @@ const GalleryIdPage = () => {
         photo
       </button>
       <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
-        <PhotoFormModal albumId={album_id} />
+        <PhotoFormModal albumId={album_id} refetchPhotos={refetchPhotos} />
       </ModalTemplate>
     </div>
   )

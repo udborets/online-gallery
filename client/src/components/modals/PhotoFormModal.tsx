@@ -1,32 +1,38 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useQuery } from 'react-query';
 import useUser from '../../hooks/useUser';
 import "../../styles/components/modals/PhotoFormModal.scss";
 
-const PhotoFormModal = ({ albumId }: any) => {
+const PhotoFormModal = ({ albumId, refetchPhotos }: any) => {
   const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
   const [customName, setCustomName] = useState('');
   const [photoDescription, setPhotoDescription] = useState('');
+
   async function uploadFile(e: any) {
     e.preventDefault();
     const formData = new FormData();
     if (!file) {
+      console.log("no file");
       setTimeout(() => {
       }, 5000);
       return
     }
     if (!customName) {
+      console.log("no custom name");
       setTimeout(() => {
       }, 5000);
       return;
     }
     if (!user.userInfo.id) {
+      console.log("no user info id");
       setTimeout(() => {
       }, 5000);
       return
     }
     if (!albumId) {
+      console.log("no album id");
       setCustomName('no album id')
       setTimeout(() => {
         setCustomName('')
@@ -41,13 +47,13 @@ const PhotoFormModal = ({ albumId }: any) => {
     formData.append("photoDescription", photoDescription);
     const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/upload`, formData)
     if (response.data === "OK") {
-
-      setFile(null);
       setCustomName('');
       setPhotoDescription('');
       setTimeout(() => {
       }, 5000);
       await fetchUser(user.userInfo.id);
+      refetchPhotos();
+      console.log("refetched photos!");
     }
     else {
       console.error("error happened white fetching axios request:", response);
