@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "react-query/react";
 import { useParams } from "react-router-dom";
 import PhotoFormModal from "../components/modals/PhotoFormModal";
-import ModalTemplate from "../components/templates/ModalTemplate";
+import ModalTemplate from "../components/modals/templates/ModalTemplate";
 import useServer from "../hooks/useServer";
 
 const GalleryIdPage = () => {
