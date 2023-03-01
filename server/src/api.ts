@@ -17,7 +17,7 @@ app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(fileUpload());
 app.use(express.static(path.resolve(__dirname, "static")));
-app.use("/upload", (req, res) => {
+app.use("/upload", async (req, res) => {
   if (req.files) {
     const request = req as unknown as IFileRequest;
     const uploadedFile = request.files.userFile;
@@ -43,7 +43,7 @@ app.use("/upload", (req, res) => {
           return;
         }
       });
-      dbAddPhotoToAlbum(
+      await dbAddPhotoToAlbum(
         userId,
         albumId,
         customName,
