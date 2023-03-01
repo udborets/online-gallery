@@ -76,6 +76,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
       />
       <input
         type="file"
+        accept='image/*'
         name='userFile'
         onChange={e => setFile(e.target.files ? e.target.files[0] : null)} />
       <button
