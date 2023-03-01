@@ -3,7 +3,7 @@ import useServer from "../../hooks/useServer";
 import useUser from "../../hooks/useUser";
 import "../../styles/components/modals/PhotoFormModal.scss";
 
-const AlbumForm = () => {
+const AlbumFormModal = () => {
   const { createAlbum } = useServer();
   const [albumName, setAlbumName] = useState("");
   const [albumDescription, setAlbumDescription] = useState("");
@@ -66,4 +66,4 @@ const AlbumForm = () => {
   )
 }
 
-export default AlbumForm
+export default AlbumFormModal
