@@ -22,7 +22,7 @@ model User {
 
 model Album {
   id          String   @id @unique @default(uuid())
-  name        String   @unique
+  name        String
   description String?
   isPrivate   Boolean? @default(false)
 
@@ -37,7 +37,7 @@ model Album {
 
 model Photo {
   id          String  @id @unique @default(uuid())
-  name        String  @unique @default(uuid())
+  name        String  @default("Photo")
   description String?
   file        String
 
