@@ -83,7 +83,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
         type='submit'
         onClick={(e) => uploadFile(e)}
       >
-        Send file
+        Upload file
       </button>
     </form>
   )

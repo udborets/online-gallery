@@ -52,11 +52,13 @@ const AlbumFormModal = () => {
         placeholder='Enter album description'
         value={albumDescription}
       />
-      <span>Is private?</span>
-      <input
-        type="checkbox"
-        onClick={() => setAlbumIsPrivate(state => !state)}
-      />
+      <div>
+        <span>Is private?</span>
+        <input
+          type="checkbox"
+          onClick={() => setAlbumIsPrivate(state => !state)}
+        />
+      </div>
       <button onClick={async () => {
         await createUserAlbum();
       }}>
