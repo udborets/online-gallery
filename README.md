@@ -12,13 +12,20 @@
 
 # TODO
 
-## done:
+- `add notification component`
 
- - fix modal window interfaces
- - add album creating modal window in album page
+- `fix gallery page albums display`
 
-## todo:
+- `fix album page photos display`
 
- - add notification component
- - add gallery page albums display
- - add album page photos display
+- `and much more :)`
+
+# Feedback
+
+If you have any suggestions or you found a bug in the code, please, contact me:
+
+- `telegram:` [@udborets](https://t.me/udborets)
+
+- `VK:` [Юрий Борец](https://vk.com/udborets)
+
+- `email:` udborets@gmail.com
