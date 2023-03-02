@@ -1,14 +1,15 @@
-import {
-  User as dbUser,
-  Album as dbAlbum,
-  Photo as dbPhoto,
-} from "../../../server/src/db";
+import { Album, Photo, Role } from "../../../server/src/db";
 
-export type IUser = {
-  user: dbUser;
-  albums: dbAlbum[];
-  photos: dbPhoto[];
+export type IdbUser = {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string | null;
+  role: Role;
+  createdAt: Date;
+  updatedAt: Date;
+  photos: Photo[];
+  albums: Album[];
 };
-
-export type IAlbum = dbAlbum;
-export type IPhoto = dbPhoto;
+export type IdbPhoto = Photo;
+export type IdbAlbum = Album;
