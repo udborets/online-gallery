@@ -11,7 +11,7 @@ const AlbumFormModal = () => {
   const { user, fetchUser } = useUser();
 
   async function createUserAlbum() {
-    if (!user.userInfo.id) {
+    if (!user.userInfo.user.id) {
       setTimeout(() => {
       }, 3000);
       console.log(1212)
@@ -19,12 +19,12 @@ const AlbumFormModal = () => {
     }
     if (albumName) {
       await createAlbum(
-        user.userInfo.id,
+        user.userInfo.user.id,
         albumName,
         albumDescription,
         albumIsPrivate,
       );
-      await fetchUser(user.userInfo.id);
+      await fetchUser(user.userInfo.user.id);
       setAlbumName("");
       setAlbumDescription("");
       setTimeout(() => {
