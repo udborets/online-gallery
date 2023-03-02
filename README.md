@@ -1,5 +1,15 @@
 # Online Gallery
 
+### That is a [full-stack](#stack) website app with Google Firebase email authentication with opportunity to create albums and put your own photos inside them
+
+# Navigation
+
+- ## [`1. Stack`](#stack)
+
+- ## [`2. TODO`](#todo)
+
+- ## [`3. Feedback`](#feedback)
+
 # Stack
 
 ## Backend
@@ -22,7 +32,7 @@
 
 # Feedback
 
-If you have any suggestions or you found a bug in the code, please, contact me:
+If you have any suggestions or you found a bug in the code, please contact me:
 
 - `telegram:` [@udborets](https://t.me/udborets)
 
