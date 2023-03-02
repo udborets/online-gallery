@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
 import useUser from '../../hooks/useUser';
-import { IPhotoFormModal } from '../../models/IModals';
+import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
 
-const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
+const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
   const [customName, setCustomName] = useState('');
@@ -25,7 +25,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
       }, 5000);
       return;
     }
-    if (!user.userInfo.id) {
+    if (!user.userInfo.user.id) {
       console.log("no user info id");
       setTimeout(() => {
       }, 5000);
@@ -40,7 +40,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
       return
     }
     formData.append("userFile", file);
-    formData.append("userId", user.userInfo.id);
+    formData.append("userId", user.userInfo.user.id);
     console.log(albumId)
     formData.append("albumId", albumId);
     formData.append("customName", customName);
@@ -51,7 +51,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModal) => {
       setPhotoDescription('');
       setTimeout(() => {
       }, 5000);
-      await fetchUser(user.userInfo.id);
+      await fetchUser(user.userInfo.user.id);
       refetchPhotos();
       console.log("refetched photos!");
     }
