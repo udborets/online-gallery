@@ -9,6 +9,7 @@ import useUser from "./useUser";
 import provider from "../firebase/provider";
 import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "../utils/consts";
+import { IdbUser } from "../models/dbTypes";
 
 export default function useLogin() {
   const auth = getAuth();
@@ -38,15 +39,18 @@ export default function useLogin() {
           try {
             const isDbHasUser = await getUserByEmail(currentUser.email);
             if (isDbHasUser) {
-              updateUser(isDbHasUser);
+              const fetchedDbUser = isDbHasUser as unknown as IdbUser;
+              updateUser(fetchedDbUser);
+              console.log(fetchedDbUser);
+              return;
             }
             if (!isDbHasUser) {
-              const newUser = await createUser(
+              const newUser = (await createUser(
                 currentUser.email,
                 currentUser.displayName ?? "unknown"
-              );
+              )) as unknown as IdbUser;
               updateUser(newUser);
-              window.location.reload();
+              return;
             }
           } catch (err) {
             console.error(

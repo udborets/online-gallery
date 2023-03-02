@@ -1,7 +1,9 @@
-import { IUserSlice } from "./IUserSlice";
+import { IdbUser } from "./dbTypes";
 
 export interface IStore {
-  user: IUserSlice;
+  userState: {
+    userInfo: IdbUser;
+  };
   notification: {
     isActive: boolean;
     setIsActive: (isActive: boolean) => any;
