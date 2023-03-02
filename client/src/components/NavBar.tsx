@@ -33,7 +33,7 @@ const NavBar = () => {
       className: "nav-profile__sign-out"
     },
   ];
-  
+
   return (
     <>
       <div className="nav-bar">
@@ -42,9 +42,12 @@ const NavBar = () => {
           className="nav-bar__title">
           My Gallery
         </NavLink>
+        <button onClick={() => console.log(user)}>
+          log user state
+        </button>
         <nav className="nav-links">
           {
-            user.userInfo.user.id
+            user?.id
               ?
               <>
                 <NavLink to={RoutePaths.HOME} className="nav-links__link">
@@ -64,14 +67,14 @@ const NavBar = () => {
         </nav>
       </div>
       {
-        user.userInfo.user.id
+        user?.id
           ?
           <>
             <button
               onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
               className="nav-profile__username nav-profile__option"
             >
-              {user.userInfo.user.name ?? ""}
+              {user.name ?? ""}
             </button>
             <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {

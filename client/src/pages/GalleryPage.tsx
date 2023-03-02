@@ -12,10 +12,10 @@ const GalleryPage = () => {
   const navigate = useNavigate();
   return (
     <div className='gallery-page'>
-      {user.userInfo.albums
+      {user.albums
         &&
         <>
-          {user.userInfo.albums && user.userInfo.albums.map((album) => {
+          {user.albums && user.albums.map((album) => {
             return <AlbumItem {...album} />
           })}
         </>

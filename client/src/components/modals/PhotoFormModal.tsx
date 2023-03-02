@@ -25,7 +25,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       }, 5000);
       return;
     }
-    if (!user.userInfo.user.id) {
+    if (!user?.id) {
       console.log("no user info id");
       setTimeout(() => {
       }, 5000);
@@ -40,7 +40,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       return
     }
     formData.append("userFile", file);
-    formData.append("userId", user.userInfo.user.id);
+    formData.append("userId", user.id);
     console.log(albumId)
     formData.append("albumId", albumId);
     formData.append("customName", customName);
@@ -51,7 +51,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       setPhotoDescription('');
       setTimeout(() => {
       }, 5000);
-      await fetchUser(user.userInfo.user.id);
+      await fetchUser(user.id);
       refetchPhotos();
       console.log("refetched photos!");
     }
