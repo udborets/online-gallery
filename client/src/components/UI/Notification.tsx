@@ -1,6 +1,6 @@
-import { INotification } from './../../models/INotification';
+import { INotificationProps } from '../../models/INotificationProps';
 
-const Notification = ({ message, type }: INotification) => {
+const Notification = ({ message, type }: INotificationProps) => {
   return (
     <div className={`notification ${type}`}>
       <div className='notification__container'>
