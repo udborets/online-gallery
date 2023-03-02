@@ -4,6 +4,7 @@ import useUser from '../hooks/useUser';
 import { useNavigate } from 'react-router-dom';
 import ModalTemplate from '../components/modals/templates/ModalTemplate';
 import AlbumFormModal from '../components/modals/AlbumFormModal';
+import AlbumItem from '../components/AlbumItem';
 
 const GalleryPage = () => {
   const [isAlbumModalActive, setIsAlbumModalActive] = useState(false);
@@ -14,8 +15,8 @@ const GalleryPage = () => {
       {user.userInfo.albums
         &&
         <>
-          {user.userInfo.albums && user.userInfo.albums.map((album: any) => {
-            return <button key={album.id} onClick={() => navigate(`/users/${album.authorId}/gallery/${album.id}`)}>{album.name}</button>
+          {user.userInfo.albums && user.userInfo.albums.map((album) => {
+            return <AlbumItem {...album} />
           })}
         </>
       }
