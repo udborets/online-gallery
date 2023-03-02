@@ -1,5 +1,5 @@
-import { IUserInfo } from "./IUserInfo";
+import { IUser } from "./dbTypes";
 
 export interface IUserSlice {
-  userInfo: IUserInfo;
+  userInfo: IUser;
 }
