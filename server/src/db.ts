@@ -325,6 +325,10 @@ async function dbCreateUser(
         avatar: userAvatar ?? null,
         role: userRole ?? Role.BASIC,
       },
+      include: {
+        albums: true,
+        photos: true,
+      },
     });
   } catch (e) {
     console.log(e);
@@ -356,5 +360,8 @@ export {
   dbRenamePhotoById,
   dbGetUserByEmail,
   dbRenameUserById,
-  Album, Photo, User
+  Album,
+  Photo,
+  User,
+  Role,
 };
