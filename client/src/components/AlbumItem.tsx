@@ -1,6 +1,6 @@
-import { IAlbum } from "../models/dbTypes";
+import { IdbAlbum } from "../models/dbTypes";
 
-const AlbumItem = (album: IAlbum) => {
+const AlbumItem = (album: IdbAlbum) => {
   return (
     <div className="album">
       <div>
