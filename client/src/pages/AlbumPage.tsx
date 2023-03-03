@@ -3,47 +3,45 @@ import { useQuery } from "react-query/react";
 import { useParams } from "react-router-dom";
 import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
+import useNotification from "../hooks/useNotification";
 import useServer from "../hooks/useServer";
-import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
+import { NotificationTypes } from "../utils/consts";
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
-  const { user } = useUser();
+  const { getAllUsers, getAllPhotosByAlbumId } = useServer();
+
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
+  const { showNotification } = useNotification();
+  const { data: photos, refetch: refetchPhotos, isError: isPhotosError, error: photosError, isLoading: isPhotosLoading } = useQuery({
+    queryFn: async () => {
+      const users = await getAllUsers();
+      if (!users) {
+        showNotification("error happened while trying to get users", NotificationTypes.ERROR);
+        return;
+      }
+      const foundUser = users.find((user) => user.id === user_id);
+      if (!foundUser) {
+        showNotification("there is no such user", NotificationTypes.ERROR);
+        return;
+      }
+      const foundUserAlbum = foundUser.albums.find(album => album.id === album_id);
+      if (!foundUserAlbum) {
+        showNotification("there is no such album", NotificationTypes.ERROR);
+        return;
+      }
+      return await getAllPhotosByAlbumId(foundUserAlbum.id);
+    },
+  })
   if (!album_id || !user_id) {
-    return <div>there is no album_id or user_id parameter in query</div>
+    return <></>
   }
-  const { getUserById, getAllPhotosByAlbumId } = useServer();
-  const {
-    data: photos,
-    isError: isPhotosError,
-    error: photosError,
-    isLoading: isPhotosLoading,
-    refetch: refetchPhotos,
-  } =
-    useQuery({
-      queryFn: async () => {
-        const fetchedUser = await getUserById(user_id);
-        if (!fetchedUser) {
-          return false;
-        }
-        const currentAlbum = fetchedUser.albums.find(album => album.id === album_id);
-        if (currentAlbum) {
-          return await getAllPhotosByAlbumId(currentAlbum.id);
-        }
-        return null;
-      },
-      queryKey: ["currentUser"],
-      refetchInterval: 20000,
-    });
-
-
   if (!photos) {
     return <div>this user does not have album you are trying to get</div>
   }
   if (isPhotosError) {
-    console.error(photosError);
+    showNotification("error happened while trying to photos", NotificationTypes.ERROR);
     return <div>{JSON.stringify(photosError)}</div>
   }
   if (isPhotosLoading) {
@@ -53,9 +51,9 @@ const GalleryIdPage = () => {
   return (
     <div className="album-page">
       <div className="album-page__photos">
-        {photos && photos.map((photo: any) => {
+        {Array.isArray(photos) ? photos.map((photo: any) => {
           return <img src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} key={photo.id} />
-        })}
+        }) : <div></div>}
       </div>
       <button onClick={() => setIsPhotoModalActive(true)}>
         photo
