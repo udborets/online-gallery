@@ -21,9 +21,19 @@ export default function useNotification() {
     setNotificationMessage(message);
     setNotificationType(type);
     setNotificationIsActive(true);
+  }
+
+  function showNotificationWithTimeout(
+    message: string,
+    type: NotificationTypes,
+    timeout: number
+  ) {
+    setNotificationMessage(message);
+    setNotificationType(type);
+    setNotificationIsActive(true);
     setTimeout(() => {
       setNotificationIsActive(false);
-    }, 7000);
+    }, timeout);
   }
 
   return {
@@ -32,5 +42,6 @@ export default function useNotification() {
     showNotification,
     setNotificationMessage,
     setNotificationType,
+    showNotificationWithTimeout,
   };
 }
