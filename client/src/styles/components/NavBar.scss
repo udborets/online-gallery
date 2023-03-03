@@ -79,15 +79,17 @@
     justify-content: center;
     align-items: center;
   }
+
+  &.visible {
+    transform: translateY(34%);
+  }
+  
+  &.hidden {
+    transform: translateY(-70%);
+  }
 }
 
-.visible {
-  transform: translateY(34%);
-}
 
-.hidden {
-  transform: translateY(-70%);
-}
 
 .nav-profile__option {
   font-size: 1.3rem;
