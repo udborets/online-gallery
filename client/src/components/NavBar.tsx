@@ -1,18 +1,19 @@
 import { NavLink, useNavigate } from "react-router-dom"
-import { RoutePaths } from "../utils/consts"
+import { NotificationTypes, RoutePaths } from "../utils/consts"
 import "../styles/components/NavBar.scss";
 import useUser from './../hooks/useUser';
 import useLogin from './../hooks/useLogin';
 import GoogleButton from "react-google-button";
 import { useState } from "react";
 import DropDownItem from "./UI/DropDownItem";
+import useNotification from './../hooks/useNotification';
 
 const NavBar = () => {
   const { userSignIn, userSignOut } = useLogin();
   const { user } = useUser();
   const navigate = useNavigate();
   const [isShowingUserMenu, setIsShowingUserMenu] = useState(false);
-
+  const { showNotification } = useNotification();
   const dropDownOptions = [
     {
       key: Date.now() * Math.random(),
@@ -42,8 +43,14 @@ const NavBar = () => {
           className="nav-bar__title">
           My Gallery
         </NavLink>
-        <button onClick={() => console.log(user)}>
-          log user state
+        <button onClick={() => showNotification("Warning message", NotificationTypes.WARNING)}>
+          warn
+        </button>
+        <button onClick={() => showNotification("Error message", NotificationTypes.ERROR)}>
+          error
+        </button>
+        <button onClick={() => showNotification("Success message", NotificationTypes.SUCCESS)}>
+          success
         </button>
         <nav className="nav-links">
           {
