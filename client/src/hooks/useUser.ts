@@ -14,7 +14,6 @@ export default function useUser() {
   }
 
   function updateUser(userInfo: IdbUser) {
-    console.log(userInfo);
     dispatch(userActions.updateUserState({ userInfo }));
   }
 
