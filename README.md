@@ -14,11 +14,11 @@
 
 ## Backend
 
-`NodeJS`, `Typescript`, `ExpressJS`, `Prisma`, `tRPC`
+`NodeJS`, `TypeScript`, `ExpressJS`, `Prisma`, `tRPC`
 
 ## Frontend
 
-`Typescript`, `React`, `React Routed DOM`, `React Redux`, `RTK`, `React Query`, `Axios`, `Scss`, `Google Firebase`
+`TypeScript`, `React`, `React Routed DOM`, `React Redux`, `RTK`, `React Query`, `Axios`, `SCSS`, `Google Firebase`
 
 # TODO
 
