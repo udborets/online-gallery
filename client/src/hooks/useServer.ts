@@ -44,6 +44,10 @@ export default function useServer() {
     });
   }
 
+  async function getAlbumById(albumId: string) {
+    return await client.getAlbumById.query({ albumId });
+  }
+
   return {
     getUserById,
     createUser,
@@ -51,6 +55,7 @@ export default function useServer() {
     getUserByEmail,
     getAllUsers,
     createAlbum,
-    getAllPhotosByAlbumId
+    getAllPhotosByAlbumId,
+    getAlbumById,
   };
 }

@@ -11,7 +11,7 @@ const PageRouter = () => {
       ))
       }
       {
-        user.userInfo.id
+        user.id
         &&
         authRoutes.map(({ path, Component }) => (
           <Route key={Date.now() * Math.random()} path={path} element={<Component />} />

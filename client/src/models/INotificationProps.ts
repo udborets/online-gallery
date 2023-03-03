@@ -1,6 +1,6 @@
 import { NotificationTypes } from "../utils/consts";
 
-export interface INotification {
+export interface INotificationProps {
   message: string;
   type: NotificationTypes;
 }

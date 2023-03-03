@@ -1,4 +1,4 @@
-import { PrismaClient, Role } from "@prisma/client";
+import { PrismaClient, Role, Album, Photo, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function dbDeleteAllUsers() {
@@ -325,6 +325,10 @@ async function dbCreateUser(
         avatar: userAvatar ?? null,
         role: userRole ?? Role.BASIC,
       },
+      include: {
+        albums: true,
+        photos: true,
+      },
     });
   } catch (e) {
     console.log(e);
@@ -356,4 +360,8 @@ export {
   dbRenamePhotoById,
   dbGetUserByEmail,
   dbRenameUserById,
+  Album,
+  Photo,
+  User,
+  Role,
 };
