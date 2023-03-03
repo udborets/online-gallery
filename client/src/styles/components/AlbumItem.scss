@@ -1,11 +1,19 @@
 .album {
   outline: 2px solid black;
   padding: 20px 30px;
-  height: 300px;
-  width: 30%;
+  width: 31%;
+  height: 700px;
+  display: flex;
 }
 
+.album__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+}
 .album__cover {
-  width: 150px;
-  height: 200px;
+  width: 100%;
+  height: auto
 }
