@@ -1,3 +1,4 @@
+import { NotificationTypes } from "../utils/consts";
 import { IdbUser } from "./dbTypes";
 
 export interface IStore {
@@ -6,6 +7,7 @@ export interface IStore {
   };
   notification: {
     isActive: boolean;
-    setIsActive: (isActive: boolean) => any;
+    type: NotificationTypes;
+    message: string;
   };
 }
