@@ -22,11 +22,11 @@
 
 # TODO
 
-- `add notification component`
+- `rework gallery page albums display`
 
-- `fix gallery page albums display`
+- `rework album page photos display`
 
-- `fix album page photos display`
+- `sort imports`
 
 - `and much more :)`
 
