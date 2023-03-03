@@ -28,11 +28,11 @@ const AlbumFormModal = () => {
       await fetchUser(user.id);
       setAlbumName("");
       setAlbumDescription("");
-      showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 4000);
+      showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 6000);
       return;
     }
     if (!albumName) {
-      showNotificationWithTimeout("You have to enter album name", NotificationTypes.WARNING, 4000);
+      showNotificationWithTimeout("You have to enter album name", NotificationTypes.WARNING, 6000);
     }
   }
 
