@@ -6,8 +6,8 @@
   right: 200px;
   padding: 10px 10px;
   outline: 2px solid black; 
-  transition: transform 0.7s ease-out, filter 0.3s ease-out;
-  transform: translateY(0%);
+  transition: transform 0.7s ease-out, filter 0.5s ease-out;
+  transform: translateX(50%);
   border-radius: 10px;
   filter: brightness(0.85);
   
@@ -16,11 +16,11 @@
   }
 
   &.hidden {
-    transform: translateY(-200%);
+    transform: translateX(250%);
   }
 
   &.active {
-    transform: translateY(0%);
+    transform: translateX(50%);
   }
 
   &.success {
