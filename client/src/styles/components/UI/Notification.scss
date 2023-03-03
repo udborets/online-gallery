@@ -1,14 +1,19 @@
 .notification {
-  position: absolute;
+  position: fixed;
   z-index: 10000;
   background: white;
   top: 40px;
-  right: 40px;
+  right: 200px;
   padding: 10px 10px;
-  outline: 2px solid black;
-  transition: transform 0.5s ease-out;
+  outline: 2px solid black; 
+  transition: transform 0.7s ease-out, filter 0.3s ease-out;
   transform: translateY(0%);
   border-radius: 10px;
+  filter: brightness(0.85);
+  
+  &:hover {
+    filter: brightness(1);
+  }
 
   &.hidden {
     transform: translateY(-200%);
