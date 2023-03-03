@@ -22,9 +22,9 @@
 
 # TODO
 
-- `rework gallery page albums display`
+- `update gallery page albums display`
 
-- `rework album page photos display`
+- `update album page photos display`
 
 - `sort imports`
 
