@@ -39,13 +39,8 @@ export default function useLogin() {
           try {
             const isDbHasUser = await getUserByEmail(currentUser.email);
             if (isDbHasUser) {
-<<<<<<< HEAD
-              updateUser(isDbHasUser);
-=======
               const fetchedDbUser = isDbHasUser as unknown as IdbUser;
               updateUser(fetchedDbUser);
-              console.log(fetchedDbUser);
->>>>>>> 068c21ccb499046d21d3cc122fcfc2a22f323a64
               return;
             }
             if (!isDbHasUser) {
@@ -54,10 +49,6 @@ export default function useLogin() {
                 currentUser.displayName ?? "unknown"
               )) as unknown as IdbUser;
               updateUser(newUser);
-<<<<<<< HEAD
-              window.location.reload();
-=======
->>>>>>> 068c21ccb499046d21d3cc122fcfc2a22f323a64
               return;
             }
           } catch (err) {
