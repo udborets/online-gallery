@@ -1,7 +1,9 @@
 import { useState } from "react";
+import useNotification from "../../hooks/useNotification";
 import useServer from "../../hooks/useServer";
 import useUser from "../../hooks/useUser";
 import "../../styles/components/modals/PhotoFormModal.scss";
+import { NotificationTypes } from "../../utils/consts";
 
 const AlbumFormModal = () => {
   const { createAlbum } = useServer();
@@ -9,13 +11,12 @@ const AlbumFormModal = () => {
   const [albumDescription, setAlbumDescription] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
   const { user, fetchUser } = useUser();
+  const { showNotificationWithTimeout, showNotification } = useNotification();
 
   async function createUserAlbum() {
     if (!user.id) {
-      setTimeout(() => {
-      }, 3000);
-      console.log(1212)
-      return
+      showNotification("There is no album", NotificationTypes.ERROR);
+      return;
     }
     if (albumName) {
       await createAlbum(
@@ -27,12 +28,12 @@ const AlbumFormModal = () => {
       await fetchUser(user.id);
       setAlbumName("");
       setAlbumDescription("");
-      setTimeout(() => {
-      }, 3000);
+      showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 4000);
       return;
     }
-    setTimeout(() => {
-    }, 5000);
+    if (!albumName) {
+      showNotificationWithTimeout("You have to enter album name", NotificationTypes.WARNING, 4000);
+    }
   }
 
   return (

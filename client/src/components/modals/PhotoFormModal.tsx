@@ -1,42 +1,34 @@
 import axios from 'axios';
 import { useState } from 'react';
+import useNotification from '../../hooks/useNotification';
 import useUser from '../../hooks/useUser';
 import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
+import { NotificationTypes } from '../../utils/consts';
 
 const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
   const [customName, setCustomName] = useState('');
   const [photoDescription, setPhotoDescription] = useState('');
-
+  const { showNotification, showNotificationWithTimeout } = useNotification();
   async function uploadFile(e: any) {
     e.preventDefault();
     const formData = new FormData();
     if (!file) {
-      console.log("no file");
-      setTimeout(() => {
-      }, 5000);
+      showNotificationWithTimeout("You have to enter photo file", NotificationTypes.WARNING, 4000);
       return
     }
     if (!customName) {
-      console.log("no custom name");
-      setTimeout(() => {
-      }, 5000);
+      showNotificationWithTimeout("You have to enter photo name", NotificationTypes.WARNING, 4000);
       return;
     }
     if (!user?.id) {
-      console.log("no user info id");
-      setTimeout(() => {
-      }, 5000);
+      showNotification("Error while trying to read user id", NotificationTypes.ERROR);
       return
     }
     if (!albumId) {
-      console.log("no album id");
-      setCustomName('no album id')
-      setTimeout(() => {
-        setCustomName('')
-      }, 5000);
+      showNotification("Error while trying to read album id", NotificationTypes.ERROR);
       return
     }
     formData.append("userFile", file);
@@ -53,10 +45,10 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       }, 5000);
       await fetchUser(user.id);
       refetchPhotos();
-      console.log("refetched photos!");
+      showNotificationWithTimeout("Successfully uploaded a photo", NotificationTypes.SUCCESS, 4000);
     }
     else {
-      console.error("error happened white fetching axios request:", response);
+      showNotification("Error while trying to read album id", NotificationTypes.ERROR);
     }
   }
   return (
