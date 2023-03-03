@@ -1,0 +1,59 @@
+.notification {
+  position: absolute;
+  z-index: 10000;
+  background: white;
+  top: 40px;
+  right: 40px;
+  padding: 10px 10px;
+  outline: 2px solid black;
+  transition: transform 0.5s ease-out;
+  transform: translateY(0%);
+  border-radius: 10px;
+
+  &.hidden {
+    transform: translateY(-200%);
+  }
+
+  &.active {
+    transform: translateY(0%);
+  }
+
+  &.success {
+    background: rgb(53, 255, 53);
+  }
+
+  &.error {
+    background: red;
+  }
+
+  &.warning {
+    background: yellow;
+  }
+}
+
+.notification__container {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-weight: 700;
+
+  &.success {
+    color: black;
+  }
+
+  &.error {
+    color: white;
+  }
+
+  &.warning {
+    color: black;
+  }
+}
+
+.notification__close {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  user-select: none;
+}
