@@ -1,5 +1,7 @@
 # Online Gallery
 
+A full-stack "Online Gallery" website app which allows you to create albums and upload your own photos to them.
+
 # Stack
 
 ## Backend
