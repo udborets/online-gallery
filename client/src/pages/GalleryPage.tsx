@@ -10,7 +10,7 @@ const GalleryPage = () => {
   const { user } = useUser();
   return (
     <div className='gallery-page'>
-      <div className="gallery-page__containter">
+      <div className="gallery-page__container">
         <div className="gallery-page__albums">
           {user.albums
             &&
