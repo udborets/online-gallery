@@ -43,15 +43,6 @@ const NavBar = () => {
           className="nav-bar__title">
           My Gallery
         </NavLink>
-        <button onClick={() => showNotification("Warning message", NotificationTypes.WARNING)}>
-          warn
-        </button>
-        <button onClick={() => showNotification("Error message", NotificationTypes.ERROR)}>
-          error
-        </button>
-        <button onClick={() => showNotification("Success message", NotificationTypes.SUCCESS)}>
-          success
-        </button>
         <nav className="nav-links">
           {
             user?.id
