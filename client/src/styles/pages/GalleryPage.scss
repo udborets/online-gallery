@@ -4,4 +4,11 @@
   align-items: center;
   flex-grow: 1;
   flex-direction: column;
+  padding: 20px;
+}
+
+.gallery-page__albums {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
 }
