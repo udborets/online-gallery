@@ -6,6 +6,7 @@ import {
   dbGetUserByEmail,
   dbUpdateUserAvatar,
   dbUpdateUserName,
+  dbGetAllUsers,
 } from "../db";
 
 export default trpc.router({
@@ -14,6 +15,9 @@ export default trpc.router({
     .query(async ({ input }) => {
       return await dbGetUserByEmail(input.userEmail);
     }),
+  getAllUsers: trpc.procedure.query(async () => {
+    return await dbGetAllUsers();
+  }),
 
   createUser: trpc.procedure
     .input(

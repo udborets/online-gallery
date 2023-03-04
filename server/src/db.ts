@@ -16,8 +16,12 @@ async function dbCreateUser(
   });
 }
 
+async function dbGetAllUsers() {
+  return prisma.user.findMany();
+}
+
 async function dbDeleteUserByEmail(userEmail: string) {
-  prisma.user.delete({
+  return prisma.user.delete({
     where: {
       email: userEmail,
     },
@@ -25,7 +29,7 @@ async function dbDeleteUserByEmail(userEmail: string) {
 }
 
 async function dbUpdateUserName(userEmail: string, newName: string) {
-  prisma.user.update({
+  return prisma.user.update({
     where: {
       email: userEmail,
     },
@@ -36,7 +40,7 @@ async function dbUpdateUserName(userEmail: string, newName: string) {
 }
 
 async function dbUpdateUserAvatar(userEmail: string, newAvatarURL: string) {
-  prisma.user.update({
+  return prisma.user.update({
     where: {
       email: userEmail,
     },
@@ -60,4 +64,5 @@ export {
   dbGetUserByEmail,
   dbUpdateUserAvatar,
   dbUpdateUserName,
+  dbGetAllUsers,
 };
