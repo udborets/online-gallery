@@ -2,22 +2,23 @@ import {
   getAuth,
   getRedirectResult,
   signInWithRedirect,
-  signOut
+  signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import provider from "../firebase/provider";
 import { IdbUser } from "../models/dbTypes";
-import { RoutePaths } from "../utils/consts";
-import useServer from "./useServer";
+import { NotificationTypes, RoutePaths } from "../utils/consts";
 import useUser from "./useUser";
+import { createUser, getUser } from "../query";
+import useNotification from "./useNotification";
 
 export default function useLogin() {
   const auth = getAuth();
-  const { getUserByEmail, createUser } = useServer();
   const { updateUser } = useUser();
   const { deleteUser } = useUser();
   const navigate = useNavigate();
+  const { showNotification, showNotificationWithTimeout } = useNotification();
   async function userSignIn() {
     signInWithRedirect(auth, provider);
   }
@@ -32,33 +33,39 @@ export default function useLogin() {
     getRedirectResult(auth)
       .then(async () => {
         const currentUser = auth.currentUser;
-        if (!currentUser) {
-          console.error("no current user");
-          return;
-        }
-        if (currentUser.email) {
+        if (currentUser && currentUser.email)
           try {
-            const isDbHasUser = await getUserByEmail(currentUser.email);
+            const isDbHasUser = await getUser(currentUser.email);
             if (isDbHasUser) {
               const fetchedDbUser = isDbHasUser as unknown as IdbUser;
               updateUser(fetchedDbUser);
               return;
             }
             if (!isDbHasUser) {
-              const newUser = (await createUser(
+              const newUser = await createUser(
                 currentUser.email,
-                currentUser.displayName ?? "unknown"
-              )) as unknown as IdbUser;
-              updateUser(newUser);
+                currentUser.displayName ?? "unknown",
+                currentUser.photoURL ?? ""
+              );
+              // updateUser(newUser);
+              showNotificationWithTimeout(
+                "Successfully signed in",
+                NotificationTypes.SUCCESS,
+                5000
+              );
               return;
             }
           } catch (err) {
+            showNotification(
+              "Error happened while trying to get data from server",
+              NotificationTypes.ERROR
+            );
             console.error(
               "Error happened while trying to get data from server:",
               err
             );
+            return;
           }
-        }
       })
       .catch((error) => {
         console.log(error);
