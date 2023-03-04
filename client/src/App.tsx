@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { withErrorBoundary } from "react-error-boundary";
 
 import ErrorFallback from './components/ErrorFallback';
+import Footer from './components/Footer';
 import NavBar from './components/NavBar';
 import Notification from './components/UI/Notification';
 import useLogin from './hooks/useLogin';
@@ -24,6 +25,7 @@ function App() {
       />
       <NavBar />
       <PageRouter />
+      <Footer />
     </>
   )
 }
