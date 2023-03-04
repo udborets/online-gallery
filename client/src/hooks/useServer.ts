@@ -20,16 +20,14 @@ export default function useServer() {
     return await client.getAllPhotosByAlbumId.query({ albumId: albumId });
   }
 
-  async function deleteAllUsers() {
-    await client.deleteAll.query();
+  async function getPhotoById(photoId: string) {
+    return await client.getPhotoById.query({ photoId: photoId });
   }
 
   async function getAllUsers() {
     return await client.getAllUsers.query();
   }
-  // async function addPhotoToUserAlbum() {
-  //   return await client
-  // }
+
   async function createAlbum(
     userId: string,
     albumName: string,
@@ -51,11 +49,11 @@ export default function useServer() {
   return {
     getUserById,
     createUser,
-    deleteAllUsers,
     getUserByEmail,
     getAllUsers,
     createAlbum,
     getAllPhotosByAlbumId,
     getAlbumById,
+    getPhotoById,
   };
 }

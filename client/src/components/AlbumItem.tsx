@@ -12,11 +12,15 @@ const AlbumItem = (album: IdbAlbum) => {
   const navigate = useNavigate();
   const { getAllPhotosByAlbumId } = useServer();
   const { showNotification } = useNotification();
+  if (!album) {
+    showNotification(`error happened while fetching album`, NotificationTypes.ERROR);
+    return <div>Error</div>;
+  }
   const { data: albumCoverFile } = useQuery({
     queryFn: async () => {
       const albumPhotos = await getAllPhotosByAlbumId(album.id);
       if (!albumPhotos) {
-        showNotification(`error happened while fetching ${album.name} album`, NotificationTypes.ERROR);
+        showNotification("Can't get album photos", NotificationTypes.ERROR);
         return null;
       }
       if (albumPhotos[0]) {
@@ -27,7 +31,7 @@ const AlbumItem = (album: IdbAlbum) => {
     onError: () => {
       showNotification("Can't load image", NotificationTypes.ERROR)
     },
-    queryKey: [`album${album.id}`],
+    queryKey: [`album${album?.id}`],
     refetchInterval: 99999,
     enabled: true,
   })
@@ -43,7 +47,10 @@ const AlbumItem = (album: IdbAlbum) => {
             alt="cant load image"
           />
         }
-        {album.name}
+        <span>
+          {album.name}
+        </span>
+
       </div>
     </div>
   )

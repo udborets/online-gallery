@@ -14,19 +14,19 @@
 
 ## Backend
 
-`NodeJS`, `Typescript`, `ExpressJS`, `Prisma`, `tRPC`
+`NodeJS`, `TypeScript`, `ExpressJS`, `Prisma`, `tRPC`
 
 ## Frontend
 
-`Typescript`, `React`, `React Routed DOM`, `React Redux`, `RTK`, `React Query`, `Axios`, `Scss`, `Google Firebase`
+`TypeScript`, `React`, `React Routed DOM`, `React Redux`, `RTK`, `React Query`, `Axios`, `SCSS`, `Google Firebase`
 
 # TODO
 
-- `add notification component`
+- `update gallery page albums display`
 
-- `fix gallery page albums display`
+- `update album page photos display`
 
-- `fix album page photos display`
+- `sort imports`
 
 - `and much more :)`
 

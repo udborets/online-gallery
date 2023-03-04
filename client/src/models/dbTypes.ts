@@ -1,4 +1,14 @@
-import { Album, Photo, Role } from "../../../server/src/db";
+import useServer from "./../hooks/useServer";
+
+const { getAlbumById, getPhotoById } = useServer();
+
+type Role = {
+  BASIC: "BASIC";
+  ADMIN: "ADMIN";
+};
+
+export type IdbPhoto = Awaited<ReturnType<typeof getPhotoById>>;
+export type IdbAlbum = Awaited<ReturnType<typeof getAlbumById>>;
 
 export type IdbUser = {
   id: string;
@@ -8,8 +18,6 @@ export type IdbUser = {
   role: Role;
   createdAt: Date;
   updatedAt: Date;
-  photos: Photo[];
-  albums: Album[];
+  photos: IdbPhoto[];
+  albums: IdbAlbum[];
 };
-export type IdbPhoto = Photo;
-export type IdbAlbum = Album;

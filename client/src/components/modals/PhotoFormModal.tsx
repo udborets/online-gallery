@@ -16,11 +16,11 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
     e.preventDefault();
     const formData = new FormData();
     if (!file) {
-      showNotificationWithTimeout("You have to enter photo file", NotificationTypes.WARNING, 4000);
+      showNotificationWithTimeout("You have to enter photo file", NotificationTypes.WARNING, 6000);
       return
     }
     if (!customName) {
-      showNotificationWithTimeout("You have to enter photo name", NotificationTypes.WARNING, 4000);
+      showNotificationWithTimeout("You have to enter photo name", NotificationTypes.WARNING, 6000);
       return;
     }
     if (!user?.id) {
@@ -45,7 +45,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       }, 5000);
       await fetchUser(user.id);
       refetchPhotos();
-      showNotificationWithTimeout("Successfully uploaded a photo", NotificationTypes.SUCCESS, 4000);
+      showNotificationWithTimeout("Successfully uploaded a photo", NotificationTypes.SUCCESS, 6000);
     }
     else {
       showNotification("Error while trying to read album id", NotificationTypes.ERROR);

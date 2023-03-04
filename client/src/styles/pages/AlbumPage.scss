@@ -1,8 +1,40 @@
-.album-page__photos {
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  width: 100%;
-}
 .album-page {
+  display: flex;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.album-page__container {
+  flex-grow: 1;
+  flex-direction: column;
+  display: flex;
+}
+
+.album-page__photos {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
+  gap: 30px;
+}
+
+.photo-item {
+  padding: 20px;
+  outline: 2px solid black;
+}
+
+.photo-item__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 380px;
+  height: 100%;
+}
+
+.photo-item__image {
+  width: 100%;
+  height: auto;
+}
+
+.photo-item__name {
+  font-size: 2rem;
 }
