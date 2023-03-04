@@ -11,7 +11,6 @@ import { NotificationTypes } from "../utils/consts";
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
   const { getAllUsers, getAllPhotosByAlbumId } = useServer();
-
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
   const { data: photos,
@@ -37,7 +36,6 @@ const GalleryIdPage = () => {
         }
         return await getAllPhotosByAlbumId(foundUserAlbum.id);
       },
-      queryKey: [`photos${album_id}`]
     })
   if (!album_id || !user_id) {
     return <>werfr</>
@@ -55,14 +53,25 @@ const GalleryIdPage = () => {
 
   return (
     <div className="album-page">
-      <div className="album-page__photos">
-        {Array.isArray(photos) ? photos.map((photo: any) => {
-          return <img src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} key={photo.id} />
-        }) : <div></div>}
+      <div className="album-page__container">
+        <div className="album-page__photos">
+          {Array.isArray(photos) && photos.map((photo: any) => {
+            return (
+              <div className="photo-item" key={photo.id} >
+                <div className="photo-item__container">
+                  <img
+                    className="photo-item__image"
+                    src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} />
+                  <span className="photo-item__name">{photo.name}</span>
+                </div>
+              </div>
+            )
+          })}
+          <button onClick={() => setIsPhotoModalActive(true)}>
+            Add photo
+          </button>
+        </div>
       </div>
-      <button onClick={() => setIsPhotoModalActive(true)}>
-        photo
-      </button>
       <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
         <PhotoFormModal albumId={album_id} refetchPhotos={refetchPhotos} />
       </ModalTemplate>
