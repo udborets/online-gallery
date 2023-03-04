@@ -14,38 +14,43 @@ const GalleryIdPage = () => {
 
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
-  const { data: photos, refetch: refetchPhotos, isError: isPhotosError, error: photosError, isLoading: isPhotosLoading } = useQuery({
-    queryFn: async () => {
-      const users = await getAllUsers();
-      if (!users) {
-        showNotification("error happened while trying to get users", NotificationTypes.ERROR);
-        return;
-      }
-      const foundUser = users.find((user) => user.id === user_id);
-      if (!foundUser) {
-        showNotification("there is no such user", NotificationTypes.ERROR);
-        return;
-      }
-      const foundUserAlbum = foundUser.albums.find(album => album.id === album_id);
-      if (!foundUserAlbum) {
-        showNotification("there is no such album", NotificationTypes.ERROR);
-        return;
-      }
-      return await getAllPhotosByAlbumId(foundUserAlbum.id);
-    },
-  })
+  const { data: photos,
+    refetch: refetchPhotos,
+    isError: isPhotosError,
+    error: photosError,
+    isLoading: isPhotosLoading } = useQuery({
+      queryFn: async () => {
+        const users = await getAllUsers();
+        if (!users) {
+          showNotification("error happened while trying to get users", NotificationTypes.ERROR);
+          return;
+        }
+        const foundUser = users.find((user) => user.id === user_id);
+        if (!foundUser) {
+          showNotification("there is no such user", NotificationTypes.ERROR);
+          return;
+        }
+        const foundUserAlbum = foundUser.albums.find(album => album.id === album_id);
+        if (!foundUserAlbum) {
+          showNotification("there is no such album", NotificationTypes.ERROR);
+          return;
+        }
+        return await getAllPhotosByAlbumId(foundUserAlbum.id);
+      },
+      queryKey: [`photos${album_id}`]
+    })
   if (!album_id || !user_id) {
-    return <></>
+    return <>werfr</>
+  }
+  if (isPhotosLoading) {
+    return <div>Photos loading...</div>
   }
   if (!photos) {
-    return <div>this user does not have album you are trying to get</div>
+    return <div>This album has no photos</div>
   }
   if (isPhotosError) {
     showNotification("error happened while trying to photos", NotificationTypes.ERROR);
     return <div>{JSON.stringify(photosError)}</div>
-  }
-  if (isPhotosLoading) {
-    return <div>Photos loading...</div>
   }
 
   return (
