@@ -1,12 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom"
-import { NotificationTypes, RoutePaths } from "../utils/consts"
-import "../styles/components/NavBar.scss";
-import useUser from './../hooks/useUser';
-import useLogin from './../hooks/useLogin';
-import GoogleButton from "react-google-button";
 import { useState } from "react";
-import DropDownItem from "./UI/DropDownItem";
+import GoogleButton from "react-google-button";
+import { NavLink, useNavigate } from "react-router-dom";
+
+import "../styles/components/NavBar.scss";
+import { RoutePaths } from "../utils/consts";
+import useLogin from './../hooks/useLogin';
 import useNotification from './../hooks/useNotification';
+import useUser from './../hooks/useUser';
+import DropDownItem from "./UI/DropDownItem";
 
 const NavBar = () => {
   const { userSignIn, userSignOut } = useLogin();

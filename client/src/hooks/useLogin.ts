@@ -2,14 +2,15 @@ import {
   getAuth,
   getRedirectResult,
   signInWithRedirect,
-  signOut,
+  signOut
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+import provider from "../firebase/provider";
+import { IdbUser } from "../models/dbTypes";
+import { RoutePaths } from "../utils/consts";
 import useServer from "./useServer";
 import useUser from "./useUser";
-import provider from "../firebase/provider";
-import { useNavigate } from "react-router-dom";
-import { RoutePaths } from "../utils/consts";
-import { IdbUser } from "../models/dbTypes";
 
 export default function useLogin() {
   const auth = getAuth();

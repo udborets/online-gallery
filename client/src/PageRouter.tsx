@@ -1,7 +1,8 @@
-import { Routes, Route } from 'react-router-dom'
-import useUser from './hooks/useUser'
-import { publicRoutes, authRoutes } from './utils/pageRoutes'
+import { Route, Routes } from 'react-router-dom';
+
+import useUser from './hooks/useUser';
 import NotFoundPage from './pages/NotFoundPage';
+import { authRoutes, publicRoutes } from './utils/pageRoutes';
 
 const PageRouter = () => {
   const { user } = useUser();

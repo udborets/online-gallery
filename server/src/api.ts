@@ -1,13 +1,14 @@
-import express from "express";
-import cors from "cors";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
+import cors from "cors";
 import { config } from "dotenv";
-import appRouter from "./routers/index";
+import express from "express";
 import fileUpload from "express-fileupload";
-import path from "path";
 import moment from "moment";
-import IFileRequest from "./models/IFileRequest";
+import path from "path";
+
 import { dbAddPhotoToAlbum } from "./db";
+import IFileRequest from "./models/IFileRequest";
+import appRouter from "./routers/index";
 
 config();
 const PORT = process.env.SERVER_PORT ?? 3000;

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import "../styles/pages/GalleryPage.scss";
-import useUser from '../hooks/useUser';
-import ModalTemplate from '../components/modals/templates/ModalTemplate';
-import AlbumFormModal from '../components/modals/AlbumFormModal';
+
 import AlbumItem from '../components/AlbumItem';
+import AlbumFormModal from '../components/modals/AlbumFormModal';
+import ModalTemplate from '../components/modals/templates/ModalTemplate';
 import useNotification from '../hooks/useNotification';
+import useUser from '../hooks/useUser';
+import "../styles/pages/GalleryPage.scss";
 import { NotificationTypes } from '../utils/consts';
 
 const GalleryPage = () => {

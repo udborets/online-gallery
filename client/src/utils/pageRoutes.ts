@@ -1,10 +1,10 @@
-import { RoutePaths } from "./consts";
+import AlbumPage from "../pages/AlbumPage";
+import GalleryPage from "./../pages/GalleryPage";
 import HomePage from "./../pages/HomePage";
 import MePage from "./../pages/MePage";
-import UsersPage from "./../pages/UsersPage";
 import NotFoundPage from "./../pages/NotFoundPage";
-import GalleryPage from "./../pages/GalleryPage";
-import AlbumPage from "../pages/AlbumPage";
+import UsersPage from "./../pages/UsersPage";
+import { RoutePaths } from "./consts";
 
 export const authRoutes = [
   {

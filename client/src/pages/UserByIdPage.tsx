@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import useServer from '../hooks/useServer';
 import { RoutePaths } from '../utils/consts';
 

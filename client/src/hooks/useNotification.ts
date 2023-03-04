@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
-import { IStore } from "./../models/IStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { notificationActions } from "../store/slices/notificationSlice";
 import { NotificationTypes } from "../utils/consts";
+import { IStore } from "./../models/IStore";
 
 export default function useNotification() {
   const notification = useSelector((store: IStore) => store.notification);

@@ -1,11 +1,12 @@
-import { IdbAlbum } from "../models/dbTypes";
-import { useNavigate } from 'react-router-dom';
-import { NotificationTypes, RoutePaths } from "../utils/consts";
-import useUser from "../hooks/useUser";
-import useServer from "../hooks/useServer";
 import { useQuery } from 'react-query/react';
+import { useNavigate } from 'react-router-dom';
+
 import useNotification from "../hooks/useNotification";
+import useServer from "../hooks/useServer";
+import useUser from "../hooks/useUser";
+import { IdbAlbum } from "../models/dbTypes";
 import "../styles/components/AlbumItem.scss";
+import { NotificationTypes, RoutePaths } from "../utils/consts";
 
 const AlbumItem = (album: IdbAlbum) => {
   const { user } = useUser();

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { NotificationTypes } from "../../utils/consts";
 
 const initialState = {

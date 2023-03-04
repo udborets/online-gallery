@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
-import NavBar from './components/NavBar'
-import useLogin from './hooks/useLogin';
-import PageRouter from './PageRouter';
-import Notification from './components/UI/Notification';
-import useNotification from './hooks/useNotification';
 import { withErrorBoundary } from "react-error-boundary";
+
 import ErrorFallback from './components/ErrorFallback';
+import NavBar from './components/NavBar';
+import Notification from './components/UI/Notification';
+import useLogin from './hooks/useLogin';
+import useNotification from './hooks/useNotification';
+import PageRouter from './PageRouter';
 
 function App() {
   const { checkAndLogin } = useLogin();
