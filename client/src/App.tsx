@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { withErrorBoundary } from "react-error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
 
 import ErrorFallback from './components/ErrorFallback';
 import Footer from './components/Footer';
@@ -9,7 +9,7 @@ import useLogin from './hooks/useLogin';
 import useNotification from './hooks/useNotification';
 import PageRouter from './PageRouter';
 
-function App() {
+export default function App() {
   const { checkAndLogin } = useLogin();
   const { notification, setNotificationIsActive, } = useNotification();
   useEffect(() => {
@@ -23,13 +23,11 @@ function App() {
         setIsActive={setNotificationIsActive}
         isActive={notification.isActive}
       />
-      <NavBar />
-      <PageRouter />
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <NavBar />
+        <PageRouter />
+      </ErrorBoundary>
       <Footer />
     </>
   )
 }
-
-export default withErrorBoundary(App, {
-  FallbackComponent: ErrorFallback,
-})
