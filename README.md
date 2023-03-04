@@ -28,6 +28,8 @@
 
 - `sort imports`
 
+- `fix "reading id" error when user is signing in for the first time`
+
 - `and much more :)`
 
 # Feedback
