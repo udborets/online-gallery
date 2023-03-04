@@ -22,11 +22,9 @@
 
 # TODO
 
-- `update gallery page albums display`
+- `update gallery page albums styling`
 
-- `update album page photos display`
-
-- `sort imports`
+- `update album page photos styling`
 
 - `fix "reading id" error when user is signing in for the first time`
 
