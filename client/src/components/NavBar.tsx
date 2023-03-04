@@ -5,7 +5,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/components/NavBar.scss";
 import { RoutePaths } from "../utils/consts";
 import useLogin from './../hooks/useLogin';
-import useNotification from './../hooks/useNotification';
 import useUser from './../hooks/useUser';
 import DropDownItem from "./UI/DropDownItem";
 
@@ -14,7 +13,6 @@ const NavBar = () => {
   const { user } = useUser();
   const navigate = useNavigate();
   const [isShowingUserMenu, setIsShowingUserMenu] = useState(false);
-  const { showNotification } = useNotification();
   const dropDownOptions = [
     {
       key: Date.now() * Math.random(),
