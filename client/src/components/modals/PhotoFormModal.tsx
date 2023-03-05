@@ -9,12 +9,19 @@ import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from '../../utils/consts';
 import { getAuth } from 'firebase/auth';
+import useFirebase from '../../hooks/useFirebase';
 
 const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const [file, setFile] = useState<any>(null);
   const [customFileName, setCustomFileName] = useState('');
   const [photoDescription, setPhotoDescription] = useState('');
   const { showNotification, showNotificationWithTimeout } = useNotification();
+  const { createNewFileRef } = useFirebase();
+  const user = getAuth().currentUser;
+  if (!user || !user.email) {
+    return <div></div>
+  }
+  const user_email = user.email;
   async function uploadFile() {
     if (!file) {
       showNotificationWithTimeout("You have to choose a file photo name", NotificationTypes.WARNING, 5000);
@@ -25,11 +32,9 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
     }
     const user = getAuth().currentUser;
     if (user && user.email) {
-      const userFolderName = user.email;
-      const alumbFolderName = albumId;
-      const imageRef = ref(storage, `${userFolderName}/${alumbFolderName}/${customFileName + "uuidv4-" + uuidv4()}`);
+      const imageRef = createNewFileRef(user_email, albumId, customFileName);
       const response = await uploadBytes(imageRef, file);
-      return;
+      return response;
     }
     if (!user || (user && !user.email)) {
       showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
