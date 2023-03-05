@@ -4,41 +4,33 @@ import { useParams } from "react-router-dom";
 
 import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
+import useFirebase from "../hooks/useFirebase";
 import useNotification from "../hooks/useNotification";
-import useServer from "../hooks/useServer";
+import { } from "../query";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes } from "../utils/consts";
 
 const GalleryIdPage = () => {
-  const { user_id, album_id } = useParams();
-  const { getAllUsers, getAllPhotosByAlbumId } = useServer();
+  const { user_email, album_id } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
+  const { getRefUrls, getAlbumFolderRef } = useFirebase();
+  if (!user_email || !album_id) {
+    showNotification('error while reading email', NotificationTypes.ERROR);
+    return
+  }
   const { data: photos,
     refetch: refetchPhotos,
     isError: isPhotosError,
     error: photosError,
     isLoading: isPhotosLoading } = useQuery({
       queryFn: async () => {
-        const users = await getAllUsers();
-        if (!users) {
-          showNotification("error happened while trying to get users", NotificationTypes.ERROR);
-          return;
-        }
-        const foundUser = users.find((user) => user.id === user_id);
-        if (!foundUser) {
-          showNotification("there is no such user", NotificationTypes.ERROR);
-          return;
-        }
-        const foundUserAlbum = foundUser.albums.find(album => album.id === album_id);
-        if (!foundUserAlbum) {
-          showNotification("there is no such album", NotificationTypes.ERROR);
-          return;
-        }
-        return await getAllPhotosByAlbumId(foundUserAlbum.id);
+        const list = await getRefUrls(getAlbumFolderRef(user_email, album_id));
+        return list;
       },
+      queryKey: [`${user_email}/${album_id}`],
     })
-  if (!album_id || !user_id) {
+  if (!album_id || !user_email) {
     return <>werfr</>
   }
   if (isPhotosLoading) {
@@ -56,14 +48,14 @@ const GalleryIdPage = () => {
     <div className="album-page">
       <div className="album-page__container">
         <div className="album-page__photos">
-          {Array.isArray(photos) && photos.map((photo: any) => {
+          {Array.isArray(photos) && photos.map((photo) => {
             return (
-              <div className="photo-item" key={photo.id} >
+              <div className="photo-item" key={photo} >
                 <div className="photo-item__container">
                   <img
                     className="photo-item__image"
-                    src={`${import.meta.env.VITE_REACT_APP_API_URL}/${photo.file}`} />
-                  <span className="photo-item__name">{photo.name}</span>
+                    src={photo} />
+                  <span className="photo-item__name">Helloing</span>
                 </div>
               </div>
             )
