@@ -1,38 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userInfo: {
-    id: null,
-    name: null,
-    email: null,
-    avatar: null,
-    role: null,
-    albums: null,
-    photos: null,
-    createdAt: null,
-    updatedAt: null,
-  },
+  isAuth: false,
+  email: "",
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    updateUserState(state, action) {
-      state.userInfo = action.payload.userInfo;
+    setUserEmail(state, action) {
+      state.email = action.payload.email;
+    },
+    setUserIsAuth(state, action) {
+      state.isAuth = action.payload.isAuth;
     },
     deleteUserState(state) {
-      state.userInfo = {
-        id: null,
-        name: null,
-        email: null,
-        avatar: null,
-        role: null,
-        albums: null,
-        photos: null,
-        createdAt: null,
-        updatedAt: null,
-      };
+      state.email = "";
+      state.isAuth = false;
     },
   },
 });
