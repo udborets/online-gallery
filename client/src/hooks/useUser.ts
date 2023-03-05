@@ -9,7 +9,7 @@ export default function useUser() {
   function setEmail(email: string) {
     dispatch(userActions.setUserEmail({ email: email }));
   }
-  function setIsAuth(isAuth: string) {
+  function setIsAuth(isAuth: boolean) {
     dispatch(userActions.setUserIsAuth({ isAuth: isAuth }));
   }
   function deleteInfo() {
