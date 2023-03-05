@@ -7,69 +7,46 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import provider from "../firebase/provider";
-import { IdbUser } from "../models/dbTypes";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
-import useUser from "./useUser";
-import { createUser, getUser } from "../query";
 import useNotification from "./useNotification";
+import useUser from "./useUser";
 
 export default function useLogin() {
   const auth = getAuth();
-  const { updateUser } = useUser();
-  const { deleteUser } = useUser();
   const navigate = useNavigate();
   const { showNotification, showNotificationWithTimeout } = useNotification();
+  const { setEmail, setIsAuth } = useUser();
+
   async function userSignIn() {
-    signInWithRedirect(auth, provider);
+    await signInWithRedirect(auth, provider);
+    const redirectResult = await getRedirectResult(auth);
+    if (redirectResult && redirectResult.user && redirectResult.user.email) {
+      setEmail(redirectResult.user.email);
+      setIsAuth(true);
+      showNotificationWithTimeout(
+        "Successfully signed in",
+        NotificationTypes.SUCCESS,
+        5000
+      );
+    }
+    if (!redirectResult || !redirectResult.user.email) {
+      showNotification(
+        "Error while trying to get signed in user info",
+        NotificationTypes.ERROR
+      );
+      return;
+    }
   }
 
   async function userSignOut() {
     await signOut(auth);
-    deleteUser();
+    showNotificationWithTimeout(
+      "Successfully signed out",
+      NotificationTypes.SUCCESS,
+      5000
+    );
     navigate(RoutePaths.HOME);
   }
 
-  function checkAndLogin() {
-    getRedirectResult(auth)
-      .then(async () => {
-        const currentUser = auth.currentUser;
-        if (currentUser && currentUser.email)
-          try {
-            const isDbHasUser = await getUser(currentUser.email);
-            if (isDbHasUser) {
-              const fetchedDbUser = isDbHasUser as unknown as IdbUser;
-              updateUser(fetchedDbUser);
-              return;
-            }
-            if (!isDbHasUser) {
-              const newUser = await createUser(
-                currentUser.email,
-                currentUser.displayName ?? "unknown",
-                currentUser.photoURL ?? ""
-              );
-              // updateUser(newUser);
-              showNotificationWithTimeout(
-                "Successfully signed in",
-                NotificationTypes.SUCCESS,
-                5000
-              );
-              return;
-            }
-          } catch (err) {
-            showNotification(
-              "Error happened while trying to get data from server",
-              NotificationTypes.ERROR
-            );
-            console.error(
-              "Error happened while trying to get data from server:",
-              err
-            );
-            return;
-          }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-  return { checkAndLogin, userSignIn, userSignOut };
+  return { userSignIn, userSignOut };
 }
