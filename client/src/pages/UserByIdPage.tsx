@@ -6,8 +6,8 @@ import { RoutePaths } from '../utils/consts';
 
 const UserByIdPage = () => {
   const navigate = useNavigate();
-  const { user_email } = useParams();
-  if (!user_email) {
+  const { user_name } = useParams();
+  if (!user_name) {
     navigate(RoutePaths.NOTFOUND);
     return <></>;
   }
@@ -17,8 +17,12 @@ const UserByIdPage = () => {
     isError: isFetchedUserError,
     error: fetchedUserError,
   } = useQuery({
-    queryFn: () => getUser(user_email),
-    queryKey: [user_email]
+    queryFn: async () => {
+      const dbUser = await getUser(user_name);
+      console.log(dbUser);
+      return dbUser
+    },
+    queryKey: [user_name]
   })
   if (isFetchedUserLoading) {
     return <div>Loading...</div>
