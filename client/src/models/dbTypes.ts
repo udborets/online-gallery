@@ -8,7 +8,7 @@ export type IdbUser = {
   id: string;
   name: string;
   email: string;
-  avatar: string | null;
+  avatar: string;
   role: Role;
   createdAt: Date;
   updatedAt: Date;
