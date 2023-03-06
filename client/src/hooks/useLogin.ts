@@ -7,6 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import provider from "../firebase/provider";
+import { createUser, getUser, updateUserName } from "../query";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
 import useNotification from "./useNotification";
 import useUser from "./useUser";
@@ -15,11 +16,7 @@ export default function useLogin() {
   const auth = getAuth();
   const navigate = useNavigate();
   const { showNotification, showNotificationWithTimeout } = useNotification();
-  const { setEmail, setIsAuth } = useUser();
-
-  function getUser() {
-    return getAuth().currentUser;
-  }
+  const { setEmail, setIsAuth, setName } = useUser();
 
   async function userSignIn() {
     await signInWithRedirect(auth, provider);
@@ -28,7 +25,7 @@ export default function useLogin() {
   async function userSignOut() {
     await signOut(auth);
     setIsAuth(false);
-    setEmail('');
+    setEmail("");
     showNotificationWithTimeout(
       "Successfully signed out",
       NotificationTypes.SUCCESS,
@@ -39,7 +36,7 @@ export default function useLogin() {
 
   async function getUserSignIn() {
     await getRedirectResult(auth);
-    const currUser = getUser();
+    const currUser = getAuth().currentUser;
     if (!currUser || !currUser.email) {
       showNotification(
         "Error while trying to get signed in user info",
@@ -48,13 +45,34 @@ export default function useLogin() {
       return;
     }
     if (currUser) {
-      setEmail(currUser.email);
-      setIsAuth(true);
-      showNotificationWithTimeout(
-        "Successfully signed in",
-        NotificationTypes.SUCCESS,
-        5000
-      );
+      const dbUser = await getUser(currUser.email);
+      if (dbUser) {
+        setEmail(dbUser.email);
+        setIsAuth(true);
+        setName(dbUser.name ?? "User");
+        showNotificationWithTimeout(
+          `Welcome, ${dbUser.name}`,
+          NotificationTypes.SUCCESS,
+          5000
+        );
+        console.log("logged in with helloing user");
+      }
+      if (!dbUser) {
+        const createdUser = await createUser(
+          currUser.email,
+          currUser.displayName ?? "User",
+          currUser.photoURL ?? ""
+        );
+        setEmail(createdUser.email);
+        setIsAuth(true);
+        setName(createdUser.name ?? "User");
+        showNotificationWithTimeout(
+          `Welcome, ${createdUser.name}`,
+          NotificationTypes.SUCCESS,
+          5000
+        );
+        console.log("logged in with new user");
+      }
     }
   }
 
