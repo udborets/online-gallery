@@ -55,10 +55,17 @@
   font-size: 2.5rem;
 }
 
-.nav-profile {
+.nav-profile__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 10px;
+  top: 20px;
   right: 50px;
+  flex-direction: column;
+}
+
+.nav-profile__dropdown {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,15 +88,13 @@
   }
 
   &.visible {
-    transform: translateY(34%);
+    transform: translateY(8%);
   }
   
   &.hidden {
-    transform: translateY(-70%);
+    transform: translateY(-100%);
   }
 }
-
-
 
 .nav-profile__option {
   font-size: 1.3rem;
@@ -118,14 +123,27 @@
 }
 
 .nav-profile__username {
-  width: 170px;
   color: white;
+  display: flex;
+  justify-content: center;
   font-size: 1.4rem;
   position: relative;
   transition: transform 0.4s ease-in;
-  position: absolute;
-  top: 25px;
-  right: 50px;
   height: 50px;
   z-index: 100;
+  gap: 10px;
+  align-items: center;
+}
+
+.nav-profile__avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.sign-in-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 11;
 }
