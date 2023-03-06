@@ -11,11 +11,11 @@ import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes } from "../utils/consts";
 
 const GalleryIdPage = () => {
-  const { user_email, album_id } = useParams();
+  const { user_name, album_id } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
   const { getRefUrls, getRef } = useFirebase();
-  if (!user_email || !album_id) {
+  if (!user_name || !album_id) {
     showNotification('error while reading email', NotificationTypes.ERROR);
     return <div></div>
   }
@@ -25,12 +25,12 @@ const GalleryIdPage = () => {
     error: photosError,
     isLoading: isPhotosLoading } = useQuery({
       queryFn: async () => {
-        const list = await getRefUrls(getRef(`${user_email}/${album_id}/`));
+        const list = await getRefUrls(getRef(`${user_name}/${album_id}/`));
         return list;
       },
-      queryKey: [`${user_email}/${album_id}`],
+      queryKey: [`${user_name}/${album_id}`],
     })
-  if (!album_id || !user_email) {
+  if (!album_id || !user_name) {
     return <>werfr</>
   }
   if (isPhotosLoading) {
