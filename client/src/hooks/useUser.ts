@@ -4,7 +4,7 @@ import { userActions } from "../store/slices/userSlice";
 import { IStore } from "./../models/IStore";
 
 export default function useUser() {
-  const user = useSelector((store: IStore) => store.user.info);
+  const user = useSelector((store: IStore) => store.user);
   const dispatch = useDispatch();
   function setEmail(email: string) {
     dispatch(userActions.setUserEmail({ email: email }));
