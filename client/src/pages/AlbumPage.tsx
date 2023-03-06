@@ -14,10 +14,10 @@ const GalleryIdPage = () => {
   const { user_email, album_id } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
-  const { getRefUrls, getAlbumFolderRef } = useFirebase();
+  const { getRefUrls, getRef } = useFirebase();
   if (!user_email || !album_id) {
     showNotification('error while reading email', NotificationTypes.ERROR);
-    return
+    return <div></div>
   }
   const { data: photos,
     refetch: refetchPhotos,
@@ -25,7 +25,7 @@ const GalleryIdPage = () => {
     error: photosError,
     isLoading: isPhotosLoading } = useQuery({
       queryFn: async () => {
-        const list = await getRefUrls(getAlbumFolderRef(user_email, album_id));
+        const list = await getRefUrls(getRef(`${user_email}/${album_id}/`));
         return list;
       },
       queryKey: [`${user_email}/${album_id}`],
