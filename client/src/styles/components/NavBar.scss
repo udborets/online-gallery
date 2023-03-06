@@ -97,6 +97,7 @@
   transition: transform 0.5s ease-out;
   width: 100%;
   color: white;
+  display: flex;
 
   &:hover {
     transform: scale(1.05);
