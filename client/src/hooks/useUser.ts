@@ -12,8 +12,11 @@ export default function useUser() {
   function setIsAuth(isAuth: boolean) {
     dispatch(userActions.setUserIsAuth({ isAuth: isAuth }));
   }
+  function setName(name: string) {
+    dispatch(userActions.setUserName({ name: name }));
+  }
   function deleteInfo() {
     dispatch(userActions.deleteUserState());
   }
-  return { user, setEmail, setIsAuth, deleteInfo };
+  return { user, setEmail, setIsAuth, deleteInfo, setName };
 }

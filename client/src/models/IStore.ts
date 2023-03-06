@@ -4,6 +4,7 @@ export interface IStore {
   user: {
     isAuth: boolean;
     email: string;
+    name: string;
   };
   notification: {
     isActive: boolean;
