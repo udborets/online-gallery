@@ -4,6 +4,7 @@ const initialState = {
   isAuth: false,
   email: "",
   name: "",
+  avatar: "",
 };
 
 const userSlice = createSlice({
@@ -19,10 +20,14 @@ const userSlice = createSlice({
     setUserName(state, action) {
       state.name = action.payload.name;
     },
+    setUserAvatar(state, action) {
+      state.avatar = action.payload.avatar;
+    },
     deleteUserState(state) {
       state.isAuth = false;
       state.email = "";
       state.name = "";
+      state.avatar = "";
     },
   },
 });
