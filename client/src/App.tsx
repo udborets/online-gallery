@@ -8,12 +8,13 @@ import Notification from './components/UI/Notification';
 import useLogin from './hooks/useLogin';
 import useNotification from './hooks/useNotification';
 import PageRouter from './PageRouter';
+import useUser from './hooks/useUser';
 
 export default function App() {
-  const { checkAndLogin } = useLogin();
   const { notification, setNotificationIsActive, } = useNotification();
+  const { getUserSignIn } = useLogin();
   useEffect(() => {
-    checkAndLogin();
+    getUserSignIn();
   }, [])
   return (
     <>
