@@ -35,7 +35,10 @@ export default function useLogin() {
   }
 
   async function getUserSignIn() {
-    await getRedirectResult(auth);
+    const redirectResult = await getRedirectResult(auth);
+    if (!redirectResult) {
+      return;
+    }
     const currUser = getAuth().currentUser;
     if (!currUser || !currUser.email) {
       showNotification(
