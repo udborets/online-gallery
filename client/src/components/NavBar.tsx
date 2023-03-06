@@ -72,6 +72,7 @@ const NavBar = () => {
               className="nav-profile__username nav-profile__option"
             >
               {user.name ?? ""}
+              <img src={user.avatar} alt="" />
             </button>
             <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {
