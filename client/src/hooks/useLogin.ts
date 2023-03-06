@@ -16,7 +16,7 @@ export default function useLogin() {
   const auth = getAuth();
   const navigate = useNavigate();
   const { showNotification, showNotificationWithTimeout } = useNotification();
-  const { setEmail, setIsAuth, setName } = useUser();
+  const { setEmail, setIsAuth, setName, setAvatar } = useUser();
 
   async function userSignIn() {
     await signInWithRedirect(auth, provider);
@@ -50,6 +50,7 @@ export default function useLogin() {
         setEmail(dbUser.email);
         setIsAuth(true);
         setName(dbUser.name ?? "User");
+        setAvatar(dbUser.avatar);
         showNotificationWithTimeout(
           `Welcome, ${dbUser.name}`,
           NotificationTypes.SUCCESS,
@@ -66,6 +67,7 @@ export default function useLogin() {
         setEmail(createdUser.email);
         setIsAuth(true);
         setName(createdUser.name ?? "User");
+        setAvatar(createdUser.avatar);
         showNotificationWithTimeout(
           `Welcome, ${createdUser.name}`,
           NotificationTypes.SUCCESS,
