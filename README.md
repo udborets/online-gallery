@@ -18,7 +18,7 @@
 
 ## Frontend
 
-`TypeScript`, `React`, `React Routed DOM`, `React Redux`, `RTK`, `React Query`, `React Error Boundary`, `Axios`, `SCSS`, `Google Firebase Authentication`
+`TypeScript`, `React`, `React Router DOM`, `React Redux`, `RTK`, `React Query`, `React Error Boundary`, `SCSS`, `Google Firebase Authentication`, `Google Firebase Storage`
 
 # TODO
 
