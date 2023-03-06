@@ -34,6 +34,8 @@
 
 - `create logic for album and photos displaying`
 
+- `fix user name getter so there will be only unique names`
+
 - `and much more :)`
 
 # Feedback
