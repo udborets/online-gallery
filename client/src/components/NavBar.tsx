@@ -71,7 +71,7 @@ const NavBar = () => {
               onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
               className="nav-profile__username nav-profile__option"
             >
-              {user.email ?? ""}
+              {user.name ?? ""}
             </button>
             <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {
