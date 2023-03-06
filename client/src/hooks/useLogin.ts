@@ -17,29 +17,18 @@ export default function useLogin() {
   const { showNotification, showNotificationWithTimeout } = useNotification();
   const { setEmail, setIsAuth } = useUser();
 
+  function getUser() {
+    return getAuth().currentUser;
+  }
+
   async function userSignIn() {
     await signInWithRedirect(auth, provider);
-    const redirectResult = await getRedirectResult(auth);
-    if (redirectResult && redirectResult.user && redirectResult.user.email) {
-      setEmail(redirectResult.user.email);
-      setIsAuth(true);
-      showNotificationWithTimeout(
-        "Successfully signed in",
-        NotificationTypes.SUCCESS,
-        5000
-      );
-    }
-    if (!redirectResult || !redirectResult.user.email) {
-      showNotification(
-        "Error while trying to get signed in user info",
-        NotificationTypes.ERROR
-      );
-      return;
-    }
   }
 
   async function userSignOut() {
     await signOut(auth);
+    setIsAuth(false);
+    setEmail('');
     showNotificationWithTimeout(
       "Successfully signed out",
       NotificationTypes.SUCCESS,
@@ -48,5 +37,26 @@ export default function useLogin() {
     navigate(RoutePaths.HOME);
   }
 
-  return { userSignIn, userSignOut };
+  async function getUserSignIn() {
+    await getRedirectResult(auth);
+    const currUser = getUser();
+    if (!currUser || !currUser.email) {
+      showNotification(
+        "Error while trying to get signed in user info",
+        NotificationTypes.ERROR
+      );
+      return;
+    }
+    if (currUser) {
+      setEmail(currUser.email);
+      setIsAuth(true);
+      showNotificationWithTimeout(
+        "Successfully signed in",
+        NotificationTypes.SUCCESS,
+        5000
+      );
+    }
+  }
+
+  return { userSignIn, userSignOut, getUserSignIn };
 }
