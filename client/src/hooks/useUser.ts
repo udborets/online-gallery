@@ -15,8 +15,11 @@ export default function useUser() {
   function setName(name: string) {
     dispatch(userActions.setUserName({ name: name }));
   }
+  function setAvatar(avatar: string) {
+    dispatch(userActions.setUserAvatar({ avatar: avatar }));
+  }
   function deleteInfo() {
     dispatch(userActions.deleteUserState());
   }
-  return { user, setEmail, setIsAuth, deleteInfo, setName };
+  return { user, setEmail, setIsAuth, deleteInfo, setName, setAvatar };
 }
