@@ -2,66 +2,15 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import cors from "cors";
 import { config } from "dotenv";
 import express from "express";
-import fileUpload from "express-fileupload";
-import moment from "moment";
-import path from "path";
 
-import { dbAddPhotoToAlbum } from "./db";
-import IFileRequest from "./models/IFileRequest";
 import appRouter from "./routers/index";
 
 config();
-const PORT = process.env.SERVER_PORT ?? 3000;
-console.log(`server is running on port http://localhost:${PORT}`);
 const app = express();
+const PORT = process.env.SERVER_PORT ?? 5000;
+console.log(`server is running on port http://localhost:${PORT}`);
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
-app.use(fileUpload());
-app.use(express.static(path.resolve(__dirname, "static")));
-app.use("/upload", async (req, res) => {
-  if (req.files) {
-    const request = req as unknown as IFileRequest;
-    const uploadedFile = request.files.userFile;
-    const file = uploadedFile.name;
-    const { customName, userId, albumId, photoDescription } = request.body;
-    if (customName && userId && albumId && file) {
-      const splittedName = uploadedFile.name.split(".");
-      const ext = splittedName.at(-1);
-      const fileName =
-        splittedName.slice(0, -1).join(".") +
-        moment().format("DDMMYYYY-HHmmss_SSS") +
-        "." +
-        ext;
-      if (!ext) {
-        res.sendStatus(400);
-        return;
-      }
-      const uploadPath = path.resolve(__dirname, "static", fileName);
-      uploadedFile.mv(uploadPath, (err) => {
-        if (err) {
-          console.log(err);
-          res.sendStatus(400);
-          return;
-        }
-      });
-      await dbAddPhotoToAlbum(
-        userId,
-        albumId,
-        customName,
-        fileName,
-        photoDescription ?? ""
-      );
-      res.sendStatus(200);
-      return;
-    } else {
-      res.sendStatus(400);
-      return;
-    }
-  } else {
-    res.sendStatus(400);
-    return;
-  }
-});
 app.use("/api", createExpressMiddleware({ router: appRouter }));
 app.listen(PORT);
 

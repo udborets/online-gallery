@@ -22,6 +22,12 @@
 
 # TODO
 
+- `check if user sign in function works`
+
+- `fix albums creating and fetching`
+
+- `fix photos creating and fetching`
+
 - `update gallery page albums styling`
 
 - `update album page photos styling`

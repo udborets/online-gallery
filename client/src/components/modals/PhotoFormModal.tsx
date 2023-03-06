@@ -1,55 +1,44 @@
-import axios from 'axios';
 import { useState } from 'react';
+import { ref, uploadBytes } from "firebase/storage";
+import { uuidv4 } from '@firebase/util';
 
+import { storage } from "../../firebase/storage";
 import useNotification from '../../hooks/useNotification';
 import useUser from '../../hooks/useUser';
 import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from '../../utils/consts';
+import { getAuth } from 'firebase/auth';
+import useFirebase from '../../hooks/useFirebase';
 
 const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
-  const { user, fetchUser } = useUser();
   const [file, setFile] = useState<any>(null);
-  const [customName, setCustomName] = useState('');
+  const [customFileName, setCustomFileName] = useState('');
   const [photoDescription, setPhotoDescription] = useState('');
   const { showNotification, showNotificationWithTimeout } = useNotification();
-  async function uploadFile(e: any) {
-    e.preventDefault();
-    const formData = new FormData();
+  const { createNewFileRef } = useFirebase();
+  const user = getAuth().currentUser;
+  if (!user || !user.email) {
+    return <div></div>
+  }
+  const user_email = user.email;
+  async function uploadFile() {
     if (!file) {
-      showNotificationWithTimeout("You have to enter photo file", NotificationTypes.WARNING, 6000);
-      return
-    }
-    if (!customName) {
-      showNotificationWithTimeout("You have to enter photo name", NotificationTypes.WARNING, 6000);
+      showNotificationWithTimeout("You have to choose a file photo name", NotificationTypes.WARNING, 5000);
       return;
     }
-    if (!user?.id) {
-      showNotification("Error while trying to read user id", NotificationTypes.ERROR);
+    if (!customFileName) {
+      showNotificationWithTimeout("You have to enter photo name", NotificationTypes.WARNING, 5000);
+    }
+    const user = getAuth().currentUser;
+    if (user && user.email) {
+      const imageRef = createNewFileRef(user_email, albumId, customFileName);
+      const response = await uploadBytes(imageRef, file);
+      return response;
+    }
+    if (!user || (user && !user.email)) {
+      showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
       return
-    }
-    if (!albumId) {
-      showNotification("Error while trying to read album id", NotificationTypes.ERROR);
-      return
-    }
-    formData.append("userFile", file);
-    formData.append("userId", user.id);
-    console.log(albumId)
-    formData.append("albumId", albumId);
-    formData.append("customName", customName);
-    formData.append("photoDescription", photoDescription);
-    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/upload`, formData)
-    if (response.data === "OK") {
-      setCustomName('');
-      setPhotoDescription('');
-      setTimeout(() => {
-      }, 5000);
-      await fetchUser(user.id);
-      refetchPhotos();
-      showNotificationWithTimeout("Successfully uploaded a photo", NotificationTypes.SUCCESS, 6000);
-    }
-    else {
-      showNotification("Error while trying to read album id", NotificationTypes.ERROR);
     }
   }
   return (
@@ -57,8 +46,8 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       <input
         className='modal-form__input'
         type="text"
-        onChange={(e) => setCustomName(e.target.value)}
-        value={customName}
+        onChange={(e) => setCustomFileName(e.target.value)}
+        value={customFileName}
         placeholder="Enter photo name"
       />
       <textarea
@@ -74,8 +63,8 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
         onChange={e => setFile(e.target.files ? e.target.files[0] : null)} />
       <button
         className='modal-form__submit'
-        type='submit'
-        onClick={(e) => uploadFile(e)}
+        type='button'
+        onClick={() => uploadFile()}
       >
         Upload file
       </button>

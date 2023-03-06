@@ -12,17 +12,17 @@ export const authRoutes = [
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS + "/:id",
+    path: RoutePaths.USERS + "/:user_email",
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_id" + RoutePaths.GALLERY + "/:album_id",
+    path: RoutePaths.USERS + "/:user_email" + RoutePaths.GALLERY + "/:album_id",
     Component: AlbumPage,
   },
   {
     path:
       RoutePaths.USERS +
-      "/:user_id" +
+      "/:user_email" +
       RoutePaths.GALLERY +
       "/:album_id" +
       "/:photo_id",

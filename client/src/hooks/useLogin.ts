@@ -2,67 +2,61 @@ import {
   getAuth,
   getRedirectResult,
   signInWithRedirect,
-  signOut
+  signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import provider from "../firebase/provider";
-import { IdbUser } from "../models/dbTypes";
-import { RoutePaths } from "../utils/consts";
-import useServer from "./useServer";
+import { NotificationTypes, RoutePaths } from "../utils/consts";
+import useNotification from "./useNotification";
 import useUser from "./useUser";
 
 export default function useLogin() {
   const auth = getAuth();
-  const { getUserByEmail, createUser } = useServer();
-  const { updateUser } = useUser();
-  const { deleteUser } = useUser();
   const navigate = useNavigate();
+  const { showNotification, showNotificationWithTimeout } = useNotification();
+  const { setEmail, setIsAuth } = useUser();
+
+  function getUser() {
+    return getAuth().currentUser;
+  }
+
   async function userSignIn() {
-    signInWithRedirect(auth, provider);
+    await signInWithRedirect(auth, provider);
   }
 
   async function userSignOut() {
     await signOut(auth);
-    deleteUser();
+    setIsAuth(false);
+    setEmail('');
+    showNotificationWithTimeout(
+      "Successfully signed out",
+      NotificationTypes.SUCCESS,
+      5000
+    );
     navigate(RoutePaths.HOME);
   }
 
-  function checkAndLogin() {
-    getRedirectResult(auth)
-      .then(async () => {
-        const currentUser = auth.currentUser;
-        if (!currentUser) {
-          console.error("no current user");
-          return;
-        }
-        if (currentUser.email) {
-          try {
-            const isDbHasUser = await getUserByEmail(currentUser.email);
-            if (isDbHasUser) {
-              const fetchedDbUser = isDbHasUser as unknown as IdbUser;
-              updateUser(fetchedDbUser);
-              return;
-            }
-            if (!isDbHasUser) {
-              const newUser = (await createUser(
-                currentUser.email,
-                currentUser.displayName ?? "unknown"
-              )) as unknown as IdbUser;
-              updateUser(newUser);
-              return;
-            }
-          } catch (err) {
-            console.error(
-              "Error happened while trying to get data from server:",
-              err
-            );
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async function getUserSignIn() {
+    await getRedirectResult(auth);
+    const currUser = getUser();
+    if (!currUser || !currUser.email) {
+      showNotification(
+        "Error while trying to get signed in user info",
+        NotificationTypes.ERROR
+      );
+      return;
+    }
+    if (currUser) {
+      setEmail(currUser.email);
+      setIsAuth(true);
+      showNotificationWithTimeout(
+        "Successfully signed in",
+        NotificationTypes.SUCCESS,
+        5000
+      );
+    }
   }
-  return { checkAndLogin, userSignIn, userSignOut };
+
+  return { userSignIn, userSignOut, getUserSignIn };
 }
