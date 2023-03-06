@@ -1,27 +1,27 @@
 import client from "./client";
 
-async function deleteUser(email: string) {
-  return await client.deleteUserByEmail.query({ userEmail: email });
+async function deleteUser(userName: string) {
+  return await client.deleteUserByName.query({ userName: userName });
 }
 
-async function getUser(email: string) {
-  return await client.getUserByEmail.query({ userEmail: email });
+async function getUser(userName: string) {
+  return await client.getUserByName.query({ userName: userName });
 }
 
 async function getUsers() {
   return await client.getAllUsers.query();
 }
 
-async function updateUserName(email: string, name: string) {
+async function updateUserName(userName: string, newName: string) {
   return await client.updateUserName.query({
-    userEmail: email,
-    userName: name,
+    userName: userName,
+    newName: newName,
   });
 }
 
-async function updateUserAvatar(email: string, avatarURL: string) {
+async function updateUserAvatar(userName: string, avatarURL: string) {
   return await client.updateUserAvatar.query({
-    userEmail: email,
+    userName: userName,
     avatarURL: avatarURL,
   });
 }
