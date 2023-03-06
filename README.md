@@ -22,17 +22,17 @@
 
 # TODO
 
-- `check if user sign in function works`
+- `fix albums creating and fetching functions`
 
-- `fix albums creating and fetching`
-
-- `fix photos creating and fetching`
+- `fix photos creating and fetching functions`
 
 - `update gallery page albums styling`
 
 - `update album page photos styling`
 
-- `fix "reading id" error when user is signing in for the first time`
+- `create user page components`
+
+- `create logic for album and photos displaying`
 
 - `and much more :)`
 
