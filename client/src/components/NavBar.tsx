@@ -66,24 +66,24 @@ const NavBar = () => {
       {
         user.isAuth
           ?
-          <>
+          <div className="nav-profile__wrapper">
             <button
               onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
               className="nav-profile__username nav-profile__option"
             >
               {user.name ?? ""}
-              <img src={user.avatar} alt="" />
+              <img className="nav-profile__avatar" src={user.avatar} alt="" />
             </button>
-            <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
+            <ul className={`nav-profile__dropdown ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {
                 dropDownOptions.map(({ text, fn, key, className }) => (
                   <DropDownItem text={text} fn={fn} key={key} className={className} />
                 ))
               }
             </ul>
-          </>
+          </div>
           :
-          <GoogleButton onClick={() => userSignIn()} className="nav-profile__username" />
+          <GoogleButton onClick={() => userSignIn()} className="sign-in-button" />
       }
     </>
   )
