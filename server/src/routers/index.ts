@@ -2,18 +2,18 @@ import trpc from "../trpc";
 import { z } from "zod";
 import {
   dbCreateUser,
-  dbDeleteUserByEmail,
-  dbGetUserByEmail,
+  dbDeleteUserByName,
+  dbGetUserByName,
   dbUpdateUserAvatar,
   dbUpdateUserName,
   dbGetAllUsers,
 } from "../db";
 
 export default trpc.router({
-  getUserByEmail: trpc.procedure
-    .input(z.object({ userEmail: z.string() }))
+  getUserByName: trpc.procedure
+    .input(z.object({ userName: z.string() }))
     .query(async ({ input }) => {
-      return await dbGetUserByEmail(input.userEmail);
+      return await dbGetUserByName(input.userName);
     }),
   getAllUsers: trpc.procedure.query(async () => {
     return await dbGetAllUsers();
@@ -30,26 +30,26 @@ export default trpc.router({
     .query(async ({ input }) => {
       return await dbCreateUser(
         input.userName,
-        input.userEmail,
+        input.userName,
         input.avatarURL
       );
     }),
 
   updateUserName: trpc.procedure
-    .input(z.object({ userEmail: z.string(), userName: z.string() }))
+    .input(z.object({ userName: z.string(), newName: z.string() }))
     .query(async ({ input }) => {
-      return await dbUpdateUserName(input.userEmail, input.userName);
+      return await dbUpdateUserName(input.userName, input.newName);
     }),
 
   updateUserAvatar: trpc.procedure
-    .input(z.object({ userEmail: z.string(), avatarURL: z.string() }))
+    .input(z.object({ userName: z.string(), avatarURL: z.string() }))
     .query(async ({ input }) => {
-      return await dbUpdateUserAvatar(input.userEmail, input.avatarURL);
+      return await dbUpdateUserAvatar(input.userName, input.avatarURL);
     }),
 
-  deleteUserByEmail: trpc.procedure
-    .input(z.object({ userEmail: z.string() }))
+  deleteUserByName: trpc.procedure
+    .input(z.object({ userName: z.string() }))
     .query(async ({ input }) => {
-      return await dbDeleteUserByEmail(input.userEmail);
+      return await dbDeleteUserByName(input.userName);
     }),
 });
