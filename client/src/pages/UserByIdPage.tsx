@@ -1,24 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import useServer from '../hooks/useServer';
+import { getUser } from "../query";
 import { RoutePaths } from '../utils/consts';
 
 const UserByIdPage = () => {
-  const [pageUser, setUser] = useState<any>(null);
-  const { id } = useParams();
-  const { getUserById } = useServer();
-  const navigate = useNavigate()
-  if (!id) {
+  const navigate = useNavigate();
+  const { user_email } = useParams();
+  if (!user_email) {
     navigate(RoutePaths.NOTFOUND);
     return <></>;
   }
-  useEffect(() => {
-    getUserById(id).then((userData) => { setUser(userData); console.log('id') }).catch((err) => console.error(err));
-  }, [id])
+  const {
+    data: fetchedUser,
+    isLoading: isFetchedUserLoading,
+    isError: isFetchedUserError,
+    error: fetchedUserError,
+  } = useQuery({
+    queryFn: () => getUser(user_email),
+    queryKey: [user_email]
+  })
+  if (isFetchedUserLoading) {
+    return <div>Loading...</div>
+  }
+  if (isFetchedUserError) {
+    return <div>{JSON.stringify(fetchedUserError)}</div>
+  }
   return (
     <div className="users-page">
-      {pageUser ? pageUser.name : "no name"}
+      {fetchedUser ? fetchedUser.name : 'error'}
     </div>
   )
 }
