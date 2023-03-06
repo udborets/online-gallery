@@ -44,7 +44,7 @@ const NavBar = () => {
         </NavLink>
         <nav className="nav-links">
           {
-            user?.id
+            user.isAuth
               ?
               <>
                 <NavLink to={RoutePaths.HOME} className="nav-links__link">
@@ -64,14 +64,14 @@ const NavBar = () => {
         </nav>
       </div>
       {
-        user?.id
+        user.isAuth
           ?
           <>
             <button
               onClick={() => setIsShowingUserMenu(oldValue => !oldValue)}
               className="nav-profile__username nav-profile__option"
             >
-              {user.name ?? ""}
+              {user.email ?? ""}
             </button>
             <ul className={`nav-profile ${isShowingUserMenu ? "visible" : "hidden"}`}>
               {
