@@ -13,21 +13,21 @@ export const authRoutes = [
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_email",
+    path: RoutePaths.USERS + "/:user_name",
     Component: UserByIdPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_email" + RoutePaths.GALLERY + "/:album_id",
+    path: RoutePaths.USERS + "/:user_name" + RoutePaths.GALLERY + "/:album_id",
     Component: AlbumPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_email" + RoutePaths.GALLERY,
+    path: RoutePaths.USERS + "/:user_name" + RoutePaths.GALLERY,
     Component: GalleryPage,
   },
   {
     path:
       RoutePaths.USERS +
-      "/:user_email" +
+      "/:user_name" +
       RoutePaths.GALLERY +
       "/:album_id" +
       "/:photo_id",
