@@ -13,12 +13,11 @@ export default function useFirebase() {
   function getStorage() {
     return storage;
   }
-  function getUserFolderRef(email: string) {
-    return ref(storage, email + "/");
+
+  function getRef(path: string) {
+    return ref(storage, path);
   }
-  function getAlbumFolderRef(email: string, albumId: string) {
-    return ref(storage, email + "/" + albumId + "/");
-  }
+
   function createNewFileRef(
     userFolderName: string,
     albumFolderName: string,
@@ -29,9 +28,11 @@ export default function useFirebase() {
       `${userFolderName}/${albumFolderName}/${fileName + "uuidv4-" + uuidv4()}`
     );
   }
+
   async function getRefItems(ref: StorageReference) {
     return await listAll(ref);
   }
+
   async function getRefUrls(ref: StorageReference) {
     const refItems = await getRefItems(ref);
     const refUrls: string[] = [];
@@ -41,11 +42,11 @@ export default function useFirebase() {
     });
     return refUrls;
   }
+
   return {
     getStorage,
     createNewFileRef,
-    getUserFolderRef,
-    getAlbumFolderRef,
+    getRef,
     getRefItems,
     getRefUrls,
   };
