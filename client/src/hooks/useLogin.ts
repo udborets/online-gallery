@@ -35,16 +35,9 @@ export default function useLogin() {
   }
 
   async function getUserSignIn() {
-    const redirectResult = await getRedirectResult(auth);
-    if (!redirectResult) {
-      return;
-    }
+    await getRedirectResult(auth);
     const currUser = getAuth().currentUser;
     if (!currUser || !currUser.email) {
-      showNotification(
-        "Error while trying to get signed in user info",
-        NotificationTypes.ERROR
-      );
       return;
     }
     if (currUser) {
@@ -54,11 +47,6 @@ export default function useLogin() {
         setIsAuth(true);
         setName(dbUser.name ?? "User");
         setAvatar(dbUser.avatar);
-        showNotificationWithTimeout(
-          `Welcome, ${dbUser.name}`,
-          NotificationTypes.SUCCESS,
-          5000
-        );
         console.log("logged in with helloing user");
       }
       if (!dbUser) {
