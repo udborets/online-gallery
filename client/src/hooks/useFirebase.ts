@@ -1,6 +1,5 @@
 import {
   ref,
-  uploadBytes,
   listAll,
   StorageReference,
   getDownloadURL,
@@ -36,7 +35,7 @@ export default function useFirebase() {
   async function getRefUrls(ref: StorageReference) {
     const refItems = await getRefItems(ref);
     const refUrls: string[] = [];
-    refItems.items.map(async (item) => {
+    refItems.items.forEach(async (item) => {
       const itemUrl = await getDownloadURL(item);
       refUrls.push(itemUrl);
     });
