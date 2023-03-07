@@ -3,24 +3,24 @@
   z-index: 10000;
   background: white;
   top: 40px;
-  right: 200px;
+  right: 70px;
   padding: 10px 10px;
-  outline: 2px solid black; 
+  outline: 2px solid black;
   transition: transform 0.7s ease-out, filter 0.5s ease-out;
-  transform: translateX(50%);
+  transform: translateX(0%);
   border-radius: 10px;
   filter: brightness(0.85);
-  
+
   &:hover {
     filter: brightness(1);
   }
 
   &.hidden {
-    transform: translateX(250%);
+    transform: translateX(200%);
   }
 
   &.active {
-    transform: translateX(50%);
+    transform: translateX(0%);
   }
 
   &.success {
