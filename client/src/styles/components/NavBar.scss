@@ -99,25 +99,24 @@
 .nav-profile__option {
   font-size: 1.3rem;
   text-align: center;
-  transition: transform 0.5s ease-out;
+  transition: color 0.5s ease-out;
   width: 100%;
   color: white;
   display: flex;
 
   &:hover {
-    transform: scale(1.05);
+    color: rgb(136, 136, 136);
   }
 }
 
 .nav-profile__sign-out {
   font-size: 1.3rem;
   text-align: center;
-  transition: color 0.4s ease-out, transform 0.5s ease-out;
+  transition: color 0.4s ease-out;
   width: fit-content;
   color: white;
 
   &:hover {
-    transform: scale(1.05);
     color: red;
   }
 }
@@ -128,7 +127,7 @@
   justify-content: center;
   font-size: 1.4rem;
   position: relative;
-  transition: transform 0.4s ease-in;
+  transition: all 0.4s ease-in;
   height: 50px;
   z-index: 100;
   gap: 10px;
