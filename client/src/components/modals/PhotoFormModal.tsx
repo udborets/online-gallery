@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import { ref, uploadBytes } from "firebase/storage";
-import { uuidv4 } from '@firebase/util';
+import { uploadBytes } from "firebase/storage";
 
-import { storage } from "../../firebase/storage";
 import useNotification from '../../hooks/useNotification';
-import useUser from '../../hooks/useUser';
 import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from '../../utils/consts';
@@ -19,6 +16,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const { createNewFileRef } = useFirebase();
   const user = getAuth().currentUser;
   if (!user || !user.email) {
+    showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
     return <div></div>
   }
   const user_name = user.email;
@@ -64,7 +62,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
       <button
         className='modal-form__submit'
         type='button'
-        onClick={() => uploadFile()}
+        onClick={async () => await uploadFile()}
       >
         Upload file
       </button>
