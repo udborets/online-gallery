@@ -21,6 +21,7 @@ const AlbumFormModal = () => {
     if (albumName) {
       getRef(user.email + '/' + albumName + '/');
       setAlbumName("");
+      setAlbumIsPrivate(false);
       showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 6000);
       return;
     }
