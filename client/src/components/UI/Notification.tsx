@@ -10,9 +10,7 @@ const Notification = ({ isActive, setIsActive, message, type }: INotificationPro
       <div
         className={`notification__container 
       ${type}`}>
-        <span className='notification__type'>
-          {type}!
-        </span>
+
         <span
           onClick={() => setIsActive(false)}
           className='notification__close'
