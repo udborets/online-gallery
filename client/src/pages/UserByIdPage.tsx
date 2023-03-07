@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { getUser } from "../query";
+import { getUserByName } from "../query";
 import { RoutePaths } from '../utils/consts';
 
 const UserByIdPage = () => {
@@ -18,7 +18,7 @@ const UserByIdPage = () => {
     error: fetchedUserError,
   } = useQuery({
     queryFn: async () => {
-      const dbUser = await getUser(user_name);
+      const dbUser = await getUserByName(user_name);
       console.log(dbUser);
       return dbUser
     },

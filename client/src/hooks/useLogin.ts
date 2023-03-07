@@ -7,7 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import provider from "../firebase/provider";
-import { createUser, getUser, updateUserName } from "../query";
+import { createUser, getUserByEmail, updateUserName } from "../query";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
 import useNotification from "./useNotification";
 import useUser from "./useUser";
@@ -41,7 +41,7 @@ export default function useLogin() {
       return;
     }
     if (currUser) {
-      const dbUser = await getUser(currUser.email);
+      const dbUser = await getUserByEmail(currUser.email);
       if (dbUser) {
         setEmail(dbUser.email);
         setIsAuth(true);
