@@ -1,4 +1,5 @@
 import { useState } from "react";
+import useFirebase from "../../hooks/useFirebase";
 
 import useNotification from "../../hooks/useNotification";
 import useUser from "../../hooks/useUser";
@@ -7,9 +8,9 @@ import { NotificationTypes } from "../../utils/consts";
 
 const AlbumFormModal = () => {
   const [albumName, setAlbumName] = useState("");
-  const [albumDescription, setAlbumDescription] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
   const { user } = useUser();
+  const { getRef } = useFirebase();
   const { showNotificationWithTimeout, showNotification } = useNotification();
 
   async function createUserAlbum() {
@@ -18,8 +19,8 @@ const AlbumFormModal = () => {
       return;
     }
     if (albumName) {
+      getRef(user.email + '/' + albumName + '/');
       setAlbumName("");
-      setAlbumDescription("");
       showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 6000);
       return;
     }
@@ -38,12 +39,6 @@ const AlbumFormModal = () => {
         className="album-form__input"
         placeholder='Enter album name'
         value={albumName}
-      />
-      <textarea
-        onChange={e => setAlbumDescription(e.target.value)}
-        className="album-form__description"
-        placeholder='Enter album description'
-        value={albumDescription}
       />
       <div>
         <span>Is private?</span>
