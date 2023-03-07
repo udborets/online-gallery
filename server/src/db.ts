@@ -58,6 +58,14 @@ async function dbGetUserByName(userName: string) {
   });
 }
 
+async function dbGetUserByEmail(userEmail: string) {
+  return prisma.user.findUnique({
+    where: {
+      email: userEmail,
+    },
+  });
+}
+
 export {
   dbCreateUser,
   dbDeleteUserByName,
@@ -65,4 +73,5 @@ export {
   dbUpdateUserAvatar,
   dbUpdateUserName,
   dbGetAllUsers,
+  dbGetUserByEmail,
 };
