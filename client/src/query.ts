@@ -4,8 +4,12 @@ async function deleteUser(userName: string) {
   return await client.deleteUserByName.query({ userName: userName });
 }
 
-async function getUser(userName: string) {
+async function getUserByName(userName: string) {
   return await client.getUserByName.query({ userName: userName });
+}
+
+async function getUserByEmail(userEmail: string) {
+  return await client.getUserByEmail.query({ userEmail: userEmail });
 }
 
 async function getUsers() {
@@ -36,7 +40,8 @@ async function createUser(email: string, name: string, avatarURL: string) {
 
 export {
   deleteUser,
-  getUser,
+  getUserByEmail,
+  getUserByName,
   updateUserName,
   updateUserAvatar,
   createUser,
