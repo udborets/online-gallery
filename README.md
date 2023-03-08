@@ -8,9 +8,9 @@
 
 - ## [`2. Todo`](#todo)
 
-- ## [`3. Feedback`](#feedback)
+- ## [`3. Run Locally`](#run-locally)
 
-- ## [`4. Run Locally`](#run-locally)
+- ## [`4. Feedback`](#feedback)
 
 # Stack
 
@@ -24,19 +24,17 @@
 
 # Todo
 
-- `fix albums creating and fetching functions`
+- `fetch album photos on "Gallery" page enter`
 
-- `fix photos creating and fetching functions`
+- `create "Me" page UI`
 
-- `update gallery page albums styling`
+- `add abitily to update user avatar`
 
-- `update album page photos styling`
+- `understand how to create albums in Google Firebase`
 
-- `create user page components`
+- `add abitily to upload photos in "Album" page`
 
-- `create logic for album and photos displaying`
-
-- `fix user name getter so there will be only unique names`
+- `don't oversleep the university :d`
 
 - `and much more :)`
 
@@ -68,23 +66,23 @@
 
 ### Set up environment variables
 
- - `VITE_REACT_APP_FIREBASE_API_KEY`
+- `VITE_REACT_APP_FIREBASE_API_KEY`
 
- - `VITE_REACT_APP_FIREBASE_AUTH_DOMAIN`
+- `VITE_REACT_APP_FIREBASE_AUTH_DOMAIN`
 
- - `VITE_REACT_APP_FIREBASE_PROJECT_ID`
+- `VITE_REACT_APP_FIREBASE_PROJECT_ID`
 
- - `VITE_REACT_APP_FIREBASE_STORAGE_BUCKET`
+- `VITE_REACT_APP_FIREBASE_STORAGE_BUCKET`
 
- - `VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID`
+- `VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID`
 
- - `VITE_REACT_APP_FIREBASE_APP_ID`
+- `VITE_REACT_APP_FIREBASE_APP_ID`
 
- - `VITE_REACT_APP_API_URL`
+- `VITE_REACT_APP_API_URL`
 
- - `DATABASE_URL`
+- `DATABASE_URL`
 
- - `SERVER_PORT`
+- `SERVER_PORT`
 
 ### Install dependencies
 
@@ -101,14 +99,14 @@
 
 Open two terminals
 
- - In the first one:
+- In the first one:
 
 ```bash
   cd server
   npm run dev
 ```
 
- - In the second one:
+- In the second one:
 
 ```bash
   cd client
