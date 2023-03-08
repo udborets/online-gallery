@@ -6,7 +6,6 @@ import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
 import useFirebase from "../hooks/useFirebase";
 import useNotification from "../hooks/useNotification";
-import { } from "../query";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes } from "../utils/consts";
 
