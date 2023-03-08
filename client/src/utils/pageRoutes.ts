@@ -35,7 +35,7 @@ export const authRoutes = [
   },
   {
     path: RoutePaths.USERS + RoutePaths.ME,
-    Component: UserByIdPage,
+    Component: MePage,
   },
   {
     path: RoutePaths.USERS + RoutePaths.ME + RoutePaths.GALLERY,
