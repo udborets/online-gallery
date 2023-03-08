@@ -5,7 +5,7 @@ import MePage from "./../pages/MePage";
 import NotFoundPage from "./../pages/NotFoundPage";
 import UsersPage from "./../pages/UsersPage";
 import { RoutePaths } from "./consts";
-import UserByIdPage from "./../pages/UserByIdPage";
+import UserPage from "../pages/UserPage";
 
 export const authRoutes = [
   {
@@ -13,46 +13,28 @@ export const authRoutes = [
     Component: UsersPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_name",
-    Component: UserByIdPage,
+    path: RoutePaths.USER,
+    Component: UserPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_name" + RoutePaths.GALLERY + "/:album_id",
-    Component: AlbumPage,
+    path: RoutePaths.ME,
+    Component: UserPage,
   },
   {
-    path: RoutePaths.USERS + "/:user_name" + RoutePaths.GALLERY,
+    path: RoutePaths.USER_GALLERY,
     Component: GalleryPage,
   },
   {
-    path:
-      RoutePaths.USERS +
-      "/:user_name" +
-      RoutePaths.GALLERY +
-      "/:album_id" +
-      "/:photo_id",
-    Component: AlbumPage,
-  },
-  {
-    path: RoutePaths.USERS + RoutePaths.ME,
-    Component: MePage,
-  },
-  {
-    path: RoutePaths.USERS + RoutePaths.ME + RoutePaths.GALLERY,
+    path: RoutePaths.ME_GALLERY,
     Component: GalleryPage,
   },
   {
-    path: RoutePaths.USERS + RoutePaths.ME + RoutePaths.GALLERY + "/:album_id",
+    path: RoutePaths.ME_GALLERY + "/:album_id",
     Component: AlbumPage,
   },
   {
-    path:
-      RoutePaths.USERS +
-      RoutePaths.ME +
-      RoutePaths.GALLERY +
-      "/:album_id" +
-      "/:photo_id",
-    Component: GalleryPage,
+    path: RoutePaths.ME_GALLERY + "/:album_id",
+    Component: AlbumPage,
   },
 ];
 
