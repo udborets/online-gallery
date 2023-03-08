@@ -12,43 +12,32 @@ import { RoutePaths } from '../utils/consts';
 const GalleryPage = () => {
   const [isAlbumModalActive, setIsAlbumModalActive] = useState(false);
   const { user } = useUser();
-  const { getRefItems, getRef, getRefUrls } = useFirebase();
+  const { getRefItems, getRef } = useFirebase();
   const navigate = useNavigate();
-  const { data: albums, isLoading, isError } = useQuery({
+  const albums = useQuery({
     queryFn: async () => {
       const fetchedUserAlbums = (await getRefItems(getRef(user.email))).prefixes;
-      const albumInfo: { albumPhotos: string[], name: string }[] = [];
-      fetchedUserAlbums.forEach(async (album) => {
-        const albumPhotos = await getRefUrls(album);
-        albumInfo.push({
-          albumPhotos,
-          name: album.name,
-        })
-      })
-      console.log(albumInfo)
-      return albumInfo;
+      return fetchedUserAlbums;
     },
-    queryKey: [`${user.email}`],
   });
-  if(isError) {
+  if (albums.isError) {
     return <div>Error</div>
   }
-  if (isLoading) {
+  if (albums.isLoading || albums.isRefetching) {
     return <div>Loading...</div>
   }
   return (
     <div className='gallery-page'>
-      <div className="gallery-page__container" onClick={() => console.log(albums)}>
-        {albums ? albums.map((album) => (
-          <span
-            key={album.name}
-            onClick={() => navigate(RoutePaths.USERS + RoutePaths.ME + RoutePaths.GALLERY + '/' + album.name)}
-            className="gallery__container"
+      <div className="gallery-page__container">
+        {albums.data && albums.data.map((album) => (
+          <div
+            key={album.fullPath}
+            onClick={() => navigate(RoutePaths.USERS + `/${user.name}` + "/gallery" + `/${album.name}`)}
           >
-            qq
-          </span>
+            {album.name}
+          </div>)
         )
-        ) : 'no albums'}
+        }
         <button onClick={() => setIsAlbumModalActive(oldValue => !oldValue)}>
           Add album
         </button>
