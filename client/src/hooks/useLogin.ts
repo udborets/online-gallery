@@ -11,6 +11,7 @@ import { createUser, getUserByEmail } from "../query";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
 import useNotification from "./useNotification";
 import useUser from "./useUser";
+import { uuidv4 } from "@firebase/util";
 
 export default function useLogin() {
   const auth = getAuth();
@@ -24,6 +25,7 @@ export default function useLogin() {
 
   async function userSignOut() {
     await signOut(auth);
+    setName("");
     setIsAuth(false);
     setEmail("");
     showNotificationWithTimeout(
@@ -46,25 +48,24 @@ export default function useLogin() {
         setEmail(dbUser.email);
         setIsAuth(true);
         setName(dbUser.name ?? "User");
-        setAvatar(dbUser.avatar);
+        setAvatar(dbUser.avatar ?? "");
         console.log("logged in with helloing user");
       }
       if (!dbUser) {
         const createdUser = await createUser(
           currUser.email,
-          currUser.displayName ?? "User",
+          currUser.displayName ?? `User${uuidv4()}`,
           currUser.photoURL ?? ""
         );
         setEmail(createdUser.email);
         setIsAuth(true);
         setName(createdUser.name ?? "User");
-        setAvatar(createdUser.avatar);
+        setAvatar(createdUser.avatar ?? "");
         showNotificationWithTimeout(
           `Welcome, ${createdUser.name}`,
           NotificationTypes.SUCCESS,
           5000
         );
-        console.log("logged in with new user");
       }
     }
   }
