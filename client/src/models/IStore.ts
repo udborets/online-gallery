@@ -11,5 +11,6 @@ export interface IStore {
     isActive: boolean;
     type: NotificationTypes;
     message: string;
+    timeout: NodeJS.Timeout;
   };
 }
