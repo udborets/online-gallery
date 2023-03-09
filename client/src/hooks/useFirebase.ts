@@ -24,7 +24,7 @@ export default function useFirebase() {
   ) {
     return ref(
       storage,
-      `${userFolderName}/${albumFolderName}/${fileName + "uuidv4-" + uuidv4()}`
+      `${userFolderName}/${albumFolderName}/${fileName}`
     );
   }
 
