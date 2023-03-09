@@ -24,7 +24,7 @@ const GalleryIdPage = () => {
     error: photosError,
     isLoading: isPhotosLoading } = useQuery({
       queryFn: async () => {
-        const list = await getRefUrls(getRef(`${user_name}/${album_id}/`));
+        const list = await getRefUrls(`${user_name}/${album_id}/`);
         return list;
       },
       queryKey: [`${user_name}/${album_id}`],
