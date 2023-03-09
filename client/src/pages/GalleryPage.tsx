@@ -21,7 +21,7 @@ const GalleryPage = () => {
   const isOwnGallery = user_name === user.name;
   if (!user_name) {
     showNotification("Error while trying to get user name", NotificationTypes.ERROR);
-    return <div>Error!</div>
+    return <div className='gallery-page'>Error!</div>
   }
   const albums = useQuery({
     queryFn: async () => {
@@ -35,10 +35,10 @@ const GalleryPage = () => {
     },
   });
   if (albums.isError) {
-    return <div>Error</div>
+    return <div className='gallery-page'>Error</div>
   }
   if (albums.isLoading || albums.isRefetching) {
-    return <div>Loading...</div>
+    return <div className='gallery-page'>Loading...</div>
   }
   return (
     <div className='gallery-page'>
