@@ -17,24 +17,8 @@ export const authRoutes = [
     Component: UserPage,
   },
   {
-    path: RoutePaths.ME,
-    Component: MePage,
-  },
-  {
     path: RoutePaths.USER_GALLERY,
     Component: GalleryPage,
-  },
-  {
-    path: RoutePaths.ME_GALLERY,
-    Component: GalleryPage,
-  },
-  {
-    path: RoutePaths.ME_GALLERY + "/:album_id",
-    Component: AlbumPage,
-  },
-  {
-    path: RoutePaths.ME_GALLERY + "/:album_id",
-    Component: AlbumPage,
   },
 ];
 
