@@ -16,13 +16,13 @@ const NavBar = () => {
   const dropDownOptions = [
     {
       key: Date.now() * Math.random(),
-      fn: () => navigate(RoutePaths.ME),
+      fn: () => navigate(RoutePaths.USERS + `/${user.name}`),
       text: "My account",
       className: ""
     },
     {
       key: Date.now() * Math.random(),
-      fn: () => navigate(RoutePaths.ME_GALLERY),
+      fn: () => navigate(RoutePaths.USERS + `/${user.name}` + RoutePaths.GALLERY),
       text: "My gallery",
       className: ""
     },
