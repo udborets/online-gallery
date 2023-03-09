@@ -11,7 +11,7 @@ const AlbumFormModal = () => {
   const [albumName, setAlbumName] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
   const { user } = useUser();
-  const { getRef, createNewFileRef, } = useFirebase();
+  const { createNewFileRef, getRefItems } = useFirebase();
   const { showNotificationWithTimeout, showNotification } = useNotification();
 
   async function createUserAlbum() {
@@ -20,12 +20,16 @@ const AlbumFormModal = () => {
       return;
     }
     if (albumName) {
+      const userAlbums = (await getRefItems(user.email)).prefixes;
+      if (userAlbums.map((i) => i.name).includes(albumName)) {
+        showNotificationWithTimeout("Album with this name already exists. Please, choose another one", NotificationTypes.WARNING, 6000);
+        return;
+      }
       if (albumName.includes('priv')) {
         showNotificationWithTimeout("Album name can not include 'priv' substring", NotificationTypes.WARNING, 6000);
         return;
       }
-      getRef(user.email + '/' + albumName + '/');
-      const init = createNewFileRef('udborets@gmail.com', `${albumIsPrivate ? 'priv' : ''}` + albumName, "init");
+      const init = createNewFileRef(user.email, `${albumIsPrivate ? 'priv' : ''}` + albumName, "init");
       await uploadBytes(init, new File([''], 'init.txt'));
       setAlbumName("");
       setAlbumIsPrivate(false);
