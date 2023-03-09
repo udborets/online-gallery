@@ -12,13 +12,15 @@ import { NotificationTypes, RoutePaths } from "../utils/consts";
 import useNotification from "./useNotification";
 import useUser from "./useUser";
 import { uuidv4 } from "@firebase/util";
+import useFirebase from "./useFirebase";
+import { uploadBytes } from "firebase/storage";
 
 export default function useLogin() {
   const auth = getAuth();
   const navigate = useNavigate();
   const { showNotificationWithTimeout } = useNotification();
   const { setEmail, setIsAuth, setName, setAvatar } = useUser();
-
+  const { getRef } = useFirebase();
   async function userSignIn() {
     await signInWithRedirect(auth, provider);
   }
@@ -49,7 +51,6 @@ export default function useLogin() {
         setIsAuth(true);
         setName(dbUser.name ?? "User");
         setAvatar(dbUser.avatar ?? "");
-        console.log("logged in with helloing user");
       }
       if (!dbUser) {
         const createdUser = await createUser(
@@ -65,6 +66,10 @@ export default function useLogin() {
           `Welcome, ${createdUser.name}`,
           NotificationTypes.SUCCESS,
           5000
+        );
+        uploadBytes(
+          getRef(`${createdUser.email}/init`),
+          new File([""], "init.txt")
         );
       }
     }
