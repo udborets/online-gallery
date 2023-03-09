@@ -22,18 +22,15 @@ export default function useFirebase() {
     albumFolderName: string,
     fileName: string
   ) {
-    return ref(
-      storage,
-      `${userFolderName}/${albumFolderName}/${fileName}`
-    );
+    return ref(storage, `${userFolderName}/${albumFolderName}/${fileName}`);
   }
 
-  async function getRefItems(ref: StorageReference) {
-    return await listAll(ref);
+  async function getRefItems(path: string) {
+    return await listAll(getRef(path));
   }
 
-  async function getRefUrls(ref: StorageReference) {
-    const refItems = await getRefItems(ref);
+  async function getRefUrls(path: string) {
+    const refItems = await getRefItems(path);
     const refUrls: string[] = [];
     refItems.items.forEach(async (item) => {
       const itemUrl = await getDownloadURL(item);
