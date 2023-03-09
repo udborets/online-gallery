@@ -6,12 +6,16 @@ const initialState = {
   isActive: false,
   type: NotificationTypes.SUCCESS,
   message: null,
+  timeout: null,
 };
 
 const notificationSlice = createSlice({
   name: "notification",
   initialState,
   reducers: {
+    setTimeout: (state, action) => {
+      state.timeout = action.payload.timeout;
+    },
     setIsActive: (state, action) => {
       state.isActive = action.payload.isActive;
     },
