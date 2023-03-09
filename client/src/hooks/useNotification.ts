@@ -16,11 +16,19 @@ export default function useNotification() {
   function setNotificationType(type: NotificationTypes) {
     dispatch(notificationActions.setType({ type: type }));
   }
+  function setNotificationTimeout(timeout: NodeJS.Timeout) {
+    dispatch(notificationActions.setTimeout({ timeout: timeout }));
+  }
 
   function showNotification(message: string, type: NotificationTypes) {
+    if (notification.isActive) {
+      return;
+    }
+    clearTimeout(notification.timeout);
     setNotificationMessage(message);
     setNotificationType(type);
     setNotificationIsActive(true);
+    return;
   }
 
   function showNotificationWithTimeout(
@@ -28,12 +36,16 @@ export default function useNotification() {
     type: NotificationTypes,
     timeout: number
   ) {
+    clearTimeout(notification.timeout);
     setNotificationMessage(message);
     setNotificationType(type);
     setNotificationIsActive(true);
-    setTimeout(() => {
-      setNotificationIsActive(false);
-    }, timeout);
+    setNotificationTimeout(
+      setTimeout(() => {
+        setNotificationIsActive(false);
+      }, timeout)
+    );
+    return;
   }
 
   return {
