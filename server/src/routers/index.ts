@@ -7,7 +7,7 @@ import {
   dbUpdateUserAvatar,
   dbUpdateUserName,
   dbGetAllUsers,
-  dbGetUserByEmail
+  dbGetUserByEmail,
 } from "../db";
 
 export default trpc.router({
@@ -20,6 +20,7 @@ export default trpc.router({
   getUserByEmail: trpc.procedure
     .input(z.object({ userEmail: z.string() }))
     .query(async ({ input }) => {
+      console.log(await dbGetAllUsers());
       return await dbGetUserByEmail(input.userEmail);
     }),
 
@@ -38,7 +39,7 @@ export default trpc.router({
     .query(async ({ input }) => {
       return await dbCreateUser(
         input.userName,
-        input.userName,
+        input.userEmail,
         input.avatarURL
       );
     }),
