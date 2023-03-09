@@ -1,3 +1,4 @@
+import { deleteObject, uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import useFirebase from "../../hooks/useFirebase";
 
@@ -10,7 +11,7 @@ const AlbumFormModal = () => {
   const [albumName, setAlbumName] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
   const { user } = useUser();
-  const { getRef } = useFirebase();
+  const { getRef, createNewFileRef, } = useFirebase();
   const { showNotificationWithTimeout, showNotification } = useNotification();
 
   async function createUserAlbum() {
@@ -19,7 +20,13 @@ const AlbumFormModal = () => {
       return;
     }
     if (albumName) {
+      if (albumName.includes('priv')) {
+        showNotificationWithTimeout("Album name can not include 'priv' substring", NotificationTypes.WARNING, 6000);
+        return;
+      }
       getRef(user.email + '/' + albumName + '/');
+      const init = createNewFileRef('udborets@gmail.com', `${albumIsPrivate ? 'priv' : ''}` + albumName, "init");
+      await uploadBytes(init, new File([''], 'init.txt'));
       setAlbumName("");
       setAlbumIsPrivate(false);
       showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 6000);
@@ -27,6 +34,7 @@ const AlbumFormModal = () => {
     }
     if (!albumName) {
       showNotificationWithTimeout("You have to enter album name", NotificationTypes.WARNING, 6000);
+      return;
     }
   }
 
