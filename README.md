@@ -1,6 +1,6 @@
 # Online Gallery
 
-### That is a [full-stack](#stack) "Online Gallery" website app with Google Firebase authentication which allows you to create albums, upload your own photos to them and visit other users albums.
+### This is a [full-stack](#stack) website app which allows you to create albums, upload your own photos to them and visit other users albums.
 
 # Navigation
 
