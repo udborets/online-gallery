@@ -64,25 +64,53 @@
   cd ../..
 ```
 
-### Set up environment variables
+### Add Google Firebase
 
-- `VITE_REACT_APP_FIREBASE_API_KEY`
+Create Google Firebase
 
-- `VITE_REACT_APP_FIREBASE_AUTH_DOMAIN`
+### Environment variables
 
-- `VITE_REACT_APP_FIREBASE_PROJECT_ID`
+Set up firebase config (your own firebase info)
 
-- `VITE_REACT_APP_FIREBASE_STORAGE_BUCKET`
+```bash
 
-- `VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID`
+VITE_REACT_APP_FIREBASE_API_KEY
 
-- `VITE_REACT_APP_FIREBASE_APP_ID`
+VITE_REACT_APP_FIREBASE_AUTH_DOMAIN
 
-- `VITE_REACT_APP_API_URL`
+VITE_REACT_APP_FIREBASE_PROJECT_ID
 
-- `DATABASE_URL`
+VITE_REACT_APP_FIREBASE_STORAGE_BUCKET
 
-- `SERVER_PORT`
+VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID
+
+VITE_REACT_APP_FIREBASE_APP_ID
+
+```
+
+Set up server api url (`http://localhost:5000`)
+
+```bash
+
+VITE_REACT_APP_API_URL
+
+```
+
+Set up server port (`5000`)
+
+```bash
+
+SERVER_PORT
+
+```
+
+Set up database url for prisma (your own database info)
+
+```bash
+
+DATABASE_URL
+
+```
 
 ### Install dependencies
 
