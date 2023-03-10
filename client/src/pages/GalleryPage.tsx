@@ -46,7 +46,7 @@ const GalleryPage = () => {
         {albums.data && albums.data.map((album) => (
           <div
             key={album.fullPath}
-            onClick={() => navigate(RoutePaths.USERS + `/${user.id}` + "/gallery" + `/${album.name}`)}
+            onClick={() => navigate(RoutePaths.USERS + `/${user_id}` + "/gallery" + `/${album.name}`)}
           >
             {album.name}
           </div>)
