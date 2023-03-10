@@ -22,7 +22,7 @@ const GalleryPage = () => {
     showNotification("Error while trying to get user name", NotificationTypes.ERROR);
     return <div className='gallery-page'>Error!</div>
   }
-  const isOwnGallery = user_id === user.id;
+  const isOwnPage = user_id === user.id;
   const albums = useQuery({
     queryFn: async () => {
       const fetchedUser = await getUserById(user_id);
@@ -53,14 +53,14 @@ const GalleryPage = () => {
         )
         }
         {
-          isOwnGallery &&
+          isOwnPage &&
           <button onClick={() => setIsAlbumModalActive(oldValue => !oldValue)}>
             Add album
           </button>
         }
       </div>
       {
-        isOwnGallery &&
+        isOwnPage &&
         <ModalTemplate visible={isAlbumModalActive} setVisible={setIsAlbumModalActive} >
           <AlbumFormModal />
         </ModalTemplate>
