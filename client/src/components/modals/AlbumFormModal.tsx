@@ -20,7 +20,7 @@ const AlbumFormModal = () => {
       return;
     }
     if (albumName) {
-      const userAlbums = (await getRefItems(user.email)).prefixes;
+      const userAlbums = (await getRefItems(user.id)).prefixes;
       if (userAlbums.map((i) => i.name).includes(albumName)) {
         showNotificationWithTimeout("Album with this name already exists. Please, choose another one", NotificationTypes.WARNING, 6000);
         return;
@@ -29,7 +29,7 @@ const AlbumFormModal = () => {
         showNotificationWithTimeout("Album name can not include 'priv' substring", NotificationTypes.WARNING, 6000);
         return;
       }
-      const init = createNewFileRef(user.email, `${albumIsPrivate ? 'priv' : ''}` + albumName, "init");
+      const init = createNewFileRef(user.id, `${albumIsPrivate ? 'priv' : ''}` + albumName, "init");
       await uploadBytes(init, new File([''], 'init.txt'));
       setAlbumName("");
       setAlbumIsPrivate(false);
