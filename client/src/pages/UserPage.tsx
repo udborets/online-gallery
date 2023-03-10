@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import useNotification from '../hooks/useNotification';
 import useUser from '../hooks/useUser';
-import { getUserByName, getUsers, updateUserName } from "../query";
+import { getUserById, getUsers, updateUserName } from "../query";
 import { NotificationTypes, RoutePaths } from '../utils/consts';
 
 const UserByIdPage = () => {
@@ -50,8 +50,7 @@ const UserByIdPage = () => {
     error: fetchedUserError,
   } = useQuery({
     queryFn: async () => {
-      const dbUser = await getUserByName(user_id);
-      console.log(dbUser);
+      const dbUser = await getUserById(user_id);
       return dbUser
     },
     queryKey: [user_id]
@@ -65,7 +64,7 @@ const UserByIdPage = () => {
   return (
     <div className="users-page">
       <button
-        onClick={async () => console.log(await getUserByName(user.name))}
+        onClick={async () => console.log(await getUserById(user_id))}
       >
         show user info
       </button>
