@@ -5,12 +5,16 @@ const initialState = {
   email: "",
   name: "",
   avatar: "",
+  id: "",
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUserId(state, action) {
+      state.id = action.payload.id;
+    },
     setUserEmail(state, action) {
       state.email = action.payload.email;
     },
