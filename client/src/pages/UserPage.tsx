@@ -9,7 +9,7 @@ import { NotificationTypes, RoutePaths } from '../utils/consts';
 
 const UserByIdPage = () => {
   const navigate = useNavigate();
-  const { user_name } = useParams();
+  const { user_id } = useParams();
   const { user, actions: userActions } = useUser();
   const [newName, setNewName] = useState('');
   const { showNotificationWithTimeout, showNotification } = useNotification();
@@ -39,7 +39,7 @@ const UserByIdPage = () => {
       NotificationTypes.ERROR,
     );
   }
-  if (!user_name) {
+  if (!user_id) {
     navigate(RoutePaths.NOTFOUND);
     return <></>;
   }
@@ -50,11 +50,11 @@ const UserByIdPage = () => {
     error: fetchedUserError,
   } = useQuery({
     queryFn: async () => {
-      const dbUser = await getUserByName(user_name);
+      const dbUser = await getUserByName(user_id);
       console.log(dbUser);
       return dbUser
     },
-    queryKey: [user_name]
+    queryKey: [user_id]
   })
   if (isFetchedUserLoading) {
     return <div>Loading...</div>

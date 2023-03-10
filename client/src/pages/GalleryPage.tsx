@@ -16,16 +16,16 @@ const GalleryPage = () => {
   const { user } = useUser();
   const { getRefItems } = useFirebase();
   const navigate = useNavigate();
-  const { user_name } = useParams();
+  const { user_id } = useParams();
   const { showNotification } = useNotification();
-  const isOwnGallery = user_name === user.name;
-  if (!user_name) {
+  const isOwnGallery = user_id === user.name;
+  if (!user_id) {
     showNotification("Error while trying to get user name", NotificationTypes.ERROR);
     return <div className='gallery-page'>Error!</div>
   }
   const albums = useQuery({
     queryFn: async () => {
-      const fetchedUser = await getUserByName(user_name);
+      const fetchedUser = await getUserByName(user_id);
       if (!fetchedUser) {
         showNotification("Error happened while trying to fetch user", NotificationTypes.ERROR);
         return null;

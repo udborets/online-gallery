@@ -19,7 +19,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
     showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
     return <div></div>
   }
-  const user_name = user.email;
+  const user_id = user.email;
   async function uploadFile() {
     if (!file) {
       showNotificationWithTimeout("You have to choose a file photo name", NotificationTypes.WARNING, 5000);
@@ -30,7 +30,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
     }
     const user = getAuth().currentUser;
     if (user && user.email) {
-      const imageRef = createNewFileRef(user_name, albumId, customFileName);
+      const imageRef = createNewFileRef(user_id, albumId, customFileName);
       const response = await uploadBytes(imageRef, file);
       refetchPhotos();
       return response;
