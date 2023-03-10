@@ -23,8 +23,8 @@ const GalleryIdPage = () => {
   }
   const photos = useQuery({
     queryFn: async () => {
-      const list = await getRefUrls(`${user_id}/${album_id}/`);
-      return list;
+      const urlList = await getRefUrls(`${user_id}/${album_id}/`);
+      return urlList;
     },
     queryKey: [`${user_id}/${album_id}`],
     refetchOnMount: false,
@@ -47,14 +47,14 @@ const GalleryIdPage = () => {
     <div className="album-page">
       <div className="album-page__container">
         <div className="album-page__photos">
-          {Array.isArray(photos) && photos.map((photo) => {
+          {photos.data && photos.data.map((photo) => {
             return (
               <div className="photo-item" key={photo} >
                 <div className="photo-item__container">
                   <img
                     className="photo-item__image"
                     src={photo} />
-                  <span className="photo-item__name">Helloing</span>
+                  <span className="photo-item__name"></span>
                 </div>
               </div>
             )
