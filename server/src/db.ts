@@ -81,5 +81,5 @@ export {
   dbUpdateUserName,
   dbGetAllUsers,
   dbGetUserByEmail,
-  dbGetUserById
+  dbGetUserById,
 };

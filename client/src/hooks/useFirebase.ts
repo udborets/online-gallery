@@ -1,10 +1,4 @@
-import {
-  ref,
-  listAll,
-  StorageReference,
-  getDownloadURL,
-} from "firebase/storage";
-import { uuidv4 } from "@firebase/util";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 import { storage } from "../firebase/storage";
 

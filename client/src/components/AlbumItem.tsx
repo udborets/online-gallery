@@ -7,7 +7,7 @@ import { NotificationTypes, RoutePaths } from "../utils/consts";
 const AlbumItem = (albumId: string) => {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
-  const { user_id } = useParams()
+  const { user_id } = useParams();
   if (!albumId || !user_id) {
     showNotification(`error happened while fetching album`, NotificationTypes.ERROR);
     return <div>Error</div>

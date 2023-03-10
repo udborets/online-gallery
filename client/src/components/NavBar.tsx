@@ -18,19 +18,19 @@ const NavBar = () => {
       key: Date.now() * Math.random(),
       fn: () => navigate(RoutePaths.USERS + `/${user.name}`),
       text: "My account",
-      className: ""
+      className: "",
     },
     {
       key: Date.now() * Math.random(),
       fn: () => navigate(RoutePaths.USERS + `/${user.name}` + RoutePaths.GALLERY),
       text: "My gallery",
-      className: ""
+      className: "",
     },
     {
       key: Date.now() * Math.random(),
       fn: () => userSignOut(),
       text: "Sign out",
-      className: "nav-profile__sign-out"
+      className: "nav-profile__sign-out",
     },
   ];
 

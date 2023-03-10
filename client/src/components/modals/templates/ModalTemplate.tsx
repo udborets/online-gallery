@@ -1,5 +1,5 @@
-import { IModalTemplateProps } from "../../../models/IModalsProps"
-import "../../../styles/components/templates/ModalTemplate.scss"
+import { IModalTemplateProps } from "../../../models/IModalsProps";
+import "../../../styles/components/templates/ModalTemplate.scss";
 
 const ModalTemplate = ({ children, visible, setVisible }: IModalTemplateProps) => {
   return (

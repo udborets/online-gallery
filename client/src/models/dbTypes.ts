@@ -1,4 +1,3 @@
-
 type Role = {
   BASIC: "BASIC";
   ADMIN: "ADMIN";

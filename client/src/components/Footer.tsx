@@ -1,4 +1,4 @@
-import "../styles/components/Footer.scss"
+import "../styles/components/Footer.scss";
 import telegramIcon from "../assets/telegram_icon.png";
 import vkIcon from "../assets/vk_icon.png";
 import emailIcon from "../assets/email_icon.png";

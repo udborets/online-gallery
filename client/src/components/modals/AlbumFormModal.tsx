@@ -1,4 +1,4 @@
-import { deleteObject, uploadBytes } from "firebase/storage";
+import { uploadBytes } from "firebase/storage";
 import { useState } from "react";
 import useFirebase from "../../hooks/useFirebase";
 
