@@ -10,9 +10,35 @@ import { NotificationTypes, RoutePaths } from '../utils/consts';
 const UserByIdPage = () => {
   const navigate = useNavigate();
   const { user_name } = useParams();
-  const { user, setName } = useUser();
+  const { user, actions: userActions } = useUser();
   const [newName, setNewName] = useState('');
   const { showNotificationWithTimeout, showNotification } = useNotification();
+  const changeName = async () => {
+    const allUserNames = (await getUsers()).map((fetchedUser) => fetchedUser.name);
+    if (allUserNames.find((fetchedUserName) => fetchedUserName === newName)?.length) {
+      showNotificationWithTimeout(
+        "User with this user name already exists, please, choose another one",
+        NotificationTypes.WARNING,
+        5000,
+      );
+      return;
+    }
+    const userWithUpdatedName = await updateUserName(user.name, newName);
+    if (userWithUpdatedName.name === newName) {
+      showNotificationWithTimeout(
+        "Successfully updated name",
+        NotificationTypes.SUCCESS,
+        5000
+      );
+      userActions.setName(newName);
+      setNewName("");
+      return;
+    }
+    showNotification(
+      "Error happened while trying to update user name",
+      NotificationTypes.ERROR,
+    );
+  }
   if (!user_name) {
     navigate(RoutePaths.NOTFOUND);
     return <></>;
@@ -43,32 +69,7 @@ const UserByIdPage = () => {
       >
         show user info
       </button>
-      <button onClick={async () => {
-        const allUserNames = (await getUsers()).map((fetchedUser) => fetchedUser.name);
-        if (allUserNames.find((fetchedUserName) => fetchedUserName === newName)?.length) {
-          showNotificationWithTimeout(
-            "User with this user name already exists, please, choose another one",
-            NotificationTypes.WARNING,
-            5000,
-          );
-          return;
-        }
-        const userWithUpdatedName = await updateUserName(user.name, newName);
-        if (userWithUpdatedName.name === newName) {
-          showNotificationWithTimeout(
-            "Successfully updated name",
-            NotificationTypes.SUCCESS,
-            5000
-          );
-          setName(newName);
-          setNewName("");
-          return;
-        }
-        showNotification(
-          "Error happened while trying to update user name",
-          NotificationTypes.ERROR,
-        );
-      }}
+      <button onClick={changeName}
       >
         Set name
       </button>
