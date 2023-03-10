@@ -1,7 +1,7 @@
 import { uploadBytes } from "firebase/storage";
 import { useState } from "react";
-import useFirebase from "../../hooks/useFirebase";
 
+import useFirebase from "../../hooks/useFirebase";
 import useNotification from "../../hooks/useNotification";
 import useUser from "../../hooks/useUser";
 import "../../styles/components/modals/PhotoFormModal.scss";

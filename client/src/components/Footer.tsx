@@ -1,8 +1,8 @@
-import "../styles/components/Footer.scss";
-import telegramIcon from "../assets/telegram_icon.png";
-import vkIcon from "../assets/vk_icon.png";
 import emailIcon from "../assets/email_icon.png";
 import githubIcon from "../assets/github_icon.png";
+import telegramIcon from "../assets/telegram_icon.png";
+import vkIcon from "../assets/vk_icon.png";
+import "../styles/components/Footer.scss";
 
 const Footer = () => {
   return (

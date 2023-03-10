@@ -5,15 +5,15 @@ import {
   signOut,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { uuidv4 } from "@firebase/util";
+import { uploadBytes } from "firebase/storage";
 
 import provider from "../firebase/provider";
 import { createUser, getUserByEmail } from "../query";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
+import useFirebase from "./useFirebase";
 import useNotification from "./useNotification";
 import useUser from "./useUser";
-import { uuidv4 } from "@firebase/util";
-import useFirebase from "./useFirebase";
-import { uploadBytes } from "firebase/storage";
 
 export default function useLogin() {
   const auth = getAuth();

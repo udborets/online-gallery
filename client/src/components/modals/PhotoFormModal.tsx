@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { uploadBytes } from "firebase/storage";
+import { useState } from 'react';
+import { getAuth } from 'firebase/auth';
 
+import useFirebase from '../../hooks/useFirebase';
 import useNotification from '../../hooks/useNotification';
+import useUser from '../../hooks/useUser';
 import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from '../../utils/consts';
-import { getAuth } from 'firebase/auth';
-import useFirebase from '../../hooks/useFirebase';
-import useUser from '../../hooks/useUser';
 
 const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const [file, setFile] = useState<any>(null);

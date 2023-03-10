@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import useNotification from '../hooks/useNotification';
 import useUser from '../hooks/useUser';
-
 import { getUserByName, getUsers, updateUserName } from "../query";
 import { NotificationTypes, RoutePaths } from '../utils/consts';
 

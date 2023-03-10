@@ -1,6 +1,5 @@
 import { IDropDownItemProps } from '../../models/IDropDownItemProps';
 
-
 const DropDownItem = ({ text, fn, className }: IDropDownItemProps) => {
   return (
     <button onClick={() => fn()}

@@ -1,7 +1,6 @@
 import { INotificationProps } from '../../models/INotificationProps';
 import "../../styles/components/UI/Notification.scss";
 
-
 const Notification = ({ isActive, setIsActive, message, type }: INotificationProps) => {
   return (
     <div
@@ -10,7 +9,6 @@ const Notification = ({ isActive, setIsActive, message, type }: INotificationPro
       <div
         className={`notification__container 
       ${type}`}>
-
         <span
           onClick={() => setIsActive(false)}
           className='notification__close'
