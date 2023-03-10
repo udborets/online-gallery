@@ -20,21 +20,23 @@
 
 ## Frontend
 
-`TypeScript`, `React`, `React Router DOM`, `React Redux`, `RTK`, `React Query`, `React Error Boundary`, `SCSS`, `Google Firebase Authentication`, `Google Firebase Storage`
+`TypeScript`, `React`, `React Router DOM`, `React Redux`, `RTK`, `React Query`, `React Error Boundary`, `SCSS`, `Firebase Authentication`, `Firebase Storage`
 
 # Todo
 
-- `fetch album photos on "Gallery" page enter`
+- `fix album displaying in gallery page`
 
-- `create "Me" page UI`
+- `fix photos displaying in album page`
 
-- `add abitily to update user avatar`
+- `fix page displaying logic (for owner/visitor)`
 
-- `understand how to create albums in Google Firebase`
+- `fix private album creating/seeing logic`
 
-- `add abitily to upload photos in "Album" page`
+- `add ability to change album name ?`
 
-- `don't oversleep the university :d`
+- `add ability to change album privacy ?`
+
+- `add ability to change photo name ?`
 
 - `and much more :)`
 
