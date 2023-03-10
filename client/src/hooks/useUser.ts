@@ -15,6 +15,9 @@ export default function useUser() {
   function setName(name: string) {
     dispatch(userActions.setUserName({ name: name }));
   }
+  function setId(id: string) {
+    dispatch(userActions.setUserId({ id: id }));
+  }
   function setAvatar(avatar: string) {
     dispatch(userActions.setUserAvatar({ avatar: avatar }));
   }
@@ -27,6 +30,7 @@ export default function useUser() {
     deleteInfo,
     setName,
     setAvatar,
+    setId,
   };
   return { actions, user };
 }
