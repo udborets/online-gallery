@@ -21,5 +21,12 @@ export default function useUser() {
   function deleteInfo() {
     dispatch(userActions.deleteUserState());
   }
-  return { user, setEmail, setIsAuth, deleteInfo, setName, setAvatar };
+  const actions = {
+    setEmail,
+    setIsAuth,
+    deleteInfo,
+    setName,
+    setAvatar,
+  };
+  return { actions, user };
 }
