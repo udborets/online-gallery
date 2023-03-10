@@ -8,6 +8,7 @@ import {
   dbUpdateUserName,
   dbGetAllUsers,
   dbGetUserByEmail,
+  dbGetUserById,
 } from "../db";
 
 export default trpc.router({
@@ -20,8 +21,13 @@ export default trpc.router({
   getUserByEmail: trpc.procedure
     .input(z.object({ userEmail: z.string() }))
     .query(async ({ input }) => {
-      console.log(await dbGetAllUsers());
       return await dbGetUserByEmail(input.userEmail);
+    }),
+
+  getUserById: trpc.procedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input }) => {
+      return await dbGetUserById(input.userId);
     }),
 
   getAllUsers: trpc.procedure.query(async () => {
