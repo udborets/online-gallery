@@ -19,7 +19,7 @@ export default function useLogin() {
   const auth = getAuth();
   const navigate = useNavigate();
   const { showNotificationWithTimeout } = useNotification();
-  const { setEmail, setIsAuth, setName, setAvatar } = useUser();
+  const { actions: userActions } = useUser();
   const { getRef } = useFirebase();
   async function userSignIn() {
     await signInWithRedirect(auth, provider);
@@ -27,9 +27,9 @@ export default function useLogin() {
 
   async function userSignOut() {
     await signOut(auth);
-    setName("");
-    setIsAuth(false);
-    setEmail("");
+    userActions.setName("");
+    userActions.setIsAuth(false);
+    userActions.setEmail("");
     showNotificationWithTimeout(
       "Successfully signed out",
       NotificationTypes.SUCCESS,
@@ -47,10 +47,10 @@ export default function useLogin() {
     if (currUser) {
       const dbUser = await getUserByEmail(currUser.email);
       if (dbUser) {
-        setEmail(dbUser.email);
-        setIsAuth(true);
-        setName(dbUser.name ?? "User");
-        setAvatar(dbUser.avatar ?? "");
+        userActions.setEmail(dbUser.email);
+        userActions.setIsAuth(true);
+        userActions.setName(dbUser.name ?? "User");
+        userActions.setAvatar(dbUser.avatar ?? "");
       }
       if (!dbUser) {
         const createdUser = await createUser(
@@ -58,10 +58,11 @@ export default function useLogin() {
           currUser.displayName ?? `User${uuidv4()}`,
           currUser.photoURL ?? ""
         );
-        setEmail(createdUser.email);
-        setIsAuth(true);
-        setName(createdUser.name ?? "User");
-        setAvatar(createdUser.avatar ?? "");
+        userActions.setEmail(createdUser.email);
+
+        userActions.setIsAuth(true);
+        userActions.setName(createdUser.name ?? "User");
+        userActions.setAvatar(createdUser.avatar ?? "");
         showNotificationWithTimeout(
           `Welcome, ${createdUser.name}`,
           NotificationTypes.SUCCESS,
