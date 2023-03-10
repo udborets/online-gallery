@@ -13,7 +13,7 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
   const [file, setFile] = useState<any>(null);
   const [customFileName, setCustomFileName] = useState('');
   const { showNotification, showNotificationWithTimeout } = useNotification();
-  const { createNewFileRef } = useFirebase();
+  const { createNewFileRef, getRefItems } = useFirebase();
   const { album_id } = useParams();
   const nameInputRef = useRef(null);
   useEffect(() => {
@@ -22,10 +22,6 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
     }
   })
   const { user } = useUser();
-  if (!user || !user.email) {
-    showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
-    return <div>Error</div>
-  }
   async function uploadFile() {
     if (!file) {
       showNotificationWithTimeout("You have to choose a file photo name", NotificationTypes.WARNING, 5000);
@@ -38,16 +34,23 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
     if (currUser && currUser.email) {
       if (!album_id) {
         showNotification("Error happened while trying to get album id", NotificationTypes.ERROR);
-        return <div>Error</div>
+        return;
+      }
+      const isHasSameName = !!(await getRefItems(`${user.id}/${album_id}`)).items.find((albumFile) => albumFile.name === customFileName);
+      if (isHasSameName) {
+        showNotificationWithTimeout("This album already has file with that name. Please, choose another one", NotificationTypes.WARNING, 5000);
+        return;
       }
       const imageRef = createNewFileRef(user.id, album_id, customFileName);
-      const response = await uploadBytes(imageRef, file);
+      await uploadBytes(imageRef, file);
+      setCustomFileName("");
       refetch();
-      return response;
+      showNotificationWithTimeout("Successfully uploaded file", NotificationTypes.SUCCESS, 5000);
+      return;
     }
     if (!currUser || (currUser && !currUser.email)) {
       showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
-      return
+      return;
     }
   }
   return (
