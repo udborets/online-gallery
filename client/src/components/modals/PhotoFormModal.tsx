@@ -5,15 +5,16 @@ import { getAuth } from 'firebase/auth';
 import useFirebase from '../../hooks/useFirebase';
 import useNotification from '../../hooks/useNotification';
 import useUser from '../../hooks/useUser';
-import { IPhotoFormModalProps } from '../../models/IModalsProps';
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from '../../utils/consts';
+import { useParams } from "react-router-dom";
 
-const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
+const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
   const [file, setFile] = useState<any>(null);
   const [customFileName, setCustomFileName] = useState('');
   const { showNotification, showNotificationWithTimeout } = useNotification();
   const { createNewFileRef } = useFirebase();
+  const { album_id } = useParams();
   const nameInputRef = useRef(null);
   useEffect(() => {
     if (nameInputRef.current) {
@@ -23,7 +24,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const { user } = useUser();
   if (!user || !user.email) {
     showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
-    return <div></div>
+    return <div>Error</div>
   }
   async function uploadFile() {
     if (!file) {
@@ -35,9 +36,13 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
     }
     const currUser = getAuth().currentUser;
     if (currUser && currUser.email) {
-      const imageRef = createNewFileRef(user.id, albumId, customFileName);
+      if (!album_id) {
+        showNotification("Error happened while trying to get album id", NotificationTypes.ERROR);
+        return <div>Error</div>
+      }
+      const imageRef = createNewFileRef(user.id, album_id, customFileName);
       const response = await uploadBytes(imageRef, file);
-      refetchPhotos();
+      refetch();
       return response;
     }
     if (!currUser || (currUser && !currUser.email)) {
