@@ -1,5 +1,5 @@
 import { uploadBytes } from "firebase/storage";
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getAuth } from 'firebase/auth';
 
 import useFirebase from '../../hooks/useFirebase';
@@ -12,9 +12,14 @@ import { NotificationTypes } from '../../utils/consts';
 const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
   const [file, setFile] = useState<any>(null);
   const [customFileName, setCustomFileName] = useState('');
-  const [photoDescription, setPhotoDescription] = useState('');
   const { showNotification, showNotificationWithTimeout } = useNotification();
   const { createNewFileRef } = useFirebase();
+  const nameInputRef = useRef(null);
+  useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  })
   const { user } = useUser();
   if (!user || !user.email) {
     showNotification("Error happened while trying to get user email", NotificationTypes.ERROR);
@@ -48,12 +53,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
         onChange={(e) => setCustomFileName(e.target.value)}
         value={customFileName}
         placeholder="Enter photo name"
-      />
-      <textarea
-        className='modal-form__description'
-        placeholder='Enter photo description'
-        onChange={(e) => setPhotoDescription(e.target.value)}
-        value={photoDescription}
+        ref={nameInputRef}
       />
       <input
         type="file"

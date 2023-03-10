@@ -1,5 +1,5 @@
 import { uploadBytes } from "firebase/storage";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import useFirebase from "../../hooks/useFirebase";
 import useNotification from "../../hooks/useNotification";
@@ -13,7 +13,12 @@ const AlbumFormModal = () => {
   const { user } = useUser();
   const { createNewFileRef, getRefItems } = useFirebase();
   const { showNotificationWithTimeout, showNotification } = useNotification();
-
+  const nameInputRef = useRef(null);
+  useEffect(() => {
+    if (nameInputRef.current) {
+      nameInputRef.current.focus();
+    }
+  })
   async function createUserAlbum() {
     if (!user.isAuth) {
       showNotification("There is no album", NotificationTypes.ERROR);
@@ -52,6 +57,7 @@ const AlbumFormModal = () => {
         className="album-form__input"
         placeholder='Enter album name'
         value={albumName}
+        ref={nameInputRef}
       />
       <div>
         <span>Is private?</span>
