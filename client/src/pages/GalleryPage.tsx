@@ -8,7 +8,7 @@ import useUser from '../hooks/useUser';
 import "../styles/pages/GalleryPage.scss";
 import useFirebase from '../hooks/useFirebase';
 import { NotificationTypes, RoutePaths } from '../utils/consts';
-import { getUserByName } from '../query';
+import { getUserById, getUserByName } from '../query';
 import useNotification from './../hooks/useNotification';
 
 const GalleryPage = () => {
@@ -18,19 +18,19 @@ const GalleryPage = () => {
   const navigate = useNavigate();
   const { user_id } = useParams();
   const { showNotification } = useNotification();
-  const isOwnGallery = user_id === user.name;
   if (!user_id) {
     showNotification("Error while trying to get user name", NotificationTypes.ERROR);
     return <div className='gallery-page'>Error!</div>
   }
+  const isOwnGallery = user_id === user.id;
   const albums = useQuery({
     queryFn: async () => {
-      const fetchedUser = await getUserByName(user_id);
+      const fetchedUser = await getUserById(user_id);
       if (!fetchedUser) {
         showNotification("Error happened while trying to fetch user", NotificationTypes.ERROR);
         return null;
       }
-      const fetchedUserAlbums = (await getRefItems(fetchedUser.email)).prefixes;
+      const fetchedUserAlbums = (await getRefItems(fetchedUser.id)).prefixes;
       return fetchedUserAlbums;
     },
   });
