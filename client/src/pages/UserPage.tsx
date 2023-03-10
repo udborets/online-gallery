@@ -11,6 +11,7 @@ const UserByIdPage = () => {
   const navigate = useNavigate();
   const { user_id } = useParams();
   const { user, actions: userActions } = useUser();
+  const isUsersOwn = user_id === user.id;
   const [newName, setNewName] = useState('');
   const { showNotificationWithTimeout, showNotification } = useNotification();
   const changeName = async () => {
@@ -63,17 +64,22 @@ const UserByIdPage = () => {
   }
   return (
     <div className="users-page">
-      <button
-        onClick={async () => console.log(await getUserById(user_id))}
-      >
-        show user info
-      </button>
-      <button onClick={changeName}
-      >
-        Set name
-      </button>
-      <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
-    </div>
+      <div>helloing</div>
+      {isUsersOwn &&
+        <div>
+          <button
+            onClick={async () => console.log(await getUserById(user_id))}
+          >
+            show user info
+          </button>
+          <button onClick={changeName}
+          >
+            Set name
+          </button>
+          <input type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
+        </div>
+      }
+    </div >
   )
 }
 
