@@ -6,6 +6,7 @@ import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
 import useFirebase from "../hooks/useFirebase";
 import useNotification from "../hooks/useNotification";
+import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes } from "../utils/consts";
 
@@ -14,6 +15,8 @@ const GalleryIdPage = () => {
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
   const { getRefUrls } = useFirebase();
+  const { user } = useUser();
+  const isOwnPage = user_id === user.id;
   if (!user_id || !album_id) {
     showNotification('error while reading email', NotificationTypes.ERROR);
     return <div></div>
@@ -60,14 +63,19 @@ const GalleryIdPage = () => {
               </div>
             )
           })}
-          <button onClick={() => setIsPhotoModalActive(true)}>
-            Add photo
-          </button>
+          {
+            isOwnPage &&
+            <button onClick={() => setIsPhotoModalActive(true)}>
+              Add photo
+            </button>
+          }
         </div>
       </div>
-      <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
-        <PhotoFormModal albumId={album_id} refetchPhotos={refetchPhotos} />
-      </ModalTemplate>
+      {isOwnPage &&
+        <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
+          <PhotoFormModal albumId={album_id} refetchPhotos={refetchPhotos} />
+        </ModalTemplate>
+      }
     </div>
   )
 }
