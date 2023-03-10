@@ -32,6 +32,7 @@ const PhotoFormModal = ({ albumId, refetchPhotos }: IPhotoFormModalProps) => {
     if (user && user.email) {
       const imageRef = createNewFileRef(user_name, albumId, customFileName);
       const response = await uploadBytes(imageRef, file);
+      refetchPhotos();
       return response;
     }
     if (!user || (user && !user.email)) {
