@@ -21,30 +21,26 @@ const GalleryIdPage = () => {
     showNotification('error while reading email', NotificationTypes.ERROR);
     return <div></div>
   }
-  const {
-    data: photos,
-    refetch: refetchPhotos,
-    isError: isPhotosError,
-    error: photosError,
-    isLoading: isPhotosLoading } = useQuery({
-      queryFn: async () => {
-        const list = await getRefUrls(`${user_id}/${album_id}/`);
-        return list;
-      },
-      queryKey: [`${user_id}/${album_id}`],
-    })
+  const photos = useQuery({
+    queryFn: async () => {
+      const list = await getRefUrls(`${user_id}/${album_id}/`);
+      return list;
+    },
+    queryKey: [`${user_id}/${album_id}`],
+    refetchOnMount: false,
+  })
   if (!album_id || !user_id) {
     return <>werfr</>
   }
-  if (isPhotosLoading) {
+  if (photos.isLoading) {
     return <div>Photos loading...</div>
   }
   if (!photos) {
     return <div>This album has no photos</div>
   }
-  if (isPhotosError) {
+  if (photos.isError) {
     showNotification("error happened while trying to photos", NotificationTypes.ERROR);
-    return <div>{JSON.stringify(photosError)}</div>
+    return <div>{JSON.stringify(photos.error)}</div>
   }
 
   return (
@@ -73,7 +69,7 @@ const GalleryIdPage = () => {
       </div>
       {isOwnPage &&
         <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
-          <PhotoFormModal albumId={album_id} refetchPhotos={refetchPhotos} />
+          <PhotoFormModal refetch={photos.refetch} />
         </ModalTemplate>
       }
     </div>
