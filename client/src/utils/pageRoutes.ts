@@ -4,6 +4,7 @@ import NotFoundPage from "./../pages/NotFoundPage";
 import UsersPage from "./../pages/UsersPage";
 import UserPage from "../pages/UserPage";
 import { RoutePaths } from "./consts";
+import AlbumPage from "../pages/AlbumPage";
 
 export const authRoutes = [
   {
@@ -17,6 +18,10 @@ export const authRoutes = [
   {
     path: RoutePaths.USER_GALLERY,
     Component: GalleryPage,
+  },
+  {
+    path: RoutePaths.USER_ALBUM,
+    Component: AlbumPage,
   },
 ];
 
