@@ -6,6 +6,7 @@ export interface IStore {
     email: string;
     name: string;
     avatar: string;
+    id: string;
   };
   notification: {
     isActive: boolean;
