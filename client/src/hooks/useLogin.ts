@@ -21,6 +21,7 @@ export default function useLogin() {
   const { showNotificationWithTimeout } = useNotification();
   const { actions: userActions } = useUser();
   const { getRef } = useFirebase();
+
   async function userSignIn() {
     await signInWithRedirect(auth, provider);
   }
@@ -30,6 +31,7 @@ export default function useLogin() {
     userActions.setName("");
     userActions.setIsAuth(false);
     userActions.setEmail("");
+    userActions.setId("");
     showNotificationWithTimeout(
       "Successfully signed out",
       NotificationTypes.SUCCESS,
@@ -47,6 +49,7 @@ export default function useLogin() {
     if (currUser) {
       const dbUser = await getUserByEmail(currUser.email);
       if (dbUser) {
+        userActions.setId(dbUser.id);
         userActions.setEmail(dbUser.email);
         userActions.setIsAuth(true);
         userActions.setName(dbUser.name ?? "User");
@@ -59,7 +62,7 @@ export default function useLogin() {
           currUser.photoURL ?? ""
         );
         userActions.setEmail(createdUser.email);
-
+        userActions.setId(createdUser.id);
         userActions.setIsAuth(true);
         userActions.setName(createdUser.name ?? "User");
         userActions.setAvatar(createdUser.avatar ?? "");
@@ -69,7 +72,7 @@ export default function useLogin() {
           5000
         );
         uploadBytes(
-          getRef(`${createdUser.email}/init`),
+          getRef(`${createdUser.id}/init`),
           new File([""], "init.txt")
         );
       }
