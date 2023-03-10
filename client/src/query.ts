@@ -12,6 +12,10 @@ async function getUserByEmail(userEmail: string) {
   return await client.getUserByEmail.query({ userEmail: userEmail });
 }
 
+async function getUserById(userId: string) {
+  return await client.getUserById.query({ userId: userId });
+}
+
 async function getUsers() {
   return await client.getAllUsers.query();
 }
@@ -42,6 +46,7 @@ export {
   deleteUser,
   getUserByEmail,
   getUserByName,
+  getUserById,
   updateUserName,
   updateUserAvatar,
   createUser,
