@@ -13,12 +13,13 @@ const GalleryIdPage = () => {
   const { user_name, album_id } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
-  const { getRefUrls, getRef } = useFirebase();
+  const { getRefUrls } = useFirebase();
   if (!user_name || !album_id) {
     showNotification('error while reading email', NotificationTypes.ERROR);
     return <div></div>
   }
-  const { data: photos,
+  const {
+    data: photos,
     refetch: refetchPhotos,
     isError: isPhotosError,
     error: photosError,
