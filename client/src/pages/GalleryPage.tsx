@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query/react';
 import { useNavigate, useParams } from 'react-router-dom';
+import AlbumItem from '../components/AlbumItem';
 
 import AlbumFormModal from '../components/modals/AlbumFormModal';
 import ModalTemplate from '../components/modals/templates/ModalTemplate';
@@ -45,12 +46,8 @@ const GalleryPage = () => {
     <div className='gallery-page'>
       <div className="gallery-page__container">
         {albums.data && albums.data.map((album) => (
-          <div
-            key={album.fullPath}
-            onClick={() => navigate(RoutePaths.USERS + `/${user_id}` + "/gallery" + `/${album.name}`)}
-          >
-            {album.name}
-          </div>)
+          <AlbumItem albumName={album.name} key={album.fullPath} />
+        )
         )
         }
         {
@@ -66,7 +63,7 @@ const GalleryPage = () => {
           <AlbumFormModal refetch={albums.refetch} />
         </ModalTemplate>
       }
-    </div>
+    </div >
   )
 }
 
