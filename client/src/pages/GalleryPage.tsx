@@ -33,6 +33,7 @@ const GalleryPage = () => {
       const fetchedUserAlbums = (await getRefItems(fetchedUser.id)).prefixes;
       return fetchedUserAlbums;
     },
+    refetchOnWindowFocus: false,
   });
   if (albums.isError) {
     return <div className='gallery-page'>Error</div>
