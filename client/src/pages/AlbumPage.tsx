@@ -34,7 +34,9 @@ const GalleryIdPage = () => {
     return <>werfr</>
   }
   if (photos.isLoading) {
-    return <div>Photos loading...</div>
+    return <div className="album-page">
+      <div>Photos loading...</div>
+    </div>
   }
   if (!photos) {
     return <div>This album has no photos</div>
@@ -43,23 +45,27 @@ const GalleryIdPage = () => {
     showNotification("error happened while trying to photos", NotificationTypes.ERROR);
     return <div>{JSON.stringify(photos.error)}</div>
   }
-
   return (
     <div className="album-page">
       <div className="album-page__container">
         <div className="album-page__photos">
-          {photos.data && photos.data.map((photo) => {
-            return (
-              <div className="photo-item" key={photo} >
-                <div className="photo-item__container">
-                  <img
-                    className="photo-item__image"
-                    src={photo} />
-                  <span className="photo-item__name"></span>
+          {photos.data
+            ?
+            photos.data.map((photo) => {
+              return (
+                <div className="photo-item" key={photo} >
+                  <div className="photo-item__container">
+                    <img
+                      className="photo-item__image"
+                      src={photo} />
+                    <span className="photo-item__name"></span>
+                  </div>
                 </div>
-              </div>
-            )
-          })}
+              )
+            })
+            :
+            <div>There are no photos in that album</div>
+          }
           {
             isOwnPage &&
             <button onClick={() => setIsPhotoModalActive(true)}>
