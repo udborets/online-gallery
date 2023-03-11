@@ -23,12 +23,13 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
   })
   const { user } = useUser();
   async function uploadFile() {
-    if (!file) {
-      showNotificationWithTimeout("You have to choose a file photo name", NotificationTypes.WARNING, 5000);
-      return;
-    }
     if (!customFileName) {
       showNotificationWithTimeout("You have to enter photo name", NotificationTypes.WARNING, 5000);
+      return;
+    }
+    if (!file) {
+      showNotificationWithTimeout("You have to select a file to upload", NotificationTypes.WARNING, 5000);
+      return;
     }
     const currUser = getAuth().currentUser;
     if (currUser && currUser.email) {
