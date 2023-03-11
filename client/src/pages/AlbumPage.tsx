@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "react-query/react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
@@ -8,7 +8,7 @@ import useFirebase from "../hooks/useFirebase";
 import useNotification from "../hooks/useNotification";
 import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
-import { NotificationTypes } from "../utils/consts";
+import { NotificationTypes, RoutePaths } from "../utils/consts";
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
@@ -19,7 +19,10 @@ const GalleryIdPage = () => {
   const isOwnPage = user_id === user.id;
   if (!user_id || !album_id) {
     showNotification('error while reading email', NotificationTypes.ERROR);
-    return <div></div>
+    return <Navigate to={RoutePaths.HOME}/>
+  }
+  if (album_id.includes("priv") && !isOwnPage) {
+    return <Navigate to={RoutePaths.HOME}/>
   }
   const photos = useQuery({
     queryFn: async () => {
@@ -31,7 +34,7 @@ const GalleryIdPage = () => {
     refetchOnWindowFocus: false,
   })
   if (!album_id || !user_id) {
-    return <>werfr</>
+    return <Navigate to={RoutePaths.HOME}/>
   }
   if (photos.isLoading) {
     return <div className="album-page">
