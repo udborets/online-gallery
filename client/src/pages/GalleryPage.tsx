@@ -32,6 +32,9 @@ const GalleryPage = () => {
         return null;
       }
       const fetchedUserAlbums = (await getRefItems(fetchedUser.id)).prefixes;
+      if (!isOwnPage) {
+        return fetchedUserAlbums.filter((fetchedAlbum) => !fetchedAlbum.name.includes('priv'));
+      }
       return fetchedUserAlbums;
     },
     refetchOnWindowFocus: false,
@@ -45,10 +48,10 @@ const GalleryPage = () => {
   return (
     <div className='gallery-page'>
       <div className="gallery-page__container">
-        {albums.data && albums.data.map((album) => (
-          <AlbumItem albumName={album.name} key={album.fullPath} />
-        )
-        )
+        {
+          albums.data && albums.data.map((album) => (
+            <AlbumItem albumName={album.name} key={album.fullPath} />
+          ))
         }
         {
           isOwnPage &&
@@ -60,7 +63,7 @@ const GalleryPage = () => {
       {
         isOwnPage &&
         <ModalTemplate visible={isAlbumModalActive} setVisible={setIsAlbumModalActive} >
-          <AlbumFormModal refetchAlbums={albums.refetch}  />
+          <AlbumFormModal refetchAlbums={albums.refetch} />
         </ModalTemplate>
       }
     </div >
