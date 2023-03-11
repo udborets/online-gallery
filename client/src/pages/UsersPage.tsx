@@ -15,7 +15,7 @@ const UsersPage = () => {
     <div className="users-page">
       {
         users?.map((user) => {
-          return <div key={user.id} onClick={() => navigate(RoutePaths.USERS + '/' + user.id + '/gallery')}>{user.id}</div>
+          return <div key={user.id} onClick={() => navigate(RoutePaths.USERS + '/' + user.id + '/gallery')}>{user.name} <img src={user.avatar} alt="user picture" /></div>
         })
       }
     </div>
