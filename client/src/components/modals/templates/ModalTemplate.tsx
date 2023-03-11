@@ -1,7 +1,10 @@
-import { IModalTemplateProps } from "../../../models/IModalsProps";
 import "../../../styles/components/templates/ModalTemplate.scss";
 
-const ModalTemplate = ({ children, visible, setVisible }: IModalTemplateProps) => {
+const ModalTemplate = ({ children, visible, setVisible }: {
+  children: JSX.Element;
+  visible: boolean;
+  setVisible: (isVisible: boolean) => void;
+}) => {
   return (
     <div
       className={`modal ${visible ? "visible" : "hidden"}`}
