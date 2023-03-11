@@ -1,5 +1,5 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query/react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import useNotification from "../hooks/useNotification";
 import "../styles/components/AlbumItem.scss";

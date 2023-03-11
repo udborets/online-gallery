@@ -1,13 +1,13 @@
+import { getAuth } from 'firebase/auth';
 import { uploadBytes } from "firebase/storage";
 import { useEffect, useRef, useState } from 'react';
-import { getAuth } from 'firebase/auth';
+import { useParams } from "react-router-dom";
 
 import useFirebase from '../../hooks/useFirebase';
 import useNotification from '../../hooks/useNotification';
 import useUser from '../../hooks/useUser';
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from '../../utils/consts';
-import { useParams } from "react-router-dom";
 
 const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
   const [file, setFile] = useState<any>(null);

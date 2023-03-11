@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query/react';
 import { useNavigate, useParams } from 'react-router-dom';
-import AlbumItem from '../components/AlbumItem';
 
+import AlbumItem from '../components/AlbumItem';
 import AlbumFormModal from '../components/modals/AlbumFormModal';
 import ModalTemplate from '../components/modals/templates/ModalTemplate';
 import useFirebase from '../hooks/useFirebase';
 import useUser from '../hooks/useUser';
 import { getUserById } from '../query';
 import "../styles/pages/GalleryPage.scss";
-import { NotificationTypes, RoutePaths } from '../utils/consts';
+import { NotificationTypes } from '../utils/consts';
 import useNotification from './../hooks/useNotification';
 
 const GalleryPage = () => {

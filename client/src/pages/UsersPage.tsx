@@ -1,7 +1,8 @@
-import "../styles/pages/UsersPage.scss";
 import { useQuery } from 'react-query';
-import { getUsers } from "../query";
 import { useNavigate } from "react-router-dom";
+
+import { getUsers } from "../query";
+import "../styles/pages/UsersPage.scss";
 import { RoutePaths } from "../utils/consts";
 
 const UsersPage = () => {

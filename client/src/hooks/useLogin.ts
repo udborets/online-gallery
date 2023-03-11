@@ -1,12 +1,12 @@
+import { uuidv4 } from "@firebase/util";
 import {
   getAuth,
   getRedirectResult,
   signInWithRedirect,
-  signOut,
+  signOut
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { uuidv4 } from "@firebase/util";
 import { uploadBytes } from "firebase/storage";
+import { useNavigate } from "react-router-dom";
 
 import provider from "../firebase/provider";
 import { createUser, getUserByEmail } from "../query";
