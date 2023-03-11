@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { RoutePaths } from "../utils/consts";
 
 const UsersPage = () => {
-  const { data: users } = useQuery({
+  const users = useQuery({
     queryFn: async () => {
       return await getUsers();
     }
@@ -14,8 +14,23 @@ const UsersPage = () => {
   return (
     <div className="users-page">
       {
-        users?.map((user) => {
-          return <div key={user.id} onClick={() => navigate(RoutePaths.USERS + '/' + user.id + '/gallery')}>{user.name} <img src={user.avatar} alt="user picture" /></div>
+        users.data && 
+        users.data.map((user) => {
+          return (
+            <div
+              key={user.id}
+              onClick={() => navigate(RoutePaths.USERS
+                + '/'
+                + user.id
+                + '/gallery')}
+            >
+              {user.name}
+              <img
+                src={user.avatar}
+                alt="user picture"
+              />
+            </div>
+          )
         })
       }
     </div>
