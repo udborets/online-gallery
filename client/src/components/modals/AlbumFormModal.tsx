@@ -34,7 +34,7 @@ const AlbumFormModal = ({ refetchAlbums }: { refetchAlbums: () => void }) => {
         showNotificationWithTimeout("Album name can not include 'priv' substring", NotificationTypes.WARNING, 6000);
         return;
       }
-      const init = createNewFileRef(user.id, `${albumIsPrivate ? 'priv' : ''}` + albumName, "init");
+      const init = createNewFileRef(user.id, `${albumIsPrivate ? 'priv_' : ''}` + albumName, "init");
       await uploadBytes(init, new File([''], 'init.txt'));
       setAlbumName("");
       setAlbumIsPrivate(false);
