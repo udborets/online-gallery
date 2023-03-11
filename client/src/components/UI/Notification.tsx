@@ -1,7 +1,12 @@
-import { INotificationProps } from '../../models/INotificationProps';
 import "../../styles/components/UI/Notification.scss";
+import { NotificationTypes } from "../../utils/consts";
 
-const Notification = ({ isActive, setIsActive, message, type }: INotificationProps) => {
+const Notification = ({ isActive, setIsActive, message, type }: {
+  message: string;
+  type: NotificationTypes;
+  isActive: boolean;
+  setIsActive: (isActive: boolean) => void;
+}) => {
   return (
     <div
       className={`notification ${type} 
