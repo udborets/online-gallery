@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from 'react-query/react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import AlbumItem from '../components/AlbumItem';
 import AlbumFormModal from '../components/modals/AlbumFormModal';
@@ -16,7 +16,6 @@ const GalleryPage = () => {
   const [isAlbumModalActive, setIsAlbumModalActive] = useState(false);
   const { user } = useUser();
   const { getRefItems } = useFirebase();
-  const navigate = useNavigate();
   const { user_id } = useParams();
   const { showNotification } = useNotification();
   if (!user_id) {
