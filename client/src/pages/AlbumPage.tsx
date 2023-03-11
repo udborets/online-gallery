@@ -28,6 +28,7 @@ const GalleryIdPage = () => {
     },
     queryKey: [`${user_id}/${album_id}`],
     refetchOnMount: false,
+    refetchOnWindowFocus: false,
   })
   if (!album_id || !user_id) {
     return <>werfr</>
