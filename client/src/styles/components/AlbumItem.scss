@@ -13,7 +13,13 @@
   flex-grow: 1;
   align-items: center;
 }
+
 .album__cover {
   width: 100%;
-  height: auto
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: 700;
 }
