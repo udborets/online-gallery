@@ -7,7 +7,7 @@ import useUser from "../../hooks/useUser";
 import "../../styles/components/modals/PhotoFormModal.scss";
 import { NotificationTypes } from "../../utils/consts";
 
-const AlbumFormModal = ({ refetch }: { refetch: () => void }) => {
+const AlbumFormModal = ({ refetchAlbums }: { refetchAlbums: () => void }) => {
   const [albumName, setAlbumName] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
   const { user } = useUser();
@@ -39,7 +39,7 @@ const AlbumFormModal = ({ refetch }: { refetch: () => void }) => {
       setAlbumName("");
       setAlbumIsPrivate(false);
       showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 6000);
-      refetch();
+      refetchAlbums();
       return;
     }
     if (!albumName) {
