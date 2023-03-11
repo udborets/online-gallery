@@ -41,18 +41,16 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
           {
             cover &&
               !!cover.data ?
-              <img
+              (<img
                 src={cover.data}
                 alt="can't load image :("
                 className='album__image'
-              />
+              />)
               :
-              albumName
+              <span>{albumName.includes('priv') && <span className='album__priv'>priv</span>} {albumName.replace('priv_', '')} </span>
           }
         </div>
-        <span>
-          {!!cover.data && albumName}
-        </span>
+        {!!cover.data && <span>{albumName.includes('priv') && <span className='album__priv'>priv</span>} {albumName.replace('priv_', '')} </span>}
       </div>
     </div>
   )
