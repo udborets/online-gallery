@@ -42,6 +42,8 @@
 
 # Run Locally
 
+## (that's hard xd)
+
 ### Clone the project
 
 ```bash
@@ -72,7 +74,9 @@ Create Google Firebase
 
 ### Environment variables
 
-Set up firebase config (your own firebase info)
+#### Set up these variables in `.env` file:
+
+firebase config variables (your own firebase info)
 
 ```bash
 
@@ -90,7 +94,7 @@ VITE_REACT_APP_FIREBASE_APP_ID
 
 ```
 
-Set up server api url (`http://localhost:5000`)
+server api url variable (`http://localhost:5000`)
 
 ```bash
 
@@ -98,7 +102,7 @@ VITE_REACT_APP_API_URL
 
 ```
 
-Set up server port (`5000`)
+server port variable (`5000`)
 
 ```bash
 
@@ -106,7 +110,7 @@ SERVER_PORT
 
 ```
 
-Set up database url for prisma (your own database info)
+database url for prisma variable (your own database info)
 
 ```bash
 
