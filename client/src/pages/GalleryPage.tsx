@@ -60,7 +60,7 @@ const GalleryPage = () => {
       {
         isOwnPage &&
         <ModalTemplate visible={isAlbumModalActive} setVisible={setIsAlbumModalActive} >
-          <AlbumFormModal refetch={albums.refetch} />
+          <AlbumFormModal refetchAlbums={albums.refetch}  />
         </ModalTemplate>
       }
     </div >
