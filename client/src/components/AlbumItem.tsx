@@ -21,7 +21,7 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
   });
   if (!albumName || !user_id) {
     showNotification(`error happened while fetching album`, NotificationTypes.ERROR);
-    return <div>Error</div>
+    return <div className='album'>Error</div>
   }
   if (cover.isLoading) {
     return <div className='album'>
@@ -40,7 +40,7 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
         >
           {
             cover &&
-              cover.data ?
+              !!cover.data ?
               <img
                 src={cover.data}
                 alt="can't load image :("
@@ -51,7 +51,7 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
           }
         </div>
         <span>
-          {albumName}
+          {!!cover.data && albumName}
         </span>
       </div>
     </div>
