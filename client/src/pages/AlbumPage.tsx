@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery } from "react-query/react";
 import { Navigate, useParams } from "react-router-dom";
+import { getDownloadURL } from 'firebase/storage';
 
 import PhotoFormModal from "../components/modals/PhotoFormModal";
 import ModalTemplate from "../components/modals/templates/ModalTemplate";
@@ -9,13 +10,12 @@ import useNotification from "../hooks/useNotification";
 import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
-import { getDownloadURL } from 'firebase/storage';
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
-  const { getRefUrls, getRefItems } = useFirebase();
+  const { getRefItems } = useFirebase();
   const { user } = useUser();
   const isOwnPage = user_id === user.id;
   if (!user_id || !album_id) {
@@ -58,8 +58,7 @@ const GalleryIdPage = () => {
       <div className="album-page__container">
         <div className="album-page__photos">
           {photos.data?.length
-            ?
-            photos.data.map((photoInfo) => {
+            ? photos.data.map((photoInfo) => {
               return (
                 <div className="photo-item" key={photoInfo.url} >
                   <div
@@ -75,8 +74,8 @@ const GalleryIdPage = () => {
                 </div>
               )
             })
-            :
-            <div className="no-photos">There are no photos in that album</div>}
+            : <></>
+          }
           {isOwnPage &&
             <button
               className="add-photo"
