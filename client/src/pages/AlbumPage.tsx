@@ -30,7 +30,7 @@ const GalleryIdPage = () => {
       const fetchedPhotos = (await getRefItems(`${user_id}/${album_id}/`)).items;
       const photosList: { url: string, name: string }[] = [];
       for (let i = 0; i < fetchedPhotos.length; i++) {
-        if (fetchedPhotos[i].name !== 'init') {
+        if (fetchedPhotos[i].name !== 'init' && fetchedPhotos[i].name !== 'cover') {
           const photoUrl = await getDownloadURL(fetchedPhotos[i]);
           photosList.push({ url: photoUrl, name: fetchedPhotos[i].name });
         }
@@ -74,18 +74,17 @@ const GalleryIdPage = () => {
                 </div>
               )
             })
-            : <></>
-          }
-          {isOwnPage &&
-            <button
+            : <></>}
+          {isOwnPage
+            && <button
               className="add-photo"
               onClick={() => setIsPhotoModalActive(true)}>
               Add photo
             </button>}
         </div>
       </div>
-      {isOwnPage &&
-        <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
+      {isOwnPage
+        && <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
           <PhotoFormModal refetch={photos.refetch} />
         </ModalTemplate>}
     </div>
