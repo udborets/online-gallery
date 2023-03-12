@@ -9,12 +9,13 @@ import useNotification from "../hooks/useNotification";
 import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
+import { getDownloadURL } from 'firebase/storage';
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
-  const { getRefUrls } = useFirebase();
+  const { getRefUrls, getRefItems } = useFirebase();
   const { user } = useUser();
   const isOwnPage = user_id === user.id;
   if (!user_id || !album_id) {
@@ -26,8 +27,15 @@ const GalleryIdPage = () => {
   }
   const photos = useQuery({
     queryFn: async () => {
-      const urlList = await getRefUrls(`${user_id}/${album_id}/`);
-      return urlList;
+      const fetchedPhotos = (await getRefItems(`${user_id}/${album_id}/`)).items;
+      const photosList: { url: string, name: string }[] = [];
+      for (let i = 0; i < fetchedPhotos.length; i++) {
+        if (fetchedPhotos[i].name !== 'init') {
+          const photoUrl = await getDownloadURL(fetchedPhotos[i]);
+          photosList.push({ url: photoUrl, name: fetchedPhotos[i].name });
+        }
+      }
+      return photosList;
     },
     queryKey: [`${user_id}/${album_id}`],
     refetchOnMount: false,
@@ -51,18 +59,19 @@ const GalleryIdPage = () => {
         <div className="album-page__photos">
           {photos.data?.length
             ?
-            photos.data.map((photoUrl) => {
+            photos.data.map((photoInfo) => {
               return (
-                <div className="photo-item" key={photoUrl} >
+                <div className="photo-item" key={photoInfo.url} >
                   <div
                     className="photo-item__container"
-                    onClick={() => window.open(photoUrl)}
+                    onClick={() => window.open(photoInfo.url)}
                   >
                     <img
                       className="photo-item__image"
-                      src={photoUrl}
+                      src={photoInfo.url}
                     />
                   </div>
+                  <span className="photo-item__name">{photoInfo.name}</span>
                 </div>
               )
             })
