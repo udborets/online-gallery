@@ -22,14 +22,14 @@
 }
 
 .add-photo {
-  outline: 2px solid black;
   display: flex;
-  font-size: 2rem;
   flex-direction: column;
   justify-content: center;
+  font-size: 3rem;
   align-items: center;
-  width: 420px;
-  height: 420px;
+  width: 400px;
+  height: 100%;
+  outline: 2px solid black;
   transition: all 0.5s ease-out;
   
   &:hover {
