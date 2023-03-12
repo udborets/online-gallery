@@ -15,7 +15,7 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
   const { showNotification, showNotificationWithTimeout } = useNotification();
   const { createNewFileRef, getRefItems } = useFirebase();
   const { album_name } = useParams();
-  const nameInputRef = useRef(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (nameInputRef.current) {
       nameInputRef.current.focus();

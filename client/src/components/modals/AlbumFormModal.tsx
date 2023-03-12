@@ -14,7 +14,7 @@ const AlbumFormModal = ({ refetchAlbums }: { refetchAlbums: () => void }) => {
   const [coverFile, setCoverFile] = useState<any>(null);
   const { createNewFileRef, getRefItems } = useFirebase();
   const { showNotificationWithTimeout, showNotification } = useNotification();
-  const nameInputRef = useRef(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (nameInputRef.current) {
       nameInputRef.current.focus();
