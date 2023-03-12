@@ -1,6 +1,6 @@
 import "../styles/components/PhotoItem.scss";
 
-const ImageItem = ({ url: photoUrl, name: photoName }:
+const PhotoItem = ({ url: photoUrl, name: photoName }:
   { url: string; name: string }) => {
   return (
     <div className="photo-item" key={photoUrl} >
@@ -14,6 +14,7 @@ const ImageItem = ({ url: photoUrl, name: photoName }:
         />
         <span
           className="photo-item__name"
+          onClick={(e) => e.stopPropagation()}
         >
           {photoName}
         </span>
@@ -22,4 +23,4 @@ const ImageItem = ({ url: photoUrl, name: photoName }:
   )
 }
 
-export default ImageItem
+export default PhotoItem
