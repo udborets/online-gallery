@@ -28,16 +28,6 @@
 
 - `fix photos displaying in album page`
 
-- `fix page displaying logic (for owner/visitor)`
-
-- `fix private album creating/seeing logic`
-
-- `add ability to change album name ?`
-
-- `add ability to change album privacy ?`
-
-- `add ability to change photo name ?`
-
 - `and much more :)`
 
 # Run Locally
