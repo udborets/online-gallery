@@ -5,15 +5,20 @@ import useNotification from "../hooks/useNotification";
 import "../styles/components/AlbumItem.scss";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
 import useFirebase from './../hooks/useFirebase';
+import { getDownloadURL } from 'firebase/storage';
 
 const AlbumItem = ({ albumName }: { albumName: string }) => {
   const navigate = useNavigate();
   const { showNotification } = useNotification();
   const { user_id } = useParams();
-  const { getRefUrls } = useFirebase();
+  const { getRefItems } = useFirebase();
   const cover = useQuery({
     queryFn: async () => {
-      return (await getRefUrls(user_id + '/' + albumName))[0] ?? null;
+      const fetchedPhoto = (await getRefItems(user_id + "/" + albumName))
+        .items.filter((item) => item.name !== 'init')[0];
+      if (!fetchedPhoto) return null;
+      const coverURL = await getDownloadURL(fetchedPhoto);
+      return coverURL;
     },
     queryKey: [albumName],
     refetchInterval: 100000000,
@@ -48,11 +53,10 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
               src={cover.data}
               alt="can't load image :("
               className='cover__image'
-            />)
-            :
-            <span className='cover__text'>
+            />) :
+            (<span className='cover__text'>
               {albumName.replace('priv_', '')}
-            </span>}
+            </span>)}
         </div>
         {!!cover.data &&
           <span className='album__name'>
