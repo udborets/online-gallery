@@ -54,15 +54,15 @@ const GalleryPage = () => {
           ))
         }
         {
-          isOwnPage &&
-          <button onClick={() => setIsAlbumModalActive(oldValue => !oldValue)}>
+          isOwnPage 
+          && <button onClick={() => setIsAlbumModalActive(oldValue => !oldValue)}>
             Add album
           </button>
         }
       </div>
       {
-        isOwnPage &&
-        <ModalTemplate visible={isAlbumModalActive} setVisible={setIsAlbumModalActive} >
+        isOwnPage 
+        && <ModalTemplate visible={isAlbumModalActive} setVisible={setIsAlbumModalActive} >
           <AlbumFormModal refetchAlbums={albums.refetch} />
         </ModalTemplate>
       }
