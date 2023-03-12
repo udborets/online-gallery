@@ -14,7 +14,7 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
   const [customFileName, setCustomFileName] = useState('');
   const { showNotification, showNotificationWithTimeout } = useNotification();
   const { createNewFileRef, getRefItems } = useFirebase();
-  const { album_id } = useParams();
+  const { album_name } = useParams();
   const nameInputRef = useRef(null);
   useEffect(() => {
     if (nameInputRef.current) {
@@ -33,16 +33,16 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
     }
     const currUser = getAuth().currentUser;
     if (currUser && currUser.email) {
-      if (!album_id) {
+      if (!album_name) {
         showNotification("Error happened while trying to get album id", NotificationTypes.ERROR);
         return;
       }
-      const isHasSameName = !!(await getRefItems(`${user.id}/${album_id}`)).items.find((albumFile) => albumFile.name === customFileName);
+      const isHasSameName = !!(await getRefItems(`${user.id}/${album_name}`)).items.find((albumFile) => albumFile.name === customFileName);
       if (isHasSameName) {
         showNotificationWithTimeout("This album already has file with that name. Please, choose another one", NotificationTypes.WARNING, 5000);
         return;
       }
-      const imageRef = createNewFileRef(user.id, album_id, customFileName);
+      const imageRef = createNewFileRef(user.id, album_name, customFileName);
       await uploadBytes(imageRef, file);
       setCustomFileName("");
       refetch();

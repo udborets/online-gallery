@@ -13,22 +13,22 @@ import { NotificationTypes, RoutePaths } from "../utils/consts";
 import ImageItem from "../components/ImageItem";
 
 const GalleryIdPage = () => {
-  const { user_id, album_id } = useParams();
+  const { user_id, album_name } = useParams();
   const [isPhotoModalActive, setIsPhotoModalActive] = useState(false);
   const { showNotification } = useNotification();
   const { getRefItems } = useFirebase();
   const { user } = useUser();
   const isOwnPage = user_id === user.id;
-  if (!user_id || !album_id) {
+  if (!user_id || !album_name) {
     showNotification('error while reading email', NotificationTypes.ERROR);
     return <Navigate to={RoutePaths.HOME} />
   }
-  if (album_id.includes("priv") && !isOwnPage) {
+  if (album_name.includes("priv") && !isOwnPage) {
     return <Navigate to={RoutePaths.HOME} />
   }
   const photos = useQuery({
     queryFn: async () => {
-      const fetchedPhotos = (await getRefItems(`${user_id}/${album_id}/`)).items;
+      const fetchedPhotos = (await getRefItems(`${user_id}/${album_name}/`)).items;
       const photosList: { url: string, name: string }[] = [];
       for (let i = 0; i < fetchedPhotos.length; i++) {
         if (fetchedPhotos[i].name !== 'init' && fetchedPhotos[i].name !== 'cover') {
@@ -38,11 +38,11 @@ const GalleryIdPage = () => {
       }
       return photosList;
     },
-    queryKey: [`${user_id}/${album_id}`],
+    queryKey: [`${user_id}/${album_name}`],
     refetchInterval: 30000,
     refetchOnWindowFocus: false,
   })
-  if (!album_id || !user_id) {
+  if (!album_name || !user_id) {
     return <Navigate to={RoutePaths.HOME} />
   }
   if (photos.isLoading) {
