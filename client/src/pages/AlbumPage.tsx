@@ -10,7 +10,7 @@ import useNotification from "../hooks/useNotification";
 import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
-import ImageItem from "../components/ImageItem";
+import ImageItem from "../components/PhotoItem";
 
 const GalleryIdPage = () => {
   const { user_id, album_name } = useParams();
