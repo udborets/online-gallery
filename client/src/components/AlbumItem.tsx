@@ -15,7 +15,7 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
   const cover = useQuery({
     queryFn: async () => {
       const fetchedPhoto = (await getRefItems(user_id + "/" + albumName))
-        .items.filter((item) => item.name !== 'init')[0];
+        .items.find((item) => item.name === 'cover') ?? null;
       if (!fetchedPhoto) return null;
       const coverURL = await getDownloadURL(fetchedPhoto);
       return coverURL;
