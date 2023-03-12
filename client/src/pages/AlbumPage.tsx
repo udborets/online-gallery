@@ -39,7 +39,7 @@ const GalleryIdPage = () => {
       return photosList;
     },
     queryKey: [`${user_id}/${album_id}`],
-    refetchOnMount: false,
+    refetchInterval: 30000,
     refetchOnWindowFocus: false,
   })
   if (!album_id || !user_id) {
