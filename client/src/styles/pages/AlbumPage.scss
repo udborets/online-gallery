@@ -17,28 +17,6 @@
   gap: 30px;
 }
 
-.photo-item {
-  padding: 20px;
-  outline: 2px solid black;
-}
-
-.photo-item__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 380px;
-  height: 100%;
-}
-
-.photo-item__image {
-  width: 100%;
-  height: auto;
-}
-
-.photo-item__name {
-  font-size: 2rem;
-}
-
 .no-photos {
   font-size: 2rem;
 }
