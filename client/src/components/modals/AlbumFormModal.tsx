@@ -11,6 +11,7 @@ const AlbumFormModal = ({ refetchAlbums }: { refetchAlbums: () => void }) => {
   const [albumName, setAlbumName] = useState("");
   const [albumIsPrivate, setAlbumIsPrivate] = useState(false);
   const { user } = useUser();
+  const [coverFile, setCoverFile] = useState<any>(null);
   const { createNewFileRef, getRefItems } = useFirebase();
   const { showNotificationWithTimeout, showNotification } = useNotification();
   const nameInputRef = useRef(null);
@@ -36,6 +37,8 @@ const AlbumFormModal = ({ refetchAlbums }: { refetchAlbums: () => void }) => {
       }
       const init = createNewFileRef(user.id, `${albumIsPrivate ? 'priv_' : ''}` + albumName, "init");
       await uploadBytes(init, new File([''], 'init.txt'));
+      const cover = createNewFileRef(user.id, `${albumIsPrivate ? 'priv_' : ''}` + albumName, "cover");
+      await uploadBytes(cover, coverFile);
       setAlbumName("");
       setAlbumIsPrivate(false);
       showNotificationWithTimeout("Successfully created album", NotificationTypes.SUCCESS, 6000);
@@ -59,6 +62,13 @@ const AlbumFormModal = ({ refetchAlbums }: { refetchAlbums: () => void }) => {
         placeholder='Enter album name'
         value={albumName}
         ref={nameInputRef}
+      />
+      <input
+        type="file"
+        accept='image/*'
+        className="album-form__input"
+        placeholder='Enter album name'
+        onChange={e => setCoverFile(e.target.files ? e.target.files[0] : null)}
       />
       <div>
         <span>Is private?</span>
