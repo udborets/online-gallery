@@ -51,15 +51,17 @@ const GalleryIdPage = () => {
         <div className="album-page__photos">
           {photos.data?.length
             ?
-            photos.data.map((photo) => {
+            photos.data.map((photoUrl) => {
               return (
-                <div className="photo-item" key={photo} >
-                  <div className="photo-item__container">
+                <div className="photo-item" key={photoUrl} >
+                  <div
+                    className="photo-item__container"
+                    onClick={() => window.open(photoUrl)}
+                  >
                     <img
                       className="photo-item__image"
-                      src={photo}
+                      src={photoUrl}
                     />
-                    <span className="photo-item__name"></span>
                   </div>
                 </div>
               )
