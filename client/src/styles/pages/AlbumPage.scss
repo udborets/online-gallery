@@ -38,3 +38,23 @@
 .photo-item__name {
   font-size: 2rem;
 }
+
+.no-photos {
+  font-size: 2rem;
+}
+
+.add-photo {
+  outline: 2px solid black;
+  display: flex;
+  font-size: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 420px;
+  height: 420px;
+  transition: all 0.5s ease-out;
+  
+  &:hover {
+    background: rgb(209, 209, 209);
+  }
+}
