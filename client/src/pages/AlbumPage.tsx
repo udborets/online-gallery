@@ -19,10 +19,10 @@ const GalleryIdPage = () => {
   const isOwnPage = user_id === user.id;
   if (!user_id || !album_id) {
     showNotification('error while reading email', NotificationTypes.ERROR);
-    return <Navigate to={RoutePaths.HOME}/>
+    return <Navigate to={RoutePaths.HOME} />
   }
   if (album_id.includes("priv") && !isOwnPage) {
-    return <Navigate to={RoutePaths.HOME}/>
+    return <Navigate to={RoutePaths.HOME} />
   }
   const photos = useQuery({
     queryFn: async () => {
@@ -34,15 +34,12 @@ const GalleryIdPage = () => {
     refetchOnWindowFocus: false,
   })
   if (!album_id || !user_id) {
-    return <Navigate to={RoutePaths.HOME}/>
+    return <Navigate to={RoutePaths.HOME} />
   }
   if (photos.isLoading) {
     return <div className="album-page">
       <div>Photos loading...</div>
     </div>
-  }
-  if (!photos) {
-    return <div>This album has no photos</div>
   }
   if (photos.isError) {
     showNotification("error happened while trying to photos", NotificationTypes.ERROR);
@@ -52,7 +49,7 @@ const GalleryIdPage = () => {
     <div className="album-page">
       <div className="album-page__container">
         <div className="album-page__photos">
-          {photos.data
+          {photos.data?.length
             ?
             photos.data.map((photo) => {
               return (
@@ -60,28 +57,27 @@ const GalleryIdPage = () => {
                   <div className="photo-item__container">
                     <img
                       className="photo-item__image"
-                      src={photo} />
+                      src={photo}
+                    />
                     <span className="photo-item__name"></span>
                   </div>
                 </div>
               )
             })
             :
-            <div>There are no photos in that album</div>
-          }
-          {
-            isOwnPage &&
-            <button onClick={() => setIsPhotoModalActive(true)}>
+            <div className="no-photos">There are no photos in that album</div>}
+          {isOwnPage &&
+            <button
+              className="add-photo"
+              onClick={() => setIsPhotoModalActive(true)}>
               Add photo
-            </button>
-          }
+            </button>}
         </div>
       </div>
       {isOwnPage &&
         <ModalTemplate visible={isPhotoModalActive} setVisible={setIsPhotoModalActive} >
           <PhotoFormModal refetch={photos.refetch} />
-        </ModalTemplate>
-      }
+        </ModalTemplate>}
     </div>
   )
 }
