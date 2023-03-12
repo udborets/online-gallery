@@ -1,18 +1,21 @@
 .photo-item {
   padding: 20px;
   outline: 2px solid black;
+  width: 400px;
+  height: 500px;
 }
 
 .photo-item__container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 380px;
   height: 100%;
+  align-items: center;
 }
 
 .photo-item__image {
-  width: 100%;
+  max-width: 350px;
+  max-height: 350px;
   height: auto;
 }
 
