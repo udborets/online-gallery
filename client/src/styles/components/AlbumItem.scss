@@ -5,6 +5,11 @@
   height: 400px;
   display: flex;
   position: relative;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0px 0px 20px rgb(0, 0, 0);
+  }
 }
 
 .album__container {
