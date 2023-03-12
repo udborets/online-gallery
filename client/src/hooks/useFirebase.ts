@@ -24,9 +24,7 @@ export default function useFirebase() {
   }
 
   async function getRefUrls(path: string) {
-    const refItems = (await getRefItems(path)).items.filter(
-      (item) => item.name !== "init"
-    );
+    const refItems = (await getRefItems(path)).items;
     let refUrls: string[] = [];
     for (let i = 0; i < refItems.length; i++) {
       refUrls.push(await getDownloadURL(refItems[i]));
