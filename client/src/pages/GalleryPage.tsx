@@ -32,7 +32,8 @@ const GalleryPage = () => {
       }
       const fetchedUserAlbums = (await getRefItems(fetchedUser.id)).prefixes;
       if (!isOwnPage) {
-        return fetchedUserAlbums.filter((fetchedAlbum) => !fetchedAlbum.name.includes('priv'));
+        return fetchedUserAlbums
+          .filter((fetchedAlbum) => !fetchedAlbum.name.includes('priv'));
       }
       return fetchedUserAlbums;
     },
