@@ -31,6 +31,10 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
   return (
     <div className="album">
       <div className="album__container">
+        {albumName.includes('priv') &&
+          <span className='album__priv'>
+            private
+          </span>}
         <div
           className="album__cover"
           onClick={() => navigate(RoutePaths.USERS
@@ -38,19 +42,22 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
             + RoutePaths.GALLERY
             + `/${albumName}`)}
         >
-          {
-            cover &&
-              !!cover.data ?
-              (<img
-                src={cover.data}
-                alt="can't load image :("
-                className='album__image'
-              />)
-              :
-              <span>{albumName.includes('priv') && <span className='album__priv'>priv</span>} {albumName.replace('priv_', '')} </span>
-          }
+          {cover &&
+            !!cover.data ?
+            (<img
+              src={cover.data}
+              alt="can't load image :("
+              className='cover__image'
+            />)
+            :
+            <span className='cover__text'>
+              {albumName.replace('priv_', '')}
+            </span>}
         </div>
-        {!!cover.data && <span>{albumName.includes('priv') && <span className='album__priv'>priv</span>} {albumName.replace('priv_', '')} </span>}
+        {!!cover.data &&
+          <span className='album__name'>
+            {albumName.replace('priv_', '')}
+          </span>}
       </div>
     </div>
   )
