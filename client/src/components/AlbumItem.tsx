@@ -54,7 +54,9 @@ const AlbumItem = ({ albumName }: { albumName: string }) => {
               alt="can't load image :("
               className='cover__image'
             />) :
-            (<span className='cover__text'>
+            (<span className='cover__text'
+              onClick={(e) => e.stopPropagation()}
+            >
               {albumName.replace('priv_', '')}
             </span>)}
         </div>
