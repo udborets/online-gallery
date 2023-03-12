@@ -10,6 +10,7 @@ import useNotification from "../hooks/useNotification";
 import useUser from "../hooks/useUser";
 import "../styles/pages/AlbumPage.scss";
 import { NotificationTypes, RoutePaths } from "../utils/consts";
+import ImageItem from "../components/ImageItem";
 
 const GalleryIdPage = () => {
   const { user_id, album_id } = useParams();
@@ -60,18 +61,7 @@ const GalleryIdPage = () => {
           {photos.data?.length
             ? photos.data.map((photoInfo) => {
               return (
-                <div className="photo-item" key={photoInfo.url} >
-                  <div
-                    className="photo-item__container"
-                    onClick={() => window.open(photoInfo.url)}
-                  >
-                    <img
-                      className="photo-item__image"
-                      src={photoInfo.url}
-                    />
-                  </div>
-                  <span className="photo-item__name">{photoInfo.name}</span>
-                </div>
+                <ImageItem {...photoInfo} />
               )
             })
             : <></>}
