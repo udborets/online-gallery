@@ -37,6 +37,7 @@ const GalleryPage = () => {
       }
       return fetchedUserAlbums;
     },
+    queryKey: [user_id],
     refetchOnWindowFocus: false,
   });
   if (albums.isError) {
@@ -54,14 +55,14 @@ const GalleryPage = () => {
           ))
         }
         {
-          isOwnPage 
+          isOwnPage
           && <button onClick={() => setIsAlbumModalActive(oldValue => !oldValue)}>
             Add album
           </button>
         }
       </div>
       {
-        isOwnPage 
+        isOwnPage
         && <ModalTemplate visible={isAlbumModalActive} setVisible={setIsAlbumModalActive} >
           <AlbumFormModal refetchAlbums={albums.refetch} />
         </ModalTemplate>
