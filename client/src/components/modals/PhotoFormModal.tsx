@@ -67,8 +67,8 @@ const PhotoFormModal = ({ refetch }: { refetch: () => void }) => {
       <input
         type="file"
         accept='image/*'
-        name='userFile'
-        onChange={e => setFile(e.target.files ? e.target.files[0] : null)} />
+        onChange={e => setFile(e.target.files ? e.target.files[0] : null)}
+      />
       <button
         className='modal-form__submit'
         type='button'
