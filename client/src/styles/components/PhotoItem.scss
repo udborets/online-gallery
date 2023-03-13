@@ -4,7 +4,13 @@
   width: 400px;
   height: 500px;
 }
-
+.photo-item__cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
 .photo-item__container {
   display: flex;
   flex-direction: column;
