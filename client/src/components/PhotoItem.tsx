@@ -8,10 +8,14 @@ const PhotoItem = ({ url: photoUrl, name: photoName }:
         className="photo-item__container"
         onClick={() => window.open(photoUrl)}
       >
-        <img
-          className="photo-item__image"
-          src={photoUrl}
-        />
+        <div
+          className="photo-item__cover"
+        >
+          <img
+            className="photo-item__image"
+            src={photoUrl}
+          />
+        </div>
         <span
           className="photo-item__name"
           onClick={(e) => e.stopPropagation()}
